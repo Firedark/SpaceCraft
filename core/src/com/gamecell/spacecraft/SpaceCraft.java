@@ -24,4 +24,6 @@ public class SpaceCraft extends ApplicationAdapter {
 		batch.draw(img, 0, 0);
 		batch.end();
 	}
+
+	//PRUEBA DE PUSH DE VERDAD
 }
