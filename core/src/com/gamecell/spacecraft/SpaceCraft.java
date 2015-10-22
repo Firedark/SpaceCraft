@@ -1,30 +1,32 @@
 package com.gamecell.spacecraft;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.gamecell.spacecraft.Screens.GameScreen;
+import com.gamecell.spacecraft.Screens.OptionsScreen;
+import com.gamecell.spacecraft.Screens.StartScreen;
 
-public class SpaceCraft extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
-	
+// Modificación 22/10/1
+public class SpaceCraft extends Game {
+	StartScreen startScreen;
+	GameScreen gameScreen;
+	OptionsScreen optionsScreen;
+
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+	gameScreen = new GameScreen(this);
+
+
+
+	this.setScreen(gameScreen);
 	}
 
 	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void dispose() {
+
 	}
 
-	//PRUEBA DE PUSH DE VERDAD
-	//Subiendo algo nuevo
 }
