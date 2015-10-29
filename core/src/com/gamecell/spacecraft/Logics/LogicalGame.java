@@ -10,7 +10,7 @@ import com.gamecell.spacecraft.SpaceCraft;
  * Created by Firedark on 29/10/2015.
  */
 public class LogicalGame extends Table {
-        //Atributos de la clase.
+        //Atributos de la clase
 
         SpaceCraft game;
 
