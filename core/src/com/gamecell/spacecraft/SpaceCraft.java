@@ -14,6 +14,8 @@ public class SpaceCraft extends Game {
 	StartScreen startScreen;
 	GameScreen gameScreen;
 	OptionsScreen optionsScreen;
+	public int w = 600;
+	public int h = 800;
 
 	@Override
 	public void create () {
