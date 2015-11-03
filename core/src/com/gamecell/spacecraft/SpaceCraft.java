@@ -9,21 +9,50 @@ import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.Screens.OptionsScreen;
 import com.gamecell.spacecraft.Screens.StartScreen;
 
+import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
+
 // Modificación 22/10/1
 public class SpaceCraft extends Game {
-	StartScreen startScreen;
-	GameScreen gameScreen;
-	OptionsScreen optionsScreen;
+
+	//Atributos de Objetos Generales
+
+	public AudioManager audios;
+	public ImageManager images;
+	public MyPreferences preferences;
+	public StartScreen startScreen;
+	public GameScreen gameScreen;
+	public OptionsScreen optionsScreen;
+
+
 	public int w = 600;
 	public int h = 800;
 
 	@Override
 	public void create () {
-	gameScreen = new GameScreen(this);
+		//Instancia de objetos Generales.
+
+		//Managers
+		audios = new AudioManager();
+		images = new ImageManager();
+		preferences = new MyPreferences(this);
+
+		images.loadAssets();
+
+		//Pantallas
+
+		startScreen = new StartScreen(this);
+		optionsScreen = new OptionsScreen(this);
+		gameScreen = new GameScreen(this);
+
+		//Sets
+		//Carga las imagenes en memoria.
 
 
 
-	this.setScreen(gameScreen);
+			//Carga la pantalla GameScreen.
+			this.setScreen(gameScreen);
+
+
 	}
 
 	@Override

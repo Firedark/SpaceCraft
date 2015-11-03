@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
@@ -18,7 +19,7 @@ public class GameScreen implements Screen{
     private Viewport viewport;
     public GameScreen(SpaceCraft game){
         this.game = game;
-        this.stage = new Stage();
+        this.stage = new Stage(new ScreenViewport());
     }
 
     @Override
@@ -33,6 +34,7 @@ public class GameScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+
 
     }
 
