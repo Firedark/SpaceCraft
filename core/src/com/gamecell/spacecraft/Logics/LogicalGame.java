@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Screens.GameScreen;
@@ -67,14 +66,14 @@ public class LogicalGame extends Table implements InputProcessor {
         if (keycode == 21) {
             direction = true;
             if(teclas== 1) teclas = 2;
-            if(teclas== 0) teclas = 1; ;
+            if(teclas== 0) teclas = 1;
 
         }
 
         if (keycode == 22) {
             direction = false;
             if(teclas== 1) teclas = 2;
-            if(teclas== 0) teclas = 1; ;
+            if(teclas== 0) teclas = 1;
 
         }
         return false;
@@ -83,7 +82,7 @@ public class LogicalGame extends Table implements InputProcessor {
     @Override
     public boolean keyUp(int keycode) {
         if(teclas== 1) teclas = 0;
-        if(teclas== 2) teclas = 1; ;
+        if(teclas== 2) teclas = 1;
 
         if(teclas == 0){
             mov = false;
