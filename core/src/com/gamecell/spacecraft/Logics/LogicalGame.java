@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.gamecell.spacecraft.Actors.Enemigo;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Screens.GameScreen;
@@ -24,10 +25,12 @@ public class LogicalGame extends Table implements InputProcessor {
 
         SpaceCraft game;
         Nave nave;
+        Enemigo enemigo;// María: El enemigo
         ArrayList<FallenActor> colFallen;
         private boolean mov, direction;
         private int teclas;
-        private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,TimeSpawnerFallenSatelite;
+        private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,
+                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo;
 
 
         public LogicalGame(SpaceCraft game, GameScreen screen)  {
@@ -39,6 +42,7 @@ public class LogicalGame extends Table implements InputProcessor {
             TimeSpawnerFallenLuna = TimeUtils.millis();
             TimeSpawnerFallenCohete = TimeUtils.millis();
             TimeSpawnerFallenSatelite = TimeUtils.millis();
+            TimeSpawnerEnemigo = TimeUtils.millis();//María: Tiempo de aparición enemigo
 
             //zona de instancia de Colecciones
             colFallen = new ArrayList<FallenActor>();
@@ -46,10 +50,12 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //Zona de instancia de Actores varios.
             nave = new Nave(game);
+            enemigo = new Enemigo(game);//María: Instancio el enemigo.
 
 
             //Añadir Actores
             this.addActor(nave);
+            this.addActor(enemigo);//María: Añado el enemigo.
 
 
 
@@ -61,6 +67,7 @@ public class LogicalGame extends Table implements InputProcessor {
             super.act(delta);
             //Sirve para colocar la Nave sobre las estrellas, etc
 
+            //enemigo.setZIndex(50000);//María: El enemigo está a la misma altura que la nave.
             nave.setZIndex(50000);
 
 
@@ -96,26 +103,33 @@ public class LogicalGame extends Table implements InputProcessor {
 
             }
 
+            //El enemigo aparecerá cada 30 segundos.
+            if(TimeUtils.millis() - TimeSpawnerEnemigo > 15000){
+                enemigo = new Enemigo(game);
+                this.addActor(enemigo);
+                TimeSpawnerEnemigo = TimeUtils.millis();
+            }
+
 
             try {
 
-            for(FallenActor f:colFallen) {
-                boolean delete = false;
-                if(!colFallen.isEmpty()) {
+                for(FallenActor f:colFallen) {
+                    boolean delete = false;
+                    if(!colFallen.isEmpty()) {
 
-                    if (f.getActions().size == 0) {
-                        this.removeActor(f);
-                        delete = true;
+                        if (f.getActions().size == 0) {
+                            this.removeActor(f);
+                            delete = true;
+                        }
+
                     }
 
+                        if (delete) {
+                            colFallen.remove(f);
+                        }
+
+                    System.out.println(colFallen.size());
                 }
-
-                    if (delete) {
-                        colFallen.remove(f);
-                    }
-
-                System.out.println(colFallen.size());
-            }
 
             } catch (ConcurrentModificationException e){
             }
@@ -127,6 +141,14 @@ public class LogicalGame extends Table implements InputProcessor {
                 } else {
                     nave.moverDerecha();
                 }
+            }
+
+            //////////////////////////////////////////////////////
+            // María: Colisión del enemigo con actor principal //
+            ////////////////////////////////////////////////////
+            if(enemigo.collisionEnemigo(nave)){
+                //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
+                enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png",Texture.class));
             }
 
         }
