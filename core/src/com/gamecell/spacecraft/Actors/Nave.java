@@ -19,7 +19,7 @@ public class Nave extends Actor {
     public Nave(SpaceCraft game){
         this.game = game;
         //imagenNave = game.images.manager.get("Images/nave.png");
-        imagenNave = new Texture(Gdx.files.internal("Images/nave.png"));
+        imagenNave = game.images.manager.get("Images/nave.png",Texture.class);
         this.setBounds(236, 60, 128, 128);
 
 

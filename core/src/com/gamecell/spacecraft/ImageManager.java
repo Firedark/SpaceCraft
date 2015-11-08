@@ -15,6 +15,13 @@ public AssetManager manager;
     public void loadAssets() {
         //Cargo una textura.
         manager.load("Images/nave.png",Texture.class);
+        manager.load("Images/luna.png",Texture.class);
+        manager.load("Images/estrella.png",Texture.class);
+        manager.load("Images/sol.png",Texture.class);
+        manager.load("Images/satelite.png",Texture.class);
+        manager.load("Images/asteroide.png",Texture.class);
+        manager.load("Images/cohete.png",Texture.class);
+
         //Cargo un sonido
         //manager.load("data/sounds/boom.mp3",Sound.class);
         //Cargo una musica

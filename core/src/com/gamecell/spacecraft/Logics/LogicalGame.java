@@ -25,20 +25,20 @@ public class LogicalGame extends Table implements InputProcessor {
         SpaceCraft game;
         Nave nave;
         ArrayList<FallenActor> colFallen;
-        Texture star,sol;
         private boolean mov, direction;
         private int teclas;
-        private long TimeSpawnerFallen,TimeSpawnerFallenSol;
+        private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,TimeSpawnerFallenSatelite;
 
 
         public LogicalGame(SpaceCraft game, GameScreen screen)  {
             teclas = 0;
             Gdx.input.setInputProcessor(this);
             this.game = game;
-            star = new Texture(Gdx.files.internal("Images/estrella.png"));
-            sol = new Texture(Gdx.files.internal("Images/sol.png"));
             TimeSpawnerFallen = TimeUtils.millis();
             TimeSpawnerFallenSol = TimeUtils.millis();
+            TimeSpawnerFallenLuna = TimeUtils.millis();
+            TimeSpawnerFallenCohete = TimeUtils.millis();
+            TimeSpawnerFallenSatelite = TimeUtils.millis();
 
             //zona de instancia de Colecciones
             colFallen = new ArrayList<FallenActor>();
@@ -71,13 +71,30 @@ public class LogicalGame extends Table implements InputProcessor {
                 TimeSpawnerFallen = TimeUtils.millis();
 
             }
-
+            //Soles
             if(TimeUtils.millis() - TimeSpawnerFallenSol > MathUtils.random(50000, 120000)) {
                 spawnSolActor();
                 TimeSpawnerFallenSol = TimeUtils.millis();
 
             }
+            //Lunas
+            if(TimeUtils.millis() - TimeSpawnerFallenLuna > MathUtils.random(30000, 90000)) {
+                spawnLunaActor();
+                TimeSpawnerFallenLuna = TimeUtils.millis();
 
+            }
+
+            if(TimeUtils.millis() - TimeSpawnerFallenCohete > MathUtils.random(80000, 150000)) {
+                spawnCoheteActor();
+                TimeSpawnerFallenCohete = TimeUtils.millis();
+
+            }
+
+            if(TimeUtils.millis() - TimeSpawnerFallenSatelite > MathUtils.random(60000, 130000)) {
+                spawnSateliteActor();
+                TimeSpawnerFallenSatelite = TimeUtils.millis();
+
+            }
 
 
             try {
@@ -101,7 +118,6 @@ public class LogicalGame extends Table implements InputProcessor {
             }
 
             } catch (ConcurrentModificationException e){
-                System.out.println("Se queja por vicio");
             }
 
             //Control del Movimiento.
@@ -116,13 +132,31 @@ public class LogicalGame extends Table implements InputProcessor {
         }
 
     private void spawnEstrellaActor() {
-        FallenActor fallenActor = new FallenActor(game,star);
+        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/estrella.png"));
         colFallen.add(fallenActor);
         this.addActor(fallenActor);
     }
 
     private void spawnSolActor() {
-        FallenActor fallenActor = new FallenActor(game,sol);
+        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/sol.png"));
+        colFallen.add(fallenActor);
+        this.addActor(fallenActor);
+    }
+
+    private void spawnLunaActor() {
+        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/luna.png"));
+        colFallen.add(fallenActor);
+        this.addActor(fallenActor);
+    }
+
+    private void spawnSateliteActor() {
+        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/satelite.png"));
+        colFallen.add(fallenActor);
+        this.addActor(fallenActor);
+    }
+
+    private void spawnCoheteActor() {
+        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/cohete.png"));
         colFallen.add(fallenActor);
         this.addActor(fallenActor);
     }

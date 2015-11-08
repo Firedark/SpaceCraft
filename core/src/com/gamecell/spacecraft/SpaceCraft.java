@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.Screens.OptionsScreen;
+import com.gamecell.spacecraft.Screens.SplashScreen;
 import com.gamecell.spacecraft.Screens.StartScreen;
 
 import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
@@ -22,7 +23,7 @@ public class SpaceCraft extends Game {
 	public StartScreen startScreen;
 	public GameScreen gameScreen;
 	public OptionsScreen optionsScreen;
-
+	public SplashScreen splashScreen;
 
 	public int w = 600;
 	public int h = 800;
@@ -43,6 +44,7 @@ public class SpaceCraft extends Game {
 		startScreen = new StartScreen(this);
 		optionsScreen = new OptionsScreen(this);
 		gameScreen = new GameScreen(this);
+		splashScreen = new SplashScreen(this);
 
 		//Sets
 		//Carga las imagenes en memoria.
@@ -50,7 +52,7 @@ public class SpaceCraft extends Game {
 
 
 			//Carga la pantalla GameScreen.
-			this.setScreen(gameScreen);
+			this.setScreen(splashScreen);
 
 
 	}
