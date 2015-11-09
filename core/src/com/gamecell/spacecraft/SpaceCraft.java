@@ -1,16 +1,10 @@
 package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.Screens.OptionsScreen;
 import com.gamecell.spacecraft.Screens.SplashScreen;
 import com.gamecell.spacecraft.Screens.StartScreen;
-
-import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
 
 // Modificación 22/10/1
 public class SpaceCraft extends Game {
@@ -50,9 +44,9 @@ public class SpaceCraft extends Game {
 		//Carga las imagenes en memoria.
 
 
-
+			this.setScreen(startScreen);
 			//Carga la pantalla GameScreen.
-			this.setScreen(splashScreen);
+			//this.setScreen(splashScreen);
 
 
 	}
