@@ -21,7 +21,8 @@ public class Enemigo extends Actor {
     MoveByAction accion;
     private final float ancho = 50;
     private final float alto = 50;
-
+    public Rectangle rect;
+    public int estado;
     //Constructor del enemigo.
     public Enemigo(SpaceCraft game) {
         this.game = game;
@@ -30,9 +31,10 @@ public class Enemigo extends Actor {
         this.setBounds(MathUtils.random(0, game.w - ancho), game.h + 100, ancho, alto);
         //El enemigo está en la misma Z que el actor principal
         this.setZIndex(50000);
-
+        rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         //Creación de Acciones del enemigo.
         createActionsEnemigo();
+        estado = 1;
     }
 
     private void createActionsEnemigo() {
@@ -43,9 +45,9 @@ public class Enemigo extends Actor {
         //Instanciamos la acción que realizará el enemigo
         accion = new MoveByAction();
         //Lo que tarda en pasar por la pantalla sobre el eje Y
-        accion.setDuration(100f);
+        accion.setDuration(20f);
         //El tamaño del eje Y
-        accion.setAmountY(-10000);
+        accion.setAmountY(-2000);
         //Añadimos las acciones
         this.addAction(accion);
 
@@ -65,13 +67,14 @@ public class Enemigo extends Actor {
      */
     public boolean collisionEnemigo(Nave nave){
         Rectangle rectNave = new Rectangle(nave.getX(),nave.getY(),nave.getWidth(),nave.getHeight());
-        Rectangle rectEnemigo = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
 
-        return rectNave.overlaps(rectEnemigo);
+
+        return rectNave.overlaps(rect);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha){
+        rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         batch.draw(getImagenEnemigo(), getX(), getY(),ancho,alto);
     }
 
@@ -81,5 +84,10 @@ public class Enemigo extends Actor {
 
     public void setImagenEnemigo(Texture imagenEnemigo) {
         this.imagenEnemigo = imagenEnemigo;
+    }
+
+    public void DestruirRectangulo(){
+        rect = null;
+        estado = 0;
     }
 }

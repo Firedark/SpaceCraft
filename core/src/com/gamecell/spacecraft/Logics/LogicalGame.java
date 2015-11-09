@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.gamecell.spacecraft.Actors.Disparo;
 import com.gamecell.spacecraft.Actors.Enemigo;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.Nave;
@@ -27,10 +28,12 @@ public class LogicalGame extends Table implements InputProcessor {
         Nave nave;
         Enemigo enemigo;// María: El enemigo
         ArrayList<FallenActor> colFallen;
+        ArrayList<Disparo> colDisparos;
+        ArrayList<Enemigo> colEnemigo;
         private boolean mov, direction;
         private int teclas;
         private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,
-                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo;
+                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo,TimeSpawnerDisparo;
 
 
         public LogicalGame(SpaceCraft game, GameScreen screen)  {
@@ -42,20 +45,19 @@ public class LogicalGame extends Table implements InputProcessor {
             TimeSpawnerFallenLuna = TimeUtils.millis();
             TimeSpawnerFallenCohete = TimeUtils.millis();
             TimeSpawnerFallenSatelite = TimeUtils.millis();
+            TimeSpawnerDisparo = TimeUtils.millis();
             TimeSpawnerEnemigo = TimeUtils.millis();//María: Tiempo de aparición enemigo
 
             //zona de instancia de Colecciones
             colFallen = new ArrayList<FallenActor>();
-
-
+            colDisparos = new ArrayList<Disparo>();
+            colEnemigo = new ArrayList<Enemigo>();
             //Zona de instancia de Actores varios.
             nave = new Nave(game);
-            enemigo = new Enemigo(game);//María: Instancio el enemigo.
 
 
             //Añadir Actores
             this.addActor(nave);
-            this.addActor(enemigo);//María: Añado el enemigo.
 
 
 
@@ -103,10 +105,17 @@ public class LogicalGame extends Table implements InputProcessor {
 
             }
 
-            //El enemigo aparecerá cada 30 segundos.
-            if(TimeUtils.millis() - TimeSpawnerEnemigo > 15000){
-                enemigo = new Enemigo(game);
+            if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
+                spawnDisparoActor();
+                TimeSpawnerDisparo = TimeUtils.millis();
+
+            }
+
+            //María:El enemigo aparecerá cada 5 segundos.
+            if(TimeUtils.millis() - TimeSpawnerEnemigo > 5000){
+                Enemigo enemigo = new Enemigo(game);
                 this.addActor(enemigo);
+                colEnemigo.add(enemigo);
                 TimeSpawnerEnemigo = TimeUtils.millis();
             }
 
@@ -114,25 +123,74 @@ public class LogicalGame extends Table implements InputProcessor {
             try {
 
                 for(FallenActor f:colFallen) {
-                    boolean delete = false;
-                    if(!colFallen.isEmpty()) {
+
+
 
                         if (f.getActions().size == 0) {
                             this.removeActor(f);
-                            delete = true;
-                        }
-
-                    }
-
-                        if (delete) {
                             colFallen.remove(f);
                         }
 
-                    System.out.println(colFallen.size());
+
+
                 }
 
+
+
+            //////////////////////////////////////////////////////
+            // María: Colisión del enemigo con actor principal //
+            ////////////////////////////////////////////////////
+
+            for(Enemigo e :colEnemigo) {
+
+                if(e.getActions().size == 0){
+                    this.removeActor(e);
+                    colEnemigo.remove(e);
+                    System.out.println("Actor Enemigo Eliminado");
+                    break;
+                }
+
+
+                if(e.estado == 1) {
+
+                    if (e.collisionEnemigo(nave)) {
+                        e.setZIndex(3000);
+                        //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
+                        e.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                        e.DestruirRectangulo();
+
+                        System.out.println("Choque contra Nave");
+                        break;
+                    }
+
+                    try {
+                        for (Disparo d : colDisparos) {
+                            if (e.rect.overlaps(d.rect)) {
+                                e.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                                e.DestruirRectangulo();
+                                this.removeActor(d);
+                                colDisparos.remove(d);
+                                System.out.println("Enemigo contra disparo");
+                            }
+                        }
+                    } catch (NullPointerException f){}
+                }
+
+
+            }
+
+
+            for(Disparo d : colDisparos){
+
+                if(d.getActions().size == 0){
+                    this.removeActor(d);
+                    colDisparos.remove(d);
+                    System.out.println("Actor Enemigo Eliminado");
+                }
+            }
             } catch (ConcurrentModificationException e){
             }
+
 
             //Control del Movimiento.
             if(mov) {
@@ -143,14 +201,9 @@ public class LogicalGame extends Table implements InputProcessor {
                 }
             }
 
-            //////////////////////////////////////////////////////
-            // María: Colisión del enemigo con actor principal //
-            ////////////////////////////////////////////////////
-            if(enemigo.collisionEnemigo(nave)){
-                //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
-                enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png",Texture.class));
-            }
-
+            System.out.println("Enemigos Totales en memoria:" + colEnemigo.size());
+            System.out.println("Disparos Totales en memoria:" + colDisparos.size());
+            System.out.println("Fallen Totales en memoria:" + colFallen.size());
         }
 
     private void spawnEstrellaActor() {
@@ -183,7 +236,11 @@ public class LogicalGame extends Table implements InputProcessor {
         this.addActor(fallenActor);
     }
 
-
+    private void spawnDisparoActor() {
+        Disparo disparo = new Disparo(game,2,nave);
+        colDisparos.add(disparo);
+        this.addActor(disparo);
+    }
 
     //Método Draw contiene el SpriteBatch para dibujar.
         public void draw(SpriteBatch batch, float parentAlpha) {
