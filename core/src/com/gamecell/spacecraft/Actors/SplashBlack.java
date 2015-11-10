@@ -78,7 +78,7 @@ public class SplashBlack extends Actor {
         if(this.getActions().size == 0){
             //Un pequeño ejemplo para ir de una pantalla a otra, al terminar nuestra acción nos cambiará
             //de pantalla.
-            game.setScreen(game.gameScreen);
+            game.setScreen(game.startScreen);
             this.remove();
         }
     }

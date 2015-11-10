@@ -25,9 +25,9 @@ public class LogicalSplash extends Table {
     public LogicalSplash(SpaceCraft game, SplashScreen screen){
 
         //El metodo setbounds coloca un Rectangulo (X,Y,Width,Height)
-        Tbackground = new Texture(Gdx.files.internal("Images/firegames.jpg"));
-        background = new TextureRegion(Tbackground,0,0,800,480);
-        setBounds(0, 0, 800,480);
+        Tbackground = new Texture(Gdx.files.internal("Images/gamecel.jpg"));
+        background = new TextureRegion(Tbackground,0,0,game.w,game.h);
+        setBounds(0, 0, game.w,game.h);
         setClip(true);
         this.game = game;
 

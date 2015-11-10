@@ -71,7 +71,7 @@ public class StartScreen implements Screen {
         buttonPlay.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //empezar juego
-                game.setScreen(game.splashScreen);
+                game.setScreen(game.gameScreen);
                 return false;
             }
         });
