@@ -39,8 +39,10 @@ public class SpaceCraft extends Game {
 
 		images.loadAssets();
 
-		//Pantallas
+		//Carga font manager
+		FontManager.load();
 
+		//Pantallas
 		startScreen = new StartScreen(this);
 		optionsScreen = new OptionsScreen(this);
 		gameScreen = new GameScreen(this);
@@ -49,17 +51,10 @@ public class SpaceCraft extends Game {
 		//Sets
 		//Carga las imagenes en memoria.
 
-
-
-			//Carga la pantalla GameScreen.
-			this.setScreen(splashScreen);
-
-
+		//Carga la pantalla GameScreen.
+		this.setScreen(splashScreen);
 	}
 
 	@Override
-	public void dispose() {
-
-	}
-
+	public void dispose() {}
 }

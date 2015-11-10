@@ -9,12 +9,12 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
-
 public class GameScreen implements Screen{
     private SpaceCraft game;
     private Stage stage;
     private LogicalGame logicalGame;
     private Viewport viewport;
+
     public GameScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
@@ -32,8 +32,6 @@ public class GameScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-
-
     }
 
     @Override
@@ -42,14 +40,10 @@ public class GameScreen implements Screen{
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void resume() {
-
-    }
+    public void resume() {}
 
     @Override
     public void hide() {
@@ -57,7 +51,5 @@ public class GameScreen implements Screen{
     }
 
     @Override
-    public void dispose() {
-
-    }
+    public void dispose() {}
 }
