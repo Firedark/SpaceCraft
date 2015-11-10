@@ -11,7 +11,8 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 /**
- * Created by María Vivo Yubero on 08/11/2015.
+ * Clase Enemigo, aquí está toda la funcionalidad que tiene el enemigo. Extiende de Actor.
+ * @author María Vivo Yubero *
  */
 public class Enemigo extends Actor {
 
@@ -23,9 +24,15 @@ public class Enemigo extends Actor {
     private final float alto = 50;
     public Rectangle rect;
     public int estado;
-    //Constructor del enemigo.
+
+    /**
+     * Constructor de la clase Enemigo
+     * @param game de la clase principal
+     */
     public Enemigo(SpaceCraft game) {
+
         this.game = game;
+        //Indicamos que imagen es la del enemigo
         setImagenEnemigo(game.images.manager.get("Images/asteroide.png",Texture.class));
         //x,y,ancho y alto. Aparece fuera de la pantalla para que el usuario no lo vea
         this.setBounds(MathUtils.random(0, game.w - ancho), game.h + 100, ancho, alto);
@@ -34,13 +41,19 @@ public class Enemigo extends Actor {
         rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         //Creación de Acciones del enemigo.
         createActionsEnemigo();
+        //Estados del enemigo 0 = destruido, 1 = destruyendose, 2 = activo
         estado = 1;
+
     }
 
+    /**
+     * Actions del Enemigo
+     */
     private void createActionsEnemigo() {
+
         /////////////////////////////////////
-        // Caída del enemigo por el eje Y //
-        ///////////////////////////////////
+       // Caída del enemigo por el eje Y  //
+      /////////////////////////////////////
 
         //Instanciamos la acción que realizará el enemigo
         accion = new MoveByAction();
@@ -52,42 +65,69 @@ public class Enemigo extends Actor {
         this.addAction(accion);
 
         ///////////////////////////
-        // Disparo del enemigo //
-        /////////////////////////
+       // Disparo del enemigo   //
+      ///////////////////////////
 
         /////////////////////////////
-        // Movimiento del enemigo //
-        ///////////////////////////
+       // Movimiento del enemigo  //
+      /////////////////////////////
+
     }
 
     /**
-     * Método para la colsión del enemigo con el actor principal
-     * @param nave
+     * Método para la colisión del enemigo con alguna parte del actor principal
+     * el mismo cuerpo o el disparo que lanza
+     * @param parteNave
      * @return
      */
-    public boolean collisionEnemigo(Nave nave){
-        Rectangle rectNave = new Rectangle(nave.getX(),nave.getY(),nave.getWidth(),nave.getHeight());
+    public boolean collisionEnemigo(Rectangle parteNave){
 
+        //Rectangle rectNave = new Rectangle(nave.getX(),nave.getY(),nave.getWidth(),nave.getHeight());
+        return parteNave.overlaps(rect);
 
-        return rectNave.overlaps(rect);
     }
 
+    /**
+     * Método para pintar el objeto en la escena
+     * @param batch
+     * @param parentAlpha
+     */
     @Override
     public void draw(Batch batch, float parentAlpha){
+
         rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         batch.draw(getImagenEnemigo(), getX(), getY(),ancho,alto);
+
     }
 
+    /**
+     * Devuelve la Imagen del Enemigo
+     * @return imagenEnemigo
+     */
     public Texture getImagenEnemigo() {
+
         return imagenEnemigo;
+
     }
 
+    /**
+     * Settea la imagen del enemigo
+     * @param imagenEnemigo la imagen nueva
+     */
     public void setImagenEnemigo(Texture imagenEnemigo) {
+
         this.imagenEnemigo = imagenEnemigo;
+
     }
 
-    public void DestruirRectangulo(){
+    /**
+     * Método para eliminar el enemigo destruido de la escena
+     */
+    public void DeleteEnemigo(){
+
         rect = null;
+        //Destruido
         estado = 0;
+
     }
 }
