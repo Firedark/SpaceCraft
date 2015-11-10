@@ -51,10 +51,17 @@ public class SpaceCraft extends Game {
 		//Sets
 		//Carga las imagenes en memoria.
 
-		//Carga la pantalla GameScreen.
-		this.setScreen(splashScreen);
+
+			this.setScreen(startScreen);
+			//Carga la pantalla GameScreen.
+			//this.setScreen(splashScreen);
+
+
 	}
 
 	@Override
-	public void dispose() {}
+	public void dispose() {
+
+	}
+
 }
