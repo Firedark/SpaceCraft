@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gamecell.spacecraft.SpaceCraft;
 
@@ -15,6 +16,7 @@ public class Nave extends Actor {
     private Texture imagenNave;
     private SpaceCraft game;
     private int velocidad = 10;
+    public Rectangle rect;
 
     public Nave(SpaceCraft game){
         this.game = game;
@@ -39,8 +41,9 @@ public class Nave extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha){
+        rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
         batch.draw(imagenNave, getX(), getY());
 
-            }
+    }
 
 }

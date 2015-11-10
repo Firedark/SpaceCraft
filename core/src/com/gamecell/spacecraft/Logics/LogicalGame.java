@@ -26,7 +26,6 @@ public class LogicalGame extends Table implements InputProcessor {
 
         SpaceCraft game;
         Nave nave;
-        Enemigo enemigo;// María: El enemigo
         ArrayList<FallenActor> colFallen;
         ArrayList<Disparo> colDisparos;
         ArrayList<Enemigo> colEnemigo;
@@ -69,7 +68,6 @@ public class LogicalGame extends Table implements InputProcessor {
             super.act(delta);
             //Sirve para colocar la Nave sobre las estrellas, etc
 
-            //enemigo.setZIndex(50000);//María: El enemigo está a la misma altura que la nave.
             nave.setZIndex(50000);
 
 
@@ -113,81 +111,84 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //María:El enemigo aparecerá cada 5 segundos.
             if(TimeUtils.millis() - TimeSpawnerEnemigo > 5000){
+                //Instanciamos el enemigo
                 Enemigo enemigo = new Enemigo(game);
+                //Lo añadimos al juego
                 this.addActor(enemigo);
+                //Lo añadimos a la Array de enemigos
                 colEnemigo.add(enemigo);
+                //Refrescamos el tiempo de apareción
                 TimeSpawnerEnemigo = TimeUtils.millis();
             }
 
 
             try {
 
-                for(FallenActor f:colFallen) {
+                for(FallenActor item:colFallen) {
 
-
-
-                        if (f.getActions().size == 0) {
-                            this.removeActor(f);
-                            colFallen.remove(f);
+                        if (item.getActions().size == 0) {
+                            this.removeActor(item);
+                            colFallen.remove(item);
                         }
 
-
-
                 }
 
+                //////////////////////////////////////////////////////
+               // María: Colisión del enemigo con actor principal  //
+              // o con el disparo del actor principal             //
+             //////////////////////////////////////////////////////
 
+                //Para cada enemigo de la colección
+                for(Enemigo enemigo :colEnemigo) {
 
-            //////////////////////////////////////////////////////
-            // María: Colisión del enemigo con actor principal //
-            ////////////////////////////////////////////////////
-
-            for(Enemigo e :colEnemigo) {
-
-                if(e.getActions().size == 0){
-                    this.removeActor(e);
-                    colEnemigo.remove(e);
-                    System.out.println("Actor Enemigo Eliminado");
-                    break;
-                }
-
-
-                if(e.estado == 1) {
-
-                    if (e.collisionEnemigo(nave)) {
-                        e.setZIndex(3000);
-                        //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
-                        e.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                        e.DestruirRectangulo();
-
-                        System.out.println("Choque contra Nave");
+                    if(enemigo.getActions().size == 0){
+                        this.removeActor(enemigo);
+                        colEnemigo.remove(enemigo);
+                        System.out.println("Actor Enemigo Eliminado");
                         break;
                     }
 
-                    try {
-                        for (Disparo d : colDisparos) {
-                            if (e.rect.overlaps(d.rect)) {
-                                e.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                                e.DestruirRectangulo();
-                                this.removeActor(d);
-                                colDisparos.remove(d);
-                                System.out.println("Enemigo contra disparo");
-                            }
+                    //Si el enemigo está activo
+                    if(enemigo.estado == 1) {
+
+                        //Colisiona con la nave
+                        if (enemigo.collisionEnemigo(nave.rect)) {
+                            enemigo.setZIndex(3000);
+                            //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
+                            enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                            //Eliminamos el enemigo destruido de la escena
+                            enemigo.DeleteEnemigo();
+
+                            System.out.println("Choque contra Nave");
+                            break;
                         }
-                    } catch (NullPointerException f){}
+
+                        try {
+                            for (Disparo disparo : colDisparos) {
+                                //Colisiona con el disparo
+                                if (enemigo.collisionEnemigo(disparo.rect)) {
+                                    enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                                    enemigo.DeleteEnemigo();
+                                    this.removeActor(disparo);
+                                    colDisparos.remove(disparo);
+                                    System.out.println("Enemigo contra disparo");
+                                }
+                            }
+                        } catch (NullPointerException f){}
+                    }
+
+
                 }
 
 
-            }
+                for(Disparo d : colDisparos){
 
-
-            for(Disparo d : colDisparos){
-
-                if(d.getActions().size == 0){
-                    this.removeActor(d);
-                    colDisparos.remove(d);
-                    System.out.println("Actor Enemigo Eliminado");
+                    if(d.getActions().size == 0){
+                        this.removeActor(d);
+                        colDisparos.remove(d);
+                        System.out.println("Actor Enemigo Eliminado");
+                    }
                 }
-            }
             } catch (ConcurrentModificationException e){
             }
 
@@ -243,14 +244,11 @@ public class LogicalGame extends Table implements InputProcessor {
     }
 
     //Método Draw contiene el SpriteBatch para dibujar.
-        public void draw(SpriteBatch batch, float parentAlpha) {
-            batch.setColor(Color.BLACK);
-            super.draw(batch, parentAlpha);
+    public void draw(SpriteBatch batch, float parentAlpha) {
+        batch.setColor(Color.BLACK);
+        super.draw(batch, parentAlpha);
 
-        }
-
-
-
+    }
 
     //InputProcessor
 
