@@ -1,23 +1,34 @@
 package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.audio.Sound;
+
 
 /**
- * Created by Firedark on 22/10/2015.
+ * @Author:Sergio
  */
+
 public class AudioManager extends AssetManager {
     public AssetManager soundmanager;
-
+    public float volumenSonidos;
     public AudioManager(){
         soundmanager = new AssetManager();
+        volumenSonidos = 1f;
+
     }
 
     //Método para cargar las imagenes en Memoria.
     public void loadAssets() {
         //Cargo un sonido
-        //manager.load("data/sounds/boom.mp3",Sound.class);
+        soundmanager.load("Sounds/boom.mp3",Sound.class);
+        soundmanager.load("Sounds/disparo.mp3",Sound.class);
+        soundmanager.load("Sounds/start.mp3",Sound.class);
         //Cargo una musica
         //manager.load("data/sounds/musicainicial.mp3",Music.class);
+    }
+
+
+    public void playSound(Sound sonido){
+        sonido.play(volumenSonidos);
     }
 }

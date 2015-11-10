@@ -38,6 +38,7 @@ public class SpaceCraft extends Game {
 		preferences = new MyPreferences(this);
 
 		images.loadAssets();
+		audios.loadAssets();
 
 		//Carga font manager
 		FontManager.load();

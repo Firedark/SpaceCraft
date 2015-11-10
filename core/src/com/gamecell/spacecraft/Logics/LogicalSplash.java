@@ -1,6 +1,7 @@
 package com.gamecell.spacecraft.Logics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -20,6 +21,7 @@ public class LogicalSplash extends Table {
     //Creamos el atributo para nuestro actor anterior Background
     Texture Tbackground;
     TextureRegion background;
+    Sound start;
     SplashBlack sb;
 
     public LogicalSplash(SpaceCraft game, SplashScreen screen){
@@ -29,6 +31,7 @@ public class LogicalSplash extends Table {
         background = new TextureRegion(Tbackground,0,0,game.w,game.h);
         setBounds(0, 0, game.w,game.h);
         setClip(true);
+        start = Gdx.audio.newSound((Gdx.files.internal("Sounds/start.mp3")));
         this.game = game;
 
         //Instanciar Actores
@@ -39,7 +42,7 @@ public class LogicalSplash extends Table {
 
 
         addActor(sb);
-
+        start.play(game.audios.volumenSonidos);
     }
 
 
@@ -54,7 +57,7 @@ public class LogicalSplash extends Table {
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(Color.WHITE);
 //Aqui dibujamos nuestro fondo.
-        batch.draw(background,0,0);
+        batch.draw(background, 0, 0);
         super.draw(batch, parentAlpha);
     }
 

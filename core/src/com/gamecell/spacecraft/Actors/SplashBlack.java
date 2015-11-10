@@ -1,6 +1,7 @@
 package com.gamecell.spacecraft.Actors;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -29,7 +30,7 @@ public class SplashBlack extends Actor {
     //Imagen, éste es el objeto que nos permite modificar su color alpha.
     Image ImgBR;
     //Nos servirá para saber cuando a terminado la acción.
-    boolean fin;
+    boolean fin,hold;
 
     public SplashBlack(SpaceCraft game){
 
@@ -75,7 +76,9 @@ public class SplashBlack extends Actor {
         //En la secuencia habrá terminado.
         //Mientras tanto aprovechamos para cargar los assets en memoria.
         game.images.manager.update();
-        if(this.getActions().size == 0){
+        game.audios.soundmanager.update();
+
+            if(this.getActions().size == 0){
             //Un pequeño ejemplo para ir de una pantalla a otra, al terminar nuestra acción nos cambiará
             //de pantalla.
             game.setScreen(game.startScreen);

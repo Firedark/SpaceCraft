@@ -2,6 +2,7 @@ package com.gamecell.spacecraft.Logics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -119,6 +120,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
             if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
                 spawnDisparoActor();
+                game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
                 TimeSpawnerDisparo = TimeUtils.millis();
             }
 
@@ -188,6 +190,7 @@ public class LogicalGame extends Table implements InputProcessor {
                                     enemigo.DeleteEnemigo();
                                     this.removeActor(disparo);
                                     colDisparos.remove(disparo);
+                                    game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
                                     System.out.println("Enemigo contra disparo");
                                 }
                             }
