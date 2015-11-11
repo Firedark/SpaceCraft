@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
 /**
  * Clase para cargar la fuente y posteriormente usarla para mostrar texto
- * @author jojacafe
+ * @author Josue Javier Campos Fernandez
  */
 public class FontManager  {
     public static BitmapFont font;

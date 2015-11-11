@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 04/11/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class FallenActor extends Actor {
     SpaceCraft game;

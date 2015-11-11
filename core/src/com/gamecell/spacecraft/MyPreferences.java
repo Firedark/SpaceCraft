@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
 /**
- * Created by Firedark on 22/10/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class MyPreferences {
 

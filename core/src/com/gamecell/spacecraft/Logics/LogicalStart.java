@@ -7,34 +7,37 @@ import com.gamecell.spacecraft.Screens.StartScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 29/10/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class LogicalStart extends Table {
-        //Atributos de la clase
+    //Atributos de la clase
 
-        SpaceCraft game;
+    SpaceCraft game;
 
-        public LogicalStart(SpaceCraft game, StartScreen screen){
+    public LogicalStart(SpaceCraft game, StartScreen screen){
 
-            this.game = game;
+        this.game = game;
 
-            //Zona de instancia de Actores varios.
+        //Zona de instancia de Actores varios.
 
-        }
+    }
 
-        //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
-        @Override
-        public void act(float delta) {
-            super.act(delta);
-        }
+    /**
+     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
+     * @param delta
+     */
+    @Override
+    public void act(float delta) {
+        super.act(delta);
+    }
 
-
-        //Método Draw contiene el SpriteBatch para dibujar.
-        public void draw(SpriteBatch batch, float parentAlpha) {
-            batch.setColor(Color.BLACK);
-            super.draw(batch, parentAlpha);
-        }
-
-
-
+    /**
+     * Metodo Draw contiene el SpriteBatch para dibujar.
+     * @param batch
+     * @param parentAlpha
+     */
+    public void draw(SpriteBatch batch, float parentAlpha) {
+        batch.setColor(Color.BLACK);
+        super.draw(batch, parentAlpha);
+    }
 }

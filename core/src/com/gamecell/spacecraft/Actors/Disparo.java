@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 09/11/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class Disparo extends Actor {
     SpaceCraft game;

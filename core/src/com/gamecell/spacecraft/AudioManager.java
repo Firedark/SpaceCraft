@@ -5,7 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 
 
 /**
- * @Author:Sergio
+ * @author Sergio Jimenez Cortes
  */
 
 public class AudioManager extends AssetManager {
@@ -17,7 +17,9 @@ public class AudioManager extends AssetManager {
 
     }
 
-    //Método para cargar las imagenes en Memoria.
+    /**
+     * Metodo para cargar las imagenes en Memoria.
+     */
     public void loadAssets() {
         //Cargo un sonido
         soundmanager.load("Sounds/boom.mp3",Sound.class);

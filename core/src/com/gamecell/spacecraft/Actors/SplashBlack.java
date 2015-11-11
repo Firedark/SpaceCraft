@@ -13,7 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 08/11/2015.
+ * @author Sergio Jimenez Cortes
  */
 
 public class SplashBlack extends Actor {

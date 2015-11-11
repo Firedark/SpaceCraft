@@ -14,7 +14,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 
 /**
- * Created by Firedark on 08/11/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class LogicalSplash extends Table {
     SpaceCraft game;
@@ -45,8 +45,10 @@ public class LogicalSplash extends Table {
         start.play(game.audios.volumenSonidos);
     }
 
-
-    //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
+    /**
+     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
+     * @param delta
+     */
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -56,7 +58,7 @@ public class LogicalSplash extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(Color.WHITE);
-//Aqui dibujamos nuestro fondo.
+        //Aqui dibujamos nuestro fondo.
         batch.draw(background, 0, 0);
         super.draw(batch, parentAlpha);
     }

@@ -11,8 +11,9 @@ import com.badlogic.gdx.math.Rectangle;
 
 
 /**
- * Clase Enemigo, aquí está toda la funcionalidad que tiene el enemigo. Extiende de Actor.
- * @author María Vivo Yubero *
+ * Clase Enemigo, aqui esta toda la funcionalidad que tiene el enemigo. Extiende de Actor.
+ *
+ * @author Maria Vivo Yubero
  */
 public class Enemigo extends Actor {
 
@@ -75,7 +76,7 @@ public class Enemigo extends Actor {
     }
 
     /**
-     * Método para la colisión del enemigo con alguna parte del actor principal
+     * Metodo para la colision del enemigo con alguna parte del actor principal
      * el mismo cuerpo o el disparo que lanza
      * @param parteNave
      * @return
@@ -88,7 +89,7 @@ public class Enemigo extends Actor {
     }
 
     /**
-     * Método para pintar el objeto en la escena
+     * Metodo para pintar el objeto en la escena
      * @param batch
      * @param parentAlpha
      */
@@ -121,7 +122,7 @@ public class Enemigo extends Actor {
     }
 
     /**
-     * Método para eliminar el enemigo destruido de la escena
+     * Metodo para eliminar el enemigo destruido de la escena
      */
     public void DeleteEnemigo(){
 

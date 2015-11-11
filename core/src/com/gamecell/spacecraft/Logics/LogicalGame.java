@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 /**
- * Created by Firedark on 29/10/2015.
+ * @author Sergio Jimenez Cortes, Josue Javier Campos Fernandez, Jaume Gimera Serrano y Maria Vivo Yubero
  */
 public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
@@ -81,7 +81,10 @@ public class LogicalGame extends Table implements InputProcessor {
             this.addActor(nave);
         }
 
-        //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
+    /**
+     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
+     * @param delta
+     */
         @Override
         public void act(float delta) {
             super.act(delta);
@@ -262,7 +265,11 @@ public class LogicalGame extends Table implements InputProcessor {
         this.addActor(disparo);
     }
 
-    //Método Draw contiene el SpriteBatch para dibujar.
+    /**
+     * Metodo Draw contiene el SpriteBatch para dibujar.
+     * @param batch
+     * @param parentAlpha
+     */
     public void draw(SpriteBatch batch, float parentAlpha) {
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);

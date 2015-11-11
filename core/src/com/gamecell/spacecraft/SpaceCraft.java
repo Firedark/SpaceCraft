@@ -12,7 +12,9 @@ import com.gamecell.spacecraft.Screens.StartScreen;
 
 import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
 
-// Modificación 22/10/1
+/**
+ * @author Sergio Jimenez Cortes
+ */
 public class SpaceCraft extends Game {
 
 	//Atributos de Objetos Generales
@@ -53,9 +55,9 @@ public class SpaceCraft extends Game {
 		//Carga las imagenes en memoria.
 
 
-			this.setScreen(splashScreen);
-			//Carga la pantalla GameScreen.
-			//this.setScreen(splashScreen);
+		this.setScreen(splashScreen);
+		//Carga la pantalla GameScreen.
+		//this.setScreen(splashScreen);
 
 
 	}

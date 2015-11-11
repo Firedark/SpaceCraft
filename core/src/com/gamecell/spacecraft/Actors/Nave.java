@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 03/11/2015.
+ * @author Sergio Jimenez Cortes
  */
 public class Nave extends Actor {
 
