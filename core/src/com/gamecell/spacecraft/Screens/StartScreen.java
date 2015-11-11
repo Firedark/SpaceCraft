@@ -14,9 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalStart;
 import com.gamecell.spacecraft.SpaceCraft;
 
-/**
- * @author Jaume Gimera Serrano
- */
+
 public class StartScreen implements Screen {
 
     private SpaceCraft game;
@@ -29,6 +27,15 @@ public class StartScreen implements Screen {
         this.game = game;
         this.stage = new Stage();
     }
+
+    /**
+     * Clase StartScreen, Screen que contiene el stage y la classe LogicalStart.
+     * @author Sergio, Jaume*
+     */
+
+
+
+
 
     @Override
     public void show() {

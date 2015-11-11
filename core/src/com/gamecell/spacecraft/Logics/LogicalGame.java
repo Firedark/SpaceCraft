@@ -17,13 +17,14 @@ import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.FontManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
-
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 /**
- * @author Sergio Jimenez Cortes, Josue Javier Campos Fernandez, Jaume Gimera Serrano y Maria Vivo Yubero
+ * Clase LogicalGame, contiene la logica del juego, colisiones, tiempos, etc...
+ * @author Sergio, Josue, Maria*
  */
+
 public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
         SpaceCraft game;
@@ -42,7 +43,17 @@ public class LogicalGame extends Table implements InputProcessor {
         //Puntuacion
         private int score;
 
-        public LogicalGame(SpaceCraft game, GameScreen screen)  {
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     * @param screen Screen que contiene la logica.
+     */
+
+
+
+
+
+    public LogicalGame(SpaceCraft game, GameScreen screen)  {
             this.game = game;
 
             teclas = 0;
@@ -81,10 +92,7 @@ public class LogicalGame extends Table implements InputProcessor {
             this.addActor(nave);
         }
 
-    /**
-     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
-     * @param delta
-     */
+        //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
         @Override
         public void act(float delta) {
             super.act(delta);
@@ -265,11 +273,7 @@ public class LogicalGame extends Table implements InputProcessor {
         this.addActor(disparo);
     }
 
-    /**
-     * Metodo Draw contiene el SpriteBatch para dibujar.
-     * @param batch
-     * @param parentAlpha
-     */
+    //Método Draw contiene el SpriteBatch para dibujar.
     public void draw(SpriteBatch batch, float parentAlpha) {
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);

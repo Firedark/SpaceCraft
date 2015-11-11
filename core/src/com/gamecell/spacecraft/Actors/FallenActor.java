@@ -8,12 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase FallenActor, actor que va de arriba hacia abajo de la pantalla.
+ * @author Sergio Jimenez Cortes *
  */
 public class FallenActor extends Actor {
     SpaceCraft game;
     Texture textura;
     MoveByAction accion;
+
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     * @param textura textura para dibujar el actor.
+     */
 
     public FallenActor(SpaceCraft game, Texture textura){
         this.game = game;
@@ -26,6 +33,10 @@ public class FallenActor extends Actor {
         this.addAction(accion);
 
     }
+
+    /**
+     * Metodo de dibujo del actor.
+     */
 
     @Override
     public void draw(Batch batch,float parentAlpha){

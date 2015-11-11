@@ -9,14 +9,24 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase Nave, actor principal que controla el usuario.
+ * @author Sergio Jimenez Cortes *
  */
+
 public class Nave extends Actor {
 
     private Texture imagenNave;
     private SpaceCraft game;
     private int velocidad = 10;
     public Rectangle rect;
+
+
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     */
+
+
 
     public Nave(SpaceCraft game){
         this.game = game;
@@ -27,17 +37,29 @@ public class Nave extends Actor {
 
     }
 
+    /**
+     * Mueve a la izquierda el actor.
+     */
+
     public void moverIzquierda(){
         if(getX() > 0 ) {
             this.setX(this.getX() - velocidad);
         }
     }
 
+    /**
+     * Mueve a la derecha el actor.
+     */
+
     public void moverDerecha(){
         if(getX() < 472) {
             this.setX(this.getX() + velocidad);
         }
     }
+
+    /**
+     * Metodo de dibujo del actor.
+     */
 
     @Override
     public void draw(Batch batch, float parentAlpha){

@@ -9,7 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase Disparo, crea un actor con una acción de movimiento ascendente.
+ * @author Sergio Jimenez Cortes *
  */
 public class Disparo extends Actor {
     SpaceCraft game;
@@ -17,6 +18,12 @@ public class Disparo extends Actor {
     MoveByAction accion;
     public Rectangle rect;
 
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     * @param potencia valor de potencia del disparo, cambia el ancho alto de este.
+     * @param nave le pasamos la nave para ubicar el disparo.
+     */
     public Disparo(SpaceCraft game, int potencia, Nave nave){
         this.game = game;
         this.textura = game.images.manager.get("Images/disparo.png");
@@ -28,6 +35,9 @@ public class Disparo extends Actor {
         rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
     }
 
+    /**
+     * Metodo de dibujo del actor.
+     */
     @Override
     public void draw(Batch batch,float parentAlpha){
         rect = new Rectangle(getX(),getY(),getWidth(),getHeight());

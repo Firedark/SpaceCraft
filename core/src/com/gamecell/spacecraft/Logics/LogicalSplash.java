@@ -14,8 +14,11 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase LogicalSplash, contiene la logica para la pantalla inicial de carga del logo.
+ * @author Sergio Jimenez Cortes *
  */
+
+
 public class LogicalSplash extends Table {
     SpaceCraft game;
     //Creamos el atributo para nuestro actor anterior Background
@@ -45,10 +48,8 @@ public class LogicalSplash extends Table {
         start.play(game.audios.volumenSonidos);
     }
 
-    /**
-     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
-     * @param delta
-     */
+
+    //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
     @Override
     public void act(float delta) {
         super.act(delta);
@@ -58,7 +59,7 @@ public class LogicalSplash extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(Color.WHITE);
-        //Aqui dibujamos nuestro fondo.
+    //Aqui dibujamos nuestro fondo.
         batch.draw(background, 0, 0);
         super.draw(batch, parentAlpha);
     }

@@ -13,7 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase SplashBlack, carga un fondo negro y modifica la transparencia para hacer un efecto.
+ * @author Sergio Jimenez Cortes *
  */
 
 public class SplashBlack extends Actor {
@@ -31,6 +32,15 @@ public class SplashBlack extends Actor {
     Image ImgBR;
     //Nos servirá para saber cuando a terminado la acción.
     boolean fin,hold;
+
+
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     */
+
+
+
 
     public SplashBlack(SpaceCraft game){
 
@@ -65,6 +75,12 @@ public class SplashBlack extends Actor {
         //Colocamos a 1 el valor alpha de nuestra imagen, por lo tanto la hacemos transparente.
         ImgBR.getColor().a = 1;
     }
+
+    /**
+     * Metodo de dibujo del actor.
+     */
+
+
 
     @Override
     public void draw(Batch batch,float parentAlpha){

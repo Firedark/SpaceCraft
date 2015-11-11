@@ -4,7 +4,8 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 /**
- * @author Sergio Jimenez Cortes
+ * Clase Image, control de datos de imagenes.
+ * @author Sergio Jimenez Cortes*
  */
 public class ImageManager  {
 public AssetManager manager;
@@ -13,9 +14,7 @@ public AssetManager manager;
     manager = new AssetManager();
     }
 
-    /**
-     * Metodo para cargar las imagenes en Memoria.
-     */
+//Método para cargar las imagenes en Memoria.
     public void loadAssets() {
         //Cargo una textura.
         manager.load("Images/nave.png",Texture.class);

@@ -10,6 +10,10 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.Logics.LogicalSplash;
 import com.gamecell.spacecraft.SpaceCraft;
 
+/**
+ * Clase SplashScreen, Screen que contiene el stage y la classe LogicalSplash.
+ * @author Sergio Jimenez Cortes *
+ */
 
 public class SplashScreen implements Screen{
     private SpaceCraft game;
