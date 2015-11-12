@@ -21,7 +21,6 @@ public class FallenActor extends Actor {
      * @param game de la clase principal
      * @param textura textura para dibujar el actor.
      */
-
     public FallenActor(SpaceCraft game, Texture textura){
         this.game = game;
         this.textura = textura;
@@ -37,7 +36,6 @@ public class FallenActor extends Actor {
     /**
      * Metodo de dibujo del actor.
      */
-
     @Override
     public void draw(Batch batch,float parentAlpha){
         batch.draw(textura,getX(),getY(),getWidth(),getHeight());

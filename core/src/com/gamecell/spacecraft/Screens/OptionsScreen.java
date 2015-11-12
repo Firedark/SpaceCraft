@@ -9,7 +9,9 @@ import com.gamecell.spacecraft.Logics.LogicalOptions;
 import com.gamecell.spacecraft.Logics.LogicalStart;
 import com.gamecell.spacecraft.SpaceCraft;
 
-
+/**
+ * @author Sergio Jimenez Cortes
+ */
 public class OptionsScreen implements Screen {
 
     private SpaceCraft game;

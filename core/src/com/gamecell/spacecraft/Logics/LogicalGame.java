@@ -24,7 +24,6 @@ import java.util.ConcurrentModificationException;
  * Clase LogicalGame, contiene la logica del juego, colisiones, tiempos, etc...
  * @author Sergio, Josue, Maria*
  */
-
 public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
         SpaceCraft game;
@@ -48,11 +47,6 @@ public class LogicalGame extends Table implements InputProcessor {
      * @param game de la clase principal
      * @param screen Screen que contiene la logica.
      */
-
-
-
-
-
     public LogicalGame(SpaceCraft game, GameScreen screen)  {
             this.game = game;
 
@@ -92,150 +86,154 @@ public class LogicalGame extends Table implements InputProcessor {
             this.addActor(nave);
         }
 
-        //Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
-        @Override
-        public void act(float delta) {
-            super.act(delta);
+    /**
+     * Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
+     * @param delta
+     */
+    @Override
+    public void act(float delta) {
+        super.act(delta);
 
-            //Sirve para colocar la Nave sobre las estrellas, etc
-            nave.setZIndex(50000);
+        //Sirve para colocar la Nave sobre las estrellas, etc
+        nave.setZIndex(50000);
 
-            //Spawners de Objetos Fallen.
-            //Estrellas
-            if(TimeUtils.millis() - TimeSpawnerFallen > 300){
-                spawnEstrellaActor();
-                TimeSpawnerFallen = TimeUtils.millis();
+        //Spawners de Objetos Fallen.
+        //Estrellas
+        if(TimeUtils.millis() - TimeSpawnerFallen > 300){
+            spawnEstrellaActor();
+            TimeSpawnerFallen = TimeUtils.millis();
+        }
+
+        //Soles
+        if(TimeUtils.millis() - TimeSpawnerFallenSol > MathUtils.random(50000, 120000)) {
+            spawnSolActor();
+            TimeSpawnerFallenSol = TimeUtils.millis();
+        }
+
+        //Lunas
+        if(TimeUtils.millis() - TimeSpawnerFallenLuna > MathUtils.random(30000, 90000)) {
+            spawnLunaActor();
+            TimeSpawnerFallenLuna = TimeUtils.millis();
+        }
+
+        if(TimeUtils.millis() - TimeSpawnerFallenCohete > MathUtils.random(80000, 150000)) {
+            spawnCoheteActor();
+            TimeSpawnerFallenCohete = TimeUtils.millis();
+        }
+
+        if(TimeUtils.millis() - TimeSpawnerFallenSatelite > MathUtils.random(60000, 130000)) {
+            spawnSateliteActor();
+            TimeSpawnerFallenSatelite = TimeUtils.millis();
+        }
+
+        if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
+            spawnDisparoActor();
+            game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
+            TimeSpawnerDisparo = TimeUtils.millis();
+        }
+
+        //María:El enemigo aparecerá cada 5 segundos.
+        if(TimeUtils.millis() - TimeSpawnerEnemigo > 5000){
+            //Instanciamos el enemigo
+            Enemigo enemigo = new Enemigo(game);
+            //Lo añadimos al juego
+            this.addActor(enemigo);
+            //Lo añadimos a la Array de enemigos
+            colEnemigo.add(enemigo);
+            //Refrescamos el tiempo de apareción
+            TimeSpawnerEnemigo = TimeUtils.millis();
+        }
+
+        try {
+
+            for(FallenActor item:colFallen) {
+
+                    if (item.getActions().size == 0) {
+                        this.removeActor(item);
+                        colFallen.remove(item);
+                    }
+
             }
 
-            //Soles
-            if(TimeUtils.millis() - TimeSpawnerFallenSol > MathUtils.random(50000, 120000)) {
-                spawnSolActor();
-                TimeSpawnerFallenSol = TimeUtils.millis();
-            }
+            //////////////////////////////////////////////////////
+           // María: Colisión del enemigo con actor principal  //
+          // o con el disparo del actor principal             //
+         //////////////////////////////////////////////////////
 
-            //Lunas
-            if(TimeUtils.millis() - TimeSpawnerFallenLuna > MathUtils.random(30000, 90000)) {
-                spawnLunaActor();
-                TimeSpawnerFallenLuna = TimeUtils.millis();
-            }
+            //Para cada enemigo de la colección
+            for(Enemigo enemigo :colEnemigo) {
 
-            if(TimeUtils.millis() - TimeSpawnerFallenCohete > MathUtils.random(80000, 150000)) {
-                spawnCoheteActor();
-                TimeSpawnerFallenCohete = TimeUtils.millis();
-            }
-
-            if(TimeUtils.millis() - TimeSpawnerFallenSatelite > MathUtils.random(60000, 130000)) {
-                spawnSateliteActor();
-                TimeSpawnerFallenSatelite = TimeUtils.millis();
-            }
-
-            if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
-                spawnDisparoActor();
-                game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
-                TimeSpawnerDisparo = TimeUtils.millis();
-            }
-
-            //María:El enemigo aparecerá cada 5 segundos.
-            if(TimeUtils.millis() - TimeSpawnerEnemigo > 5000){
-                //Instanciamos el enemigo
-                Enemigo enemigo = new Enemigo(game);
-                //Lo añadimos al juego
-                this.addActor(enemigo);
-                //Lo añadimos a la Array de enemigos
-                colEnemigo.add(enemigo);
-                //Refrescamos el tiempo de apareción
-                TimeSpawnerEnemigo = TimeUtils.millis();
-            }
-
-            try {
-
-                for(FallenActor item:colFallen) {
-
-                        if (item.getActions().size == 0) {
-                            this.removeActor(item);
-                            colFallen.remove(item);
-                        }
-
+                if(enemigo.getActions().size == 0){
+                    this.removeActor(enemigo);
+                    colEnemigo.remove(enemigo);
+                    System.out.println("Actor Enemigo Eliminado");
+                    break;
                 }
 
-                //////////////////////////////////////////////////////
-               // María: Colisión del enemigo con actor principal  //
-              // o con el disparo del actor principal             //
-             //////////////////////////////////////////////////////
+                //Si el enemigo está activo
+                if(enemigo.estado == 1) {
 
-                //Para cada enemigo de la colección
-                for(Enemigo enemigo :colEnemigo) {
+                    //Colisiona con la nave
+                    if (enemigo.collisionEnemigo(nave.rect)) {
+                        enemigo.setZIndex(3000);
+                        //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
+                        enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                        //Eliminamos el enemigo destruido de la escena
+                        enemigo.DeleteEnemigo();
 
-                    if(enemigo.getActions().size == 0){
-                        this.removeActor(enemigo);
-                        colEnemigo.remove(enemigo);
-                        System.out.println("Actor Enemigo Eliminado");
+                        System.out.println("Choque contra Nave");
                         break;
                     }
 
-                    //Si el enemigo está activo
-                    if(enemigo.estado == 1) {
+                    try {
+                        for (Disparo disparo : colDisparos) {
+                            //Colisiona con el disparo
+                            if (enemigo.collisionEnemigo(disparo.rect)) {
+                                //Sumamos puntuacion
+                                score += 10;
+                                Label newScoreLbl = this.findActor("actorScore");
+                                newScoreLbl.setText(Integer.toString(score));
 
-                        //Colisiona con la nave
-                        if (enemigo.collisionEnemigo(nave.rect)) {
-                            enemigo.setZIndex(3000);
-                            //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
-                            enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                            //Eliminamos el enemigo destruido de la escena
-                            enemigo.DeleteEnemigo();
-
-                            System.out.println("Choque contra Nave");
-                            break;
-                        }
-
-                        try {
-                            for (Disparo disparo : colDisparos) {
-                                //Colisiona con el disparo
-                                if (enemigo.collisionEnemigo(disparo.rect)) {
-                                    //Sumamos puntuacion
-                                    score += 10;
-                                    Label newScoreLbl = this.findActor("actorScore");
-                                    newScoreLbl.setText(Integer.toString(score));
-
-                                    enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                                    enemigo.DeleteEnemigo();
-                                    this.removeActor(disparo);
-                                    colDisparos.remove(disparo);
-                                    game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
-                                    System.out.println("Enemigo contra disparo");
-                                }
+                                enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
+                                enemigo.DeleteEnemigo();
+                                this.removeActor(disparo);
+                                colDisparos.remove(disparo);
+                                game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
+                                System.out.println("Enemigo contra disparo");
                             }
-                        } catch (NullPointerException f){}
-                    }
-
-
+                        }
+                    } catch (NullPointerException f){}
                 }
 
-                for(Disparo d : colDisparos){
 
-                    if(d.getActions().size == 0){
-                        this.removeActor(d);
-                        colDisparos.remove(d);
-                        System.out.println("Actor Enemigo Eliminado");
-                    }
-
-                }
-            } catch (ConcurrentModificationException e){
             }
 
-            //Control del Movimiento.
-            if(mov) {
-                if (direction) {
-                    nave.moverIzquierda();
-                } else {
-                    nave.moverDerecha();
-                }
-            }
+            for(Disparo d : colDisparos){
 
-            System.out.println("Enemigos Totales en memoria:" + colEnemigo.size());
-            System.out.println("Disparos Totales en memoria:" + colDisparos.size());
-            System.out.println("Fallen Totales en memoria:" + colFallen.size());
+                if(d.getActions().size == 0){
+                    this.removeActor(d);
+                    colDisparos.remove(d);
+                    System.out.println("Actor Enemigo Eliminado");
+                }
+
+            }
+        } catch (ConcurrentModificationException e){
         }
+
+        //Control del Movimiento.
+        if(mov) {
+            if (direction) {
+                nave.moverIzquierda();
+            } else {
+                nave.moverDerecha();
+            }
+        }
+
+        System.out.println("Enemigos Totales en memoria:" + colEnemigo.size());
+        System.out.println("Disparos Totales en memoria:" + colDisparos.size());
+        System.out.println("Fallen Totales en memoria:" + colFallen.size());
+    }
+
 
     private void spawnEstrellaActor() {
         FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/estrella.png"));
@@ -273,7 +271,11 @@ public class LogicalGame extends Table implements InputProcessor {
         this.addActor(disparo);
     }
 
-    //Método Draw contiene el SpriteBatch para dibujar.
+    /**
+     * Metodo Draw contiene el SpriteBatch para dibujar.
+     * @param batch
+     * @param parentAlpha
+     */
     public void draw(SpriteBatch batch, float parentAlpha) {
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);

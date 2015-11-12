@@ -25,9 +25,6 @@ public class Nave extends Actor {
      * Constructor de la clase.
      * @param game de la clase principal
      */
-
-
-
     public Nave(SpaceCraft game){
         this.game = game;
         //imagenNave = game.images.manager.get("Images/nave.png");
@@ -40,7 +37,6 @@ public class Nave extends Actor {
     /**
      * Mueve a la izquierda el actor.
      */
-
     public void moverIzquierda(){
         if(getX() > 0 ) {
             this.setX(this.getX() - velocidad);
@@ -50,7 +46,6 @@ public class Nave extends Actor {
     /**
      * Mueve a la derecha el actor.
      */
-
     public void moverDerecha(){
         if(getX() < 472) {
             this.setX(this.getX() + velocidad);
@@ -60,7 +55,6 @@ public class Nave extends Actor {
     /**
      * Metodo de dibujo del actor.
      */
-
     @Override
     public void draw(Batch batch, float parentAlpha){
         rect = new Rectangle(getX(),getY(),getWidth(),getHeight());

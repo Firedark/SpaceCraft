@@ -8,13 +8,15 @@ import com.badlogic.gdx.graphics.Texture;
  * @author Sergio Jimenez Cortes*
  */
 public class ImageManager  {
-public AssetManager manager;
+    public AssetManager manager;
 
     public ImageManager(){
     manager = new AssetManager();
     }
 
-//Método para cargar las imagenes en Memoria.
+    /**
+     * Metodo para cargar las imagenes en Memoria.
+     */
     public void loadAssets() {
         //Cargo una textura.
         manager.load("Images/nave.png",Texture.class);

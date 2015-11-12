@@ -18,8 +18,6 @@ import sun.management.snmp.jvminstr.JvmThreadInstanceEntryImpl;
  * * Clase SpaceCraft, clase principal e inicial del juego, contiene acceso a datos, screens.
  * @author Sergio Jimenez Cortes*
  */
-
-
 public class SpaceCraft extends Game {
 
 	//Atributos de Objetos Generales
@@ -40,7 +38,6 @@ public class SpaceCraft extends Game {
 	/**
 	 * Se ejecuta al abrir el juego.
 	 */
-
 	@Override
 	public void create () {
 		//Instancia de objetos Generales.
@@ -62,19 +59,14 @@ public class SpaceCraft extends Game {
 		gameScreen = new GameScreen(this);
 		splashScreen = new SplashScreen(this);
 
-
-
-			this.setScreen(splashScreen);
+		this.setScreen(splashScreen);
 
 
 	}
 
-
 	/**
 	 * Metodo para liberar memoria.
 	 */
-
-
 	@Override
 	public void dispose() {
 

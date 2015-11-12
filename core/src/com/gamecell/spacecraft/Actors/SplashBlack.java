@@ -16,7 +16,6 @@ import com.gamecell.spacecraft.SpaceCraft;
  * Clase SplashBlack, carga un fondo negro y modifica la transparencia para hacer un efecto.
  * @author Sergio Jimenez Cortes *
  */
-
 public class SplashBlack extends Actor {
     SpaceCraft game;
     //Atributos de las acciones alpha, Delay y la acción sequencia.
@@ -38,10 +37,6 @@ public class SplashBlack extends Actor {
      * Constructor de la clase.
      * @param game de la clase principal
      */
-
-
-
-
     public SplashBlack(SpaceCraft game){
 
         this.game = game;
@@ -79,9 +74,6 @@ public class SplashBlack extends Actor {
     /**
      * Metodo de dibujo del actor.
      */
-
-
-
     @Override
     public void draw(Batch batch,float parentAlpha){
         //Continuamente le cargamos el valor de nuestro actor alpha, al valor de la imagen alpha.
