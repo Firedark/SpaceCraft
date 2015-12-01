@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
@@ -15,9 +17,10 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 public class Nave extends Actor {
 
-    private Texture imagenNave;
+
     private SpaceCraft game;
     private int velocidad = 10;
+    private int type;
     public Rectangle rect;
 
 
@@ -27,9 +30,36 @@ public class Nave extends Actor {
      */
     public Nave(SpaceCraft game){
         this.game = game;
-        //imagenNave = game.images.manager.get("Images/nave.png");
-        imagenNave = game.images.manager.get("Images/nave.png",Texture.class);
-        this.setBounds(236, 60, 128, 128);
+        type = 0;
+        this.setBounds(236, 60, 128, 64);
+
+
+
+        addListener(new InputListener() {
+
+
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                switch (type){
+                    case 0:
+                        type =1;
+                        break;
+                    case 1:
+                        type =2;
+                        break;
+                    case 2:
+                        type =0;
+                        break;
+                }
+                return true;
+            }
+
+
+        });
+
+
+
+
+
 
 
     }
@@ -57,9 +87,26 @@ public class Nave extends Actor {
      */
     @Override
     public void draw(Batch batch, float parentAlpha){
-        rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
-        batch.draw(imagenNave, getX(), getY());
+        rect = new Rectangle(getX()+22,getY()+2,getWidth()-44,getHeight()-9);
+        switch (type){
+            case 0:
+                batch.draw(game.images.manager.get("Images/nave.png", Texture.class), getX(), getY());
+                break;
+            case 1:
+                batch.draw(game.images.manager.get("Images/nave2.png", Texture.class), getX(), getY());
+                break;
+            case 2:
+                batch.draw(game.images.manager.get("Images/nave3.png", Texture.class), getX(), getY());
+                break;
+        }
+
 
     }
+
+
+
+
+
+
 
 }

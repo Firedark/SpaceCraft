@@ -51,7 +51,12 @@ public class LogicalGame extends Table implements InputProcessor {
             this.game = game;
 
             teclas = 0;
-            Gdx.input.setInputProcessor(this);
+
+
+
+
+
+
 
             TimeSpawnerFallen = TimeUtils.millis();
             TimeSpawnerFallenSol = TimeUtils.millis();

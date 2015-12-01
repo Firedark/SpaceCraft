@@ -1,6 +1,7 @@
 package com.gamecell.spacecraft.Screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -36,9 +37,14 @@ public class GameScreen implements Screen{
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(stage);
-        logicalGame = new LogicalGame(game,this);
+
+        logicalGame = new LogicalGame(game,this);  // Genera la lógica del juego
+        InputMultiplexer multi = new InputMultiplexer(); //Crea un multiplexor de entradas, sirve para hacer actuar varios procesadores de entradas a la vez.
+        multi.addProcessor(logicalGame);  //Le añadimos el procesador de entradas de la lógica (general)
+        multi.addProcessor(stage);   //Le añadimos el procesador de entradas del stage, para los listeners de los actores.
+        Gdx.input.setInputProcessor(multi); //Set del multiplexor.
         stage.addActor(logicalGame);
+
     }
 
     /**
