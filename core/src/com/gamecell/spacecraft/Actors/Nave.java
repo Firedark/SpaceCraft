@@ -1,9 +1,7 @@
 package com.gamecell.spacecraft.Actors;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,7 +18,8 @@ public class Nave extends Actor {
 
     private SpaceCraft game;
     private int velocidad = 10;
-    private int type;
+    public Texture text;
+    public int type;
     public Rectangle rect;
 
 
@@ -88,15 +87,19 @@ public class Nave extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha){
         rect = new Rectangle(getX()+22,getY()+2,getWidth()-44,getHeight()-9);
+
         switch (type){
             case 0:
-                batch.draw(game.images.manager.get("Images/nave.png", Texture.class), getX(), getY());
+                text = game.images.manager.get("Images/nave.png", Texture.class);
+                batch.draw(text, getX(), getY());
                 break;
             case 1:
-                batch.draw(game.images.manager.get("Images/nave2.png", Texture.class), getX(), getY());
+                text = game.images.manager.get("Images/nave2.png", Texture.class);
+                batch.draw(text, getX(), getY());
                 break;
             case 2:
-                batch.draw(game.images.manager.get("Images/nave3.png", Texture.class), getX(), getY());
+                text =game.images.manager.get("Images/nave3.png", Texture.class);
+                batch.draw(text, getX(), getY());
                 break;
         }
 

@@ -22,6 +22,10 @@ public class ImageManager  {
         manager.load("Images/nave.png",Texture.class);
         manager.load("Images/nave2.png",Texture.class);
         manager.load("Images/nave3.png",Texture.class);
+        manager.load("Images/life1.png",Texture.class);
+        manager.load("Images/life2.png",Texture.class);
+        manager.load("Images/life3.png",Texture.class);
+        manager.load("Images/poweruplife.png",Texture.class);
         manager.load("Images/luna.png",Texture.class);
         manager.load("Images/estrella.png",Texture.class);
         manager.load("Images/sol.png",Texture.class);

@@ -13,7 +13,9 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Actors.Disparo;
 import com.gamecell.spacecraft.Actors.Enemigo;
 import com.gamecell.spacecraft.Actors.FallenActor;
+import com.gamecell.spacecraft.Actors.GUI.Lifes;
 import com.gamecell.spacecraft.Actors.Nave;
+import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.FontManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
@@ -28,19 +30,32 @@ public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
         SpaceCraft game;
         Nave nave;
-        ArrayList<FallenActor> colFallen;
-        ArrayList<Disparo> colDisparos;
-        ArrayList<Enemigo> colEnemigo;
+
+
+        //Valores de Juego
+        public int vidas;
+        public int velocidad;
+        public int potencia;
+        public boolean shield;
+
+        private ArrayList<FallenActor> colFallen;
+        private ArrayList<Disparo> colDisparos;
+        private ArrayList<Enemigo> colEnemigo;
+        public ArrayList<PowerUps> colPowerUps;
         private boolean mov, direction;
         private int teclas;
         private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,
-                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo,TimeSpawnerDisparo;
+                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo,TimeSpawnerDisparo,TimeSpawnerPowerUps;
         //Texto
         private Label.LabelStyle font;
         private Label scoreLbl;
 
-        //Puntuacion
-        private int score;
+        //Interfaz
+            //Vidas
+            public Lifes lifes;
+
+            //Puntuacion
+            private int score;
 
     /**
      * Constructor de la clase.
@@ -53,9 +68,8 @@ public class LogicalGame extends Table implements InputProcessor {
             teclas = 0;
 
 
-
-
-
+            //Defaults
+            vidas = 2;
 
 
             TimeSpawnerFallen = TimeUtils.millis();
@@ -64,16 +78,18 @@ public class LogicalGame extends Table implements InputProcessor {
             TimeSpawnerFallenCohete = TimeUtils.millis();
             TimeSpawnerFallenSatelite = TimeUtils.millis();
             TimeSpawnerDisparo = TimeUtils.millis();
+            TimeSpawnerPowerUps = TimeUtils.millis();
             TimeSpawnerEnemigo = TimeUtils.millis();//María: Tiempo de aparición enemigo
 
             //Zona de instancia de Colecciones
             colFallen = new ArrayList<FallenActor>();
             colDisparos = new ArrayList<Disparo>();
             colEnemigo = new ArrayList<Enemigo>();
+            colPowerUps = new ArrayList<PowerUps>();
 
             //Zona de instancia de Actores varios.
             nave = new Nave(game);
-
+            lifes = new Lifes(game,vidas,nave);
             //Fuente de texto
             font = new Label.LabelStyle(FontManager.font, null);
 
@@ -89,6 +105,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //Añadir Actores
             this.addActor(nave);
+            this.addActor(lifes);
         }
 
     /**
@@ -98,6 +115,12 @@ public class LogicalGame extends Table implements InputProcessor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        lifes.updateLifes(vidas);
+
+        if(vidas < 0){
+            this.remove();
+            game.setScreen(game.startScreen);
+        }
 
         //Sirve para colocar la Nave sobre las estrellas, etc
         nave.setZIndex(50000);
@@ -130,6 +153,12 @@ public class LogicalGame extends Table implements InputProcessor {
             spawnSateliteActor();
             TimeSpawnerFallenSatelite = TimeUtils.millis();
         }
+
+        if(TimeUtils.millis() - TimeSpawnerPowerUps> MathUtils.random(30000, 50000)) {
+            spawnPowerUps(MathUtils.random(0, 0));
+            TimeSpawnerPowerUps = TimeUtils.millis();
+        }
+
 
         if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
             spawnDisparoActor();
@@ -185,7 +214,7 @@ public class LogicalGame extends Table implements InputProcessor {
                         enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                         //Eliminamos el enemigo destruido de la escena
                         enemigo.DeleteEnemigo();
-
+                        vidas--;
                         System.out.println("Choque contra Nave");
                         break;
                     }
@@ -221,6 +250,14 @@ public class LogicalGame extends Table implements InputProcessor {
                     System.out.println("Actor Enemigo Eliminado");
                 }
 
+
+                for(PowerUps p : colPowerUps){
+                    p.checkColision();
+                    }
+
+
+
+
             }
         } catch (ConcurrentModificationException e){
         }
@@ -240,10 +277,24 @@ public class LogicalGame extends Table implements InputProcessor {
     }
 
 
+
+
     private void spawnEstrellaActor() {
         FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/estrella.png"));
         colFallen.add(fallenActor);
         this.addActor(fallenActor);
+    }
+
+    private void spawnPowerUps(int random) {
+
+        PowerUps power = null;
+        switch (random){
+            case 0:
+                power = new PowerUps(game,(Texture) game.images.manager.get("Images/poweruplife.png"),nave,this,random);
+                break;
+        }
+        colPowerUps.add(power);
+        this.addActor(power);
     }
 
     private void spawnSolActor() {
