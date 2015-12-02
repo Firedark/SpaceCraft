@@ -36,7 +36,7 @@ public class Enemigo extends Actor {
         //Indicamos que imagen es la del enemigo
         setImagenEnemigo(game.images.manager.get("Images/asteroide.png",Texture.class));
         //x,y,ancho y alto. Aparece fuera de la pantalla para que el usuario no lo vea
-        this.setBounds(MathUtils.random(0, game.w - ancho), game.h + 100, ancho, alto);
+        this.setBounds(MathUtils.random(0, game.w - ancho), game.h + MathUtils.random(100,200), ancho, alto);
         //El enemigo está en la misma Z que el actor principal
         this.setZIndex(50000);
         rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());

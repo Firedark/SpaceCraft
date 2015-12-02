@@ -32,7 +32,7 @@ public class PowerUps extends Actor {
         this.nave = nave;
         this.logical = logical;
         this.type = type;
-        this.setBounds( MathUtils.random(-50, game.w + 50),MathUtils.random(game.h + 100,game.h + 500), textura.getWidth(),textura.getHeight());
+        this.setBounds( MathUtils.random(10, game.w + -10),MathUtils.random(game.h + 100,game.h + 500), textura.getWidth(),textura.getHeight());
         rect = new Rectangle();
         accion = new MoveByAction();
         accion.setDuration(20f);

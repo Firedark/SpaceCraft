@@ -16,7 +16,9 @@ import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.GUI.Lifes;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
+import com.gamecell.spacecraft.DinamicBackground;
 import com.gamecell.spacecraft.FontManager;
+import com.gamecell.spacecraft.LevelManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 import java.util.ArrayList;
@@ -28,24 +30,24 @@ import java.util.ConcurrentModificationException;
  */
 public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
-        SpaceCraft game;
-        Nave nave;
-
+        private SpaceCraft game;
+        private Nave nave;
+        private LevelManager levelManager;
 
         //Valores de Juego
         public int vidas;
         public int velocidad;
         public int potencia;
         public boolean shield;
-
+        private int segundos;
+        private DinamicBackground dinBack;
         private ArrayList<FallenActor> colFallen;
-        private ArrayList<Disparo> colDisparos;
-        private ArrayList<Enemigo> colEnemigo;
+        public ArrayList<Disparo> colDisparos;
+        public ArrayList<Enemigo> colEnemigo;
         public ArrayList<PowerUps> colPowerUps;
         private boolean mov, direction;
         private int teclas;
-        private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,
-                TimeSpawnerFallenSatelite, TimeSpawnerEnemigo,TimeSpawnerDisparo,TimeSpawnerPowerUps;
+        private long TimeSpawnerDisparo,TimeSpawner;
         //Texto
         private Label.LabelStyle font;
         private Label scoreLbl;
@@ -64,30 +66,23 @@ public class LogicalGame extends Table implements InputProcessor {
      */
     public LogicalGame(SpaceCraft game, GameScreen screen)  {
             this.game = game;
-
             teclas = 0;
-
 
             //Defaults
             vidas = 2;
-
-
-            TimeSpawnerFallen = TimeUtils.millis();
-            TimeSpawnerFallenSol = TimeUtils.millis();
-            TimeSpawnerFallenLuna = TimeUtils.millis();
-            TimeSpawnerFallenCohete = TimeUtils.millis();
-            TimeSpawnerFallenSatelite = TimeUtils.millis();
+            segundos = 0;
             TimeSpawnerDisparo = TimeUtils.millis();
-            TimeSpawnerPowerUps = TimeUtils.millis();
-            TimeSpawnerEnemigo = TimeUtils.millis();//María: Tiempo de aparición enemigo
+            TimeSpawner = TimeUtils.millis();
 
-            //Zona de instancia de Colecciones
-            colFallen = new ArrayList<FallenActor>();
+
+
+        //Zona de instancia de Colecciones
             colDisparos = new ArrayList<Disparo>();
             colEnemigo = new ArrayList<Enemigo>();
             colPowerUps = new ArrayList<PowerUps>();
 
             //Zona de instancia de Actores varios.
+            dinBack = new DinamicBackground(game,this);
             nave = new Nave(game);
             lifes = new Lifes(game,vidas,nave);
             //Fuente de texto
@@ -106,6 +101,12 @@ public class LogicalGame extends Table implements InputProcessor {
             //Añadir Actores
             this.addActor(nave);
             this.addActor(lifes);
+
+            //Niveles
+            levelManager = new LevelManager(game,this,0,nave);
+            levelManager.loadLevel("./Levels/1.xml");
+
+
         }
 
     /**
@@ -115,7 +116,10 @@ public class LogicalGame extends Table implements InputProcessor {
     @Override
     public void act(float delta) {
         super.act(delta);
+        dinBack.checkMillis();
         lifes.updateLifes(vidas);
+
+        //Condiciones de derrota.
 
         if(vidas < 0){
             this.remove();
@@ -127,67 +131,26 @@ public class LogicalGame extends Table implements InputProcessor {
 
         //Spawners de Objetos Fallen.
         //Estrellas
-        if(TimeUtils.millis() - TimeSpawnerFallen > 300){
-            spawnEstrellaActor();
-            TimeSpawnerFallen = TimeUtils.millis();
+
+        if(TimeUtils.millis() - TimeSpawner > 1000){
+            levelManager.updateSecond(segundos);
+            segundos++;
+            System.out.println(segundos);
+            TimeSpawner = TimeUtils.millis();
         }
 
-        //Soles
-        if(TimeUtils.millis() - TimeSpawnerFallenSol > MathUtils.random(50000, 120000)) {
-            spawnSolActor();
-            TimeSpawnerFallenSol = TimeUtils.millis();
-        }
-
-        //Lunas
-        if(TimeUtils.millis() - TimeSpawnerFallenLuna > MathUtils.random(30000, 90000)) {
-            spawnLunaActor();
-            TimeSpawnerFallenLuna = TimeUtils.millis();
-        }
-
-        if(TimeUtils.millis() - TimeSpawnerFallenCohete > MathUtils.random(80000, 150000)) {
-            spawnCoheteActor();
-            TimeSpawnerFallenCohete = TimeUtils.millis();
-        }
-
-        if(TimeUtils.millis() - TimeSpawnerFallenSatelite > MathUtils.random(60000, 130000)) {
-            spawnSateliteActor();
-            TimeSpawnerFallenSatelite = TimeUtils.millis();
-        }
-
-        if(TimeUtils.millis() - TimeSpawnerPowerUps> MathUtils.random(30000, 50000)) {
-            spawnPowerUps(MathUtils.random(0, 0));
-            TimeSpawnerPowerUps = TimeUtils.millis();
-        }
-
-
-        if(TimeUtils.millis() - TimeSpawnerDisparo > 3000) {
-            spawnDisparoActor();
+        if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
+            Disparo disparo = new Disparo(game,2,nave);
+            colDisparos.add(disparo);
+            this.addActor(disparo);
             game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
             TimeSpawnerDisparo = TimeUtils.millis();
         }
 
-        //María:El enemigo aparecerá cada 5 segundos.
-        if(TimeUtils.millis() - TimeSpawnerEnemigo > 5000){
-            //Instanciamos el enemigo
-            Enemigo enemigo = new Enemigo(game);
-            //Lo añadimos al juego
-            this.addActor(enemigo);
-            //Lo añadimos a la Array de enemigos
-            colEnemigo.add(enemigo);
-            //Refrescamos el tiempo de apareción
-            TimeSpawnerEnemigo = TimeUtils.millis();
-        }
 
         try {
 
-            for(FallenActor item:colFallen) {
 
-                    if (item.getActions().size == 0) {
-                        this.removeActor(item);
-                        colFallen.remove(item);
-                    }
-
-            }
 
             //////////////////////////////////////////////////////
            // María: Colisión del enemigo con actor principal  //
@@ -196,11 +159,10 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //Para cada enemigo de la colección
             for(Enemigo enemigo :colEnemigo) {
-
+                enemigo.setZIndex(3000);
                 if(enemigo.getActions().size == 0){
                     this.removeActor(enemigo);
                     colEnemigo.remove(enemigo);
-                    System.out.println("Actor Enemigo Eliminado");
                     break;
                 }
 
@@ -209,13 +171,13 @@ public class LogicalGame extends Table implements InputProcessor {
 
                     //Colisiona con la nave
                     if (enemigo.collisionEnemigo(nave.rect)) {
-                        enemigo.setZIndex(3000);
+
                         //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
                         enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                         //Eliminamos el enemigo destruido de la escena
                         enemigo.DeleteEnemigo();
                         vidas--;
-                        System.out.println("Choque contra Nave");
+                        game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
                         break;
                     }
 
@@ -233,7 +195,6 @@ public class LogicalGame extends Table implements InputProcessor {
                                 this.removeActor(disparo);
                                 colDisparos.remove(disparo);
                                 game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
-                                System.out.println("Enemigo contra disparo");
                             }
                         }
                     } catch (NullPointerException f){}
@@ -243,11 +204,10 @@ public class LogicalGame extends Table implements InputProcessor {
             }
 
             for(Disparo d : colDisparos){
-
+                d.setZIndex(2000);
                 if(d.getActions().size == 0){
                     this.removeActor(d);
                     colDisparos.remove(d);
-                    System.out.println("Actor Enemigo Eliminado");
                 }
 
 
@@ -271,61 +231,10 @@ public class LogicalGame extends Table implements InputProcessor {
             }
         }
 
-        System.out.println("Enemigos Totales en memoria:" + colEnemigo.size());
-        System.out.println("Disparos Totales en memoria:" + colDisparos.size());
-        System.out.println("Fallen Totales en memoria:" + colFallen.size());
+
     }
 
 
-
-
-    private void spawnEstrellaActor() {
-        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/estrella.png"));
-        colFallen.add(fallenActor);
-        this.addActor(fallenActor);
-    }
-
-    private void spawnPowerUps(int random) {
-
-        PowerUps power = null;
-        switch (random){
-            case 0:
-                power = new PowerUps(game,(Texture) game.images.manager.get("Images/poweruplife.png"),nave,this,random);
-                break;
-        }
-        colPowerUps.add(power);
-        this.addActor(power);
-    }
-
-    private void spawnSolActor() {
-        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/sol.png"));
-        colFallen.add(fallenActor);
-        this.addActor(fallenActor);
-    }
-
-    private void spawnLunaActor() {
-        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/luna.png"));
-        colFallen.add(fallenActor);
-        this.addActor(fallenActor);
-    }
-
-    private void spawnSateliteActor() {
-        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/satelite.png"));
-        colFallen.add(fallenActor);
-        this.addActor(fallenActor);
-    }
-
-    private void spawnCoheteActor() {
-        FallenActor fallenActor = new FallenActor(game,(Texture) game.images.manager.get("Images/cohete.png"));
-        colFallen.add(fallenActor);
-        this.addActor(fallenActor);
-    }
-
-    private void spawnDisparoActor() {
-        Disparo disparo = new Disparo(game,2,nave);
-        colDisparos.add(disparo);
-        this.addActor(disparo);
-    }
 
     /**
      * Metodo Draw contiene el SpriteBatch para dibujar.

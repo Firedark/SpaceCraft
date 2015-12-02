@@ -67,7 +67,7 @@ public class Nave extends Actor {
      * Mueve a la izquierda el actor.
      */
     public void moverIzquierda(){
-        if(getX() > 0 ) {
+        if(getX() > -15 ) {
             this.setX(this.getX() - velocidad);
         }
     }
@@ -76,7 +76,7 @@ public class Nave extends Actor {
      * Mueve a la derecha el actor.
      */
     public void moverDerecha(){
-        if(getX() < 472) {
+        if(getX() < 487) {
             this.setX(this.getX() + velocidad);
         }
     }

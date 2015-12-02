@@ -27,10 +27,10 @@ public class Disparo extends Actor {
     public Disparo(SpaceCraft game, int potencia, Nave nave){
         this.game = game;
         this.textura = game.images.manager.get("Images/disparo.png");
-        this.setBounds(nave.getX()+58,nave.getY()+110,6*potencia,6*potencia);
+        this.setBounds(nave.getX()+58,nave.getY()+60,6*potencia,6*potencia);
         accion = new MoveByAction();
-        accion.setDuration(20f);
-        accion.setAmountY(2000);
+        accion.setDuration(7f);
+        accion.setAmountY(700);
         this.addAction(accion);
         rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
     }

@@ -3,6 +3,7 @@ package com.gamecell.spacecraft.Logics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.gamecell.spacecraft.DinamicBackground;
 import com.gamecell.spacecraft.Screens.StartScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
@@ -14,11 +15,11 @@ public class LogicalStart extends Table {
     //Atributos de la clase
 
     SpaceCraft game;
-
+    private DinamicBackground dynBacks;
     public LogicalStart(SpaceCraft game, StartScreen screen){
 
         this.game = game;
-
+        dynBacks = new DinamicBackground(game,this);
         //Zona de instancia de Actores varios.
 
     }
@@ -29,6 +30,7 @@ public class LogicalStart extends Table {
     @Override
     public void act(float delta) {
         super.act(delta);
+        dynBacks.checkMillis();
     }
 
     /**
