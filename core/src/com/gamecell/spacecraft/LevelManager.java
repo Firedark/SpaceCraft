@@ -101,6 +101,7 @@ public class LevelManager {
             Enemigo enemigo = new Enemigo(game);
             //Lo añadimos al juego
             logical.addActor(enemigo);
+            logical.colShootables.add(enemigo);
             //Lo añadimos a la Array de enemigos
             logical.colEnemigo.add(enemigo);
         }

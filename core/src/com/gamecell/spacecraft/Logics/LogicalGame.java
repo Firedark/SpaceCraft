@@ -7,13 +7,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Actors.Disparo;
+import com.gamecell.spacecraft.Actors.DisparoB;
+import com.gamecell.spacecraft.Actors.DisparoC;
 import com.gamecell.spacecraft.Actors.Enemigo;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.GUI.Lifes;
+import com.gamecell.spacecraft.Actors.GenDisparo;
+import com.gamecell.spacecraft.Actors.GenEnemigo;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.DinamicBackground;
@@ -21,6 +26,8 @@ import com.gamecell.spacecraft.FontManager;
 import com.gamecell.spacecraft.LevelManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
+
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -42,9 +49,10 @@ public class LogicalGame extends Table implements InputProcessor {
         private int segundos;
         private DinamicBackground dinBack;
         private ArrayList<FallenActor> colFallen;
-        public ArrayList<Disparo> colDisparos;
+        public ArrayList<GenDisparo> colDisparos;
         public ArrayList<Enemigo> colEnemigo;
         public ArrayList<PowerUps> colPowerUps;
+        public ArrayList<GenEnemigo> colShootables;
         private boolean mov, direction;
         private int teclas;
         private long TimeSpawnerDisparo,TimeSpawner;
@@ -77,9 +85,10 @@ public class LogicalGame extends Table implements InputProcessor {
 
 
         //Zona de instancia de Colecciones
-            colDisparos = new ArrayList<Disparo>();
+            colDisparos = new ArrayList<GenDisparo>();
             colEnemigo = new ArrayList<Enemigo>();
             colPowerUps = new ArrayList<PowerUps>();
+            colShootables = new ArrayList<GenEnemigo>();
 
             //Zona de instancia de Actores varios.
             dinBack = new DinamicBackground(game,this);
@@ -140,10 +149,21 @@ public class LogicalGame extends Table implements InputProcessor {
         }
 
         if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
-            Disparo disparo = new Disparo(game,2,nave);
+            GenDisparo disparo = null;
+            switch (nave.type){
+                case 0:              disparo = new Disparo(game,1,nave,this);
+                    game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
+                    break;
+                case 1:              disparo = new DisparoB(game,2,nave,this);
+                    game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser2.ogg"));
+                    break;
+                case 2:              disparo = new DisparoC(game,1,nave,this);
+                    break;
+            }
+
             colDisparos.add(disparo);
             this.addActor(disparo);
-            game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
+
             TimeSpawnerDisparo = TimeUtils.millis();
         }
 
@@ -163,6 +183,7 @@ public class LogicalGame extends Table implements InputProcessor {
                 if(enemigo.getActions().size == 0){
                     this.removeActor(enemigo);
                     colEnemigo.remove(enemigo);
+                    colShootables.remove(enemigo);
                     break;
                 }
 
@@ -176,13 +197,15 @@ public class LogicalGame extends Table implements InputProcessor {
                         enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                         //Eliminamos el enemigo destruido de la escena
                         enemigo.DeleteEnemigo();
+                        colShootables.remove(enemigo);
                         vidas--;
                         game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
                         break;
                     }
 
                     try {
-                        for (Disparo disparo : colDisparos) {
+                        for (GenDisparo disparo : colDisparos) {
+                            disparo.setZIndex(2000);
                             //Colisiona con el disparo
                             if (enemigo.collisionEnemigo(disparo.rect)) {
                                 //Sumamos puntuacion
@@ -192,8 +215,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
                                 enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                                 enemigo.DeleteEnemigo();
-                                this.removeActor(disparo);
-                                colDisparos.remove(disparo);
+                                disparo.potencia--;
                                 game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
                             }
                         }
@@ -203,22 +225,10 @@ public class LogicalGame extends Table implements InputProcessor {
 
             }
 
-            for(Disparo d : colDisparos){
-                d.setZIndex(2000);
-                if(d.getActions().size == 0){
-                    this.removeActor(d);
-                    colDisparos.remove(d);
-                }
-
-
                 for(PowerUps p : colPowerUps){
                     p.checkColision();
                     }
 
-
-
-
-            }
         } catch (ConcurrentModificationException e){
         }
 

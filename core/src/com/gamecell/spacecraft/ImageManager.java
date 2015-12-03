@@ -33,6 +33,8 @@ public class ImageManager  {
         manager.load("Images/asteroide.png",Texture.class);
         manager.load("Images/cohete.png",Texture.class);
         manager.load("Images/disparo.png",Texture.class);
+        manager.load("Images/disparoB.png",Texture.class);
+        manager.load("Images/disparoC.png",Texture.class);
         //Cargo un sonido
         //manager.load("data/sounds/boom.mp3",Sound.class);
         //Cargo una musica

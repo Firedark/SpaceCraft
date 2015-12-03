@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Rectangle;
  *
  * @author Maria Vivo Yubero
  */
-public class Enemigo extends Actor {
+public class Enemigo extends GenEnemigo {
 
     //Variables
     private Texture imagenEnemigo;
@@ -23,8 +23,6 @@ public class Enemigo extends Actor {
     MoveByAction accion;
     private final float ancho = 50;
     private final float alto = 50;
-    public Rectangle rect;
-    public int estado;
 
     /**
      * Constructor de la clase Enemigo
@@ -39,11 +37,11 @@ public class Enemigo extends Actor {
         this.setBounds(MathUtils.random(0, game.w - ancho), game.h + MathUtils.random(100,200), ancho, alto);
         //El enemigo está en la misma Z que el actor principal
         this.setZIndex(50000);
-        rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
+        super.rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         //Creación de Acciones del enemigo.
         createActionsEnemigo();
         //Estados del enemigo 0 = destruido, 1 = destruyendose, 2 = activo
-        estado = 1;
+        super.estado = 1;
 
     }
 
@@ -81,10 +79,11 @@ public class Enemigo extends Actor {
      * @param parteNave
      * @return
      */
+
     public boolean collisionEnemigo(Rectangle parteNave){
 
         //Rectangle rectNave = new Rectangle(nave.getX(),nave.getY(),nave.getWidth(),nave.getHeight());
-        return parteNave.overlaps(rect);
+        return parteNave.overlaps(super.rect);
 
     }
 
@@ -96,7 +95,7 @@ public class Enemigo extends Actor {
     @Override
     public void draw(Batch batch, float parentAlpha){
 
-        rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
+        super.rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         batch.draw(getImagenEnemigo(), getX(), getY(),ancho,alto);
 
     }
@@ -128,7 +127,7 @@ public class Enemigo extends Actor {
 
         rect = null;
         //Destruido
-        estado = 0;
+        super.estado = 0;
 
     }
 }
