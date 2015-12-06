@@ -18,7 +18,6 @@ public class Disparo extends GenDisparo {
     private Texture textura;
     private MoveToAction accion;
     private LogicalGame logical;
-    private GenEnemigo target;
     private Nave nave;
 
     /**
@@ -38,14 +37,31 @@ public class Disparo extends GenDisparo {
 
         accion.setDuration(7f);
         accion.setPosition(getX(),800);
+
+        assignTarget();
+
+        for (int j = 1;j<potencia;j++){
+            Disparo d = new Disparo(game,1,nave,logical);
+            logical.addActor(d);
+            logical.colDisparos.add(d);
+        }
+
+        this.addAction(accion);
+
+
+        super.rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
+    }
+
+    public void assignTarget(){
         float min = 20000000;
 
         for (GenEnemigo a : logical.colShootables){
 
-            if(a.getY() < 600 && a.getY() > 70 && a.estado == 1) {
+            if(a.getY() < 750 && a.getY() > 70 && a.estado == 1 && !a.targeted) {
                 Vector2 pDisparo = new Vector2((getX()-(getWidth()/2)), getY()-(getHeight()/2));
                 Vector2 pDestruible = new Vector2((a.getX()-(a.getHeight()/2)),a.getY()-(a.getWidth()/2));
                 Vector2 vDistancia = pDestruible.sub(pDisparo);
+                a.targeted = true;
                 float distancia = vDistancia.len();
                 if (distancia < min) {
                     min = distancia;
@@ -56,12 +72,10 @@ public class Disparo extends GenDisparo {
 
 
         }
-
-        this.addAction(accion);
-
-
-        super.rect = new Rectangle(getX(),getY(),getWidth(),getHeight());
     }
+
+
+
 
     /**
      * Metodo de dibujo del actor.
@@ -75,6 +89,8 @@ public class Disparo extends GenDisparo {
                 accion.setPosition(target.getX(), target.getY());
                 this.addAction(accion);
             }
+
+
 
             if(super.potencia == 0 || this.getActions().size == 0){
                 logical.removeActor(this);

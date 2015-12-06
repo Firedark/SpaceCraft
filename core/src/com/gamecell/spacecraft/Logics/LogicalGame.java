@@ -151,13 +151,14 @@ public class LogicalGame extends Table implements InputProcessor {
         if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
             GenDisparo disparo = null;
             switch (nave.type){
-                case 0:              disparo = new Disparo(game,1,nave,this);
+                case 0:              disparo = new Disparo(game,2,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
                     break;
-                case 1:              disparo = new DisparoB(game,2,nave,this);
+                case 1:              disparo = new DisparoB(game,3,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser2.ogg"));
                     break;
-                case 2:              disparo = new DisparoC(game,1,nave,this);
+                case 2:              disparo = new DisparoC(game,5,nave,this,0);
+                    game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser1.ogg"));
                     break;
             }
 
@@ -216,6 +217,7 @@ public class LogicalGame extends Table implements InputProcessor {
                                 enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                                 enemigo.DeleteEnemigo();
                                 disparo.potencia--;
+                                disparo.target.targeted = false;
                                 game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
                             }
                         }

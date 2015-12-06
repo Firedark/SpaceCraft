@@ -32,7 +32,7 @@ public class DisparoB extends GenDisparo {
         this.nave = nave;
         super.potencia = potencia;
         this.textura = game.images.manager.get("Images/disparoB.png");
-        this.setBounds(nave.getX()+60,nave.getY()+60,textura.getWidth(),textura.getHeight());
+        this.setBounds(nave.getX()+58 - potencia ,nave.getY()+60,textura.getWidth(),textura.getHeight());
         accion = new MoveByAction();
         accion.setDuration(8f);
         accion.setAmountY(700);
@@ -61,7 +61,7 @@ public class DisparoB extends GenDisparo {
 
 
         super.rect.set(getX(),getY(),getWidth(),getHeight());
-        batch.draw(textura, getX(), getY(), getWidth(), getHeight());
+        batch.draw(textura, getX(), getY(), getWidth()* (1 + super.potencia/2), getHeight()*(1 + super.potencia/2));
     }
 
 

@@ -15,4 +15,5 @@ import com.gamecell.spacecraft.SpaceCraft;
 public class GenDisparo extends Actor {
     public Rectangle rect;
     public int potencia;
+    public GenEnemigo target;
 }
