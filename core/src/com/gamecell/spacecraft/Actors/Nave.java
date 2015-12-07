@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
@@ -27,7 +28,7 @@ public class Nave extends Actor {
      * Constructor de la clase.
      * @param game de la clase principal
      */
-    public Nave(SpaceCraft game){
+    public Nave(SpaceCraft game, final LogicalGame table){
         this.game = game;
         type = 0;
         this.setBounds(236, 60, 128, 64);
@@ -40,12 +41,15 @@ public class Nave extends Actor {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 switch (type){
                     case 0:
+                        table.mov = false;
                         type =1;
                         break;
                     case 1:
+                        table.mov = false;
                         type =2;
                         break;
                     case 2:
+                        table.mov = false;
                         type =0;
                         break;
                 }

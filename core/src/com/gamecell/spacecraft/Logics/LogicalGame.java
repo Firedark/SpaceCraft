@@ -53,7 +53,7 @@ public class LogicalGame extends Table implements InputProcessor {
         public ArrayList<Enemigo> colEnemigo;
         public ArrayList<PowerUps> colPowerUps;
         public ArrayList<GenEnemigo> colShootables;
-        private boolean mov, direction;
+        public boolean mov, direction;
         private int teclas;
         private long TimeSpawnerDisparo,TimeSpawner;
         //Texto
@@ -92,7 +92,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //Zona de instancia de Actores varios.
             dinBack = new DinamicBackground(game,this);
-            nave = new Nave(game);
+            nave = new Nave(game,this);
             lifes = new Lifes(game,vidas,nave);
             //Fuente de texto
             font = new Label.LabelStyle(FontManager.font, null);
@@ -151,7 +151,7 @@ public class LogicalGame extends Table implements InputProcessor {
         if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
             GenDisparo disparo = null;
             switch (nave.type){
-                case 0:              disparo = new Disparo(game,2,nave,this);
+                case 0:              disparo = new Disparo(game,3,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
                     break;
                 case 1:              disparo = new DisparoB(game,3,nave,this);
@@ -217,7 +217,6 @@ public class LogicalGame extends Table implements InputProcessor {
                                 enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
                                 enemigo.DeleteEnemigo();
                                 disparo.potencia--;
-                                disparo.target.targeted = false;
                                 game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
                             }
                         }

@@ -98,7 +98,7 @@ public class LevelManager {
 
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
-            Enemigo enemigo = new Enemigo(game);
+            Enemigo enemigo = new Enemigo(game,1);
             //Lo añadimos al juego
             logical.addActor(enemigo);
             logical.colShootables.add(enemigo);

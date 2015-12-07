@@ -53,7 +53,7 @@ public class Disparo extends GenDisparo {
     }
 
     public void assignTarget(){
-        float min = 20000000;
+        float min = 20000;
 
         for (GenEnemigo a : logical.colShootables){
 
@@ -84,7 +84,7 @@ public class Disparo extends GenDisparo {
     public void draw(Batch batch,float parentAlpha){
         try {
 
-            if (target != null && target.estado != 0) {
+            if (target != null && target.salud != 0) {
                 accion.setDuration(11f);
                 accion.setPosition(target.getX(), target.getY());
                 this.addAction(accion);
@@ -94,13 +94,17 @@ public class Disparo extends GenDisparo {
 
             if(super.potencia == 0 || this.getActions().size == 0){
                 logical.removeActor(this);
+                target.targeted = false;
                 logical.colDisparos.remove(this);
             }
 
+            if(target == null){
+                assignTarget();
+            }
 
 
         }catch (Exception e){
-
+           // System.err.println(e);
         }
 
         super.rect.set(getX(),getY(),getWidth(),getHeight());

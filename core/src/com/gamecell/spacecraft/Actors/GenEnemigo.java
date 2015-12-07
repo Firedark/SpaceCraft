@@ -10,5 +10,5 @@ public class GenEnemigo extends Actor {
     public int estado;
     public Rectangle rect;
     public boolean targeted;
-
+    public int salud;
 }

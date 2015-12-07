@@ -28,7 +28,7 @@ public class Enemigo extends GenEnemigo {
      * Constructor de la clase Enemigo
      * @param game de la clase principal
      */
-    public Enemigo(SpaceCraft game) {
+    public Enemigo(SpaceCraft game,int salud) {
 
         this.game = game;
         //Indicamos que imagen es la del enemigo
@@ -42,6 +42,7 @@ public class Enemigo extends GenEnemigo {
         createActionsEnemigo();
         //Estados del enemigo 0 = destruido, 1 = destruyendose, 2 = activo
         super.estado = 1;
+        super.salud = salud;
 
     }
 
@@ -127,7 +128,9 @@ public class Enemigo extends GenEnemigo {
 
         rect = null;
         //Destruido
-        super.estado = 0;
-
+        salud--;
+        if(salud == 0) {
+            super.estado = 0;
+        }
     }
 }
