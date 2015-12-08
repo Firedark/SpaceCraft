@@ -30,7 +30,7 @@ public class DisparoB extends GenDisparo {
         this.game = game;
         this.logical = logical;
         this.nave = nave;
-        super.potencia = potencia;
+        super.potencia = potencia +1;
         this.textura = game.images.manager.get("Images/disparoB.png");
         this.setBounds(nave.getX()+58 - potencia ,nave.getY()+60,textura.getWidth(),textura.getHeight());
         accion = new MoveByAction();

@@ -11,6 +11,7 @@ public class MyPreferences {
 
     private Preferences preferences;
     public SpaceCraft game;
+    public int score;
 
     public MyPreferences(SpaceCraft game){
         this.game = game;

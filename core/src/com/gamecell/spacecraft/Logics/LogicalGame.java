@@ -1,20 +1,18 @@
 package com.gamecell.spacecraft.Logics;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Actors.Disparo;
 import com.gamecell.spacecraft.Actors.DisparoB;
 import com.gamecell.spacecraft.Actors.DisparoC;
-import com.gamecell.spacecraft.Actors.Enemigo;
+import com.gamecell.spacecraft.Actors.GenDisparoEnemigo;
+import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.GUI.Lifes;
 import com.gamecell.spacecraft.Actors.GenDisparo;
@@ -27,7 +25,6 @@ import com.gamecell.spacecraft.LevelManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -50,9 +47,10 @@ public class LogicalGame extends Table implements InputProcessor {
         private DinamicBackground dinBack;
         private ArrayList<FallenActor> colFallen;
         public ArrayList<GenDisparo> colDisparos;
-        public ArrayList<Enemigo> colEnemigo;
         public ArrayList<PowerUps> colPowerUps;
         public ArrayList<GenEnemigo> colShootables;
+        public ArrayList<GenEnemigo> colCollisionables;
+        public ArrayList<GenDisparoEnemigo> colDisparosEnemigos;
         public boolean mov, direction;
         private int teclas;
         private long TimeSpawnerDisparo,TimeSpawner;
@@ -86,9 +84,10 @@ public class LogicalGame extends Table implements InputProcessor {
 
         //Zona de instancia de Colecciones
             colDisparos = new ArrayList<GenDisparo>();
-            colEnemigo = new ArrayList<Enemigo>();
             colPowerUps = new ArrayList<PowerUps>();
             colShootables = new ArrayList<GenEnemigo>();
+            colCollisionables = new ArrayList<GenEnemigo>();
+            colDisparosEnemigos = new ArrayList<GenDisparoEnemigo>();
 
             //Zona de instancia de Actores varios.
             dinBack = new DinamicBackground(game,this);
@@ -151,13 +150,13 @@ public class LogicalGame extends Table implements InputProcessor {
         if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
             GenDisparo disparo = null;
             switch (nave.type){
-                case 0:              disparo = new Disparo(game,3,nave,this);
+                case 0:              disparo = new Disparo(game,1,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
                     break;
-                case 1:              disparo = new DisparoB(game,3,nave,this);
+                case 1:              disparo = new DisparoB(game,1,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser2.ogg"));
                     break;
-                case 2:              disparo = new DisparoC(game,5,nave,this,0);
+                case 2:              disparo = new DisparoC(game,1,nave,this,0);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser1.ogg"));
                     break;
             }
@@ -169,62 +168,43 @@ public class LogicalGame extends Table implements InputProcessor {
         }
 
 
-        try {
-
 
 
             //////////////////////////////////////////////////////
            // María: Colisión del enemigo con actor principal  //
           // o con el disparo del actor principal             //
          //////////////////////////////////////////////////////
-
+        try {
             //Para cada enemigo de la colección
-            for(Enemigo enemigo :colEnemigo) {
-                enemigo.setZIndex(3000);
-                if(enemigo.getActions().size == 0){
-                    this.removeActor(enemigo);
-                    colEnemigo.remove(enemigo);
-                    colShootables.remove(enemigo);
-                    break;
+            for(GenEnemigo colisionable : colCollisionables) {
+                colisionable.setZIndex(3000);
+                colisionable.choqueVsNave(nave);
+            }
+
+            for(GenEnemigo shootable : colShootables ){
+                for (GenDisparo disparo : colDisparos) {
+                    disparo.setZIndex(2000);
+                    //Colisiona con el disparo
+                    shootable.choqueVsDisparo(disparo);
+                    //Sumamos puntuacion
+                    Label newScoreLbl = this.findActor("actorScore");
+                    newScoreLbl.setText(Integer.toString(score));
+
                 }
+            }
 
-                //Si el enemigo está activo
-                if(enemigo.estado == 1) {
+            for (GenDisparoEnemigo disparoEnemigo : colDisparosEnemigos){
 
-                    //Colisiona con la nave
-                    if (enemigo.collisionEnemigo(nave.rect)) {
-
-                        //Si colisionan entonces la imagen del enemigo cambia a un BOOMB!
-                        enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                        //Eliminamos el enemigo destruido de la escena
-                        enemigo.DeleteEnemigo();
-                        colShootables.remove(enemigo);
-                        vidas--;
-                        game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
-                        break;
-                    }
-
-                    try {
-                        for (GenDisparo disparo : colDisparos) {
-                            disparo.setZIndex(2000);
-                            //Colisiona con el disparo
-                            if (enemigo.collisionEnemigo(disparo.rect)) {
-                                //Sumamos puntuacion
-                                score += 10;
-                                Label newScoreLbl = this.findActor("actorScore");
-                                newScoreLbl.setText(Integer.toString(score));
-
-                                enemigo.setImagenEnemigo(game.images.manager.get("Images/sol.png", Texture.class));
-                                enemigo.DeleteEnemigo();
-                                disparo.potencia--;
-                                game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/boom.mp3"));
-                            }
-                        }
-                    } catch (NullPointerException f){}
-                }
-
+                disparoEnemigo.ChoqueDisparoVsNave(nave,disparoEnemigo);
 
             }
+
+                    } catch (Exception f){
+        }
+
+
+        try{
+
 
                 for(PowerUps p : colPowerUps){
                     p.checkColision();

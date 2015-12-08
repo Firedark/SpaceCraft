@@ -8,7 +8,6 @@
 </time>
 <time sec= "3">
 <mob>Meteor</mob>
-<mob>Meteor</mob>
 </time>
 <time sec= "5">
 <mob>Meteor</mob>
@@ -181,6 +180,7 @@
 <time sec= "46">
 <mob>Meteor</mob>
 <mob>Meteor</mob>
+    <mob>EnemyA</mob>
 </time>
 <time sec= "47">
 <mob>Meteor</mob>
@@ -244,4 +244,33 @@
 <time sec= "60">
 <mob>Meteor</mob>
 </time>
+    <time sec= "61">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "62">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "63">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "64">
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "65">
+        <mob>Meteor</mob>
+
+    </time>
+    <time sec= "66">
+        <mob>Meteor</mob>
+    </time>
+    <time sec= "67">
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
 </level>

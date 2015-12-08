@@ -1,38 +1,42 @@
-package com.gamecell.spacecraft.Actors;
+package com.gamecell.spacecraft.Actors.mobs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.gamecell.spacecraft.Actors.GenEnemigo;
+import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
 import com.badlogic.gdx.math.Rectangle;
 
 
 /**
- * Clase Enemigo, aqui esta toda la funcionalidad que tiene el enemigo. Extiende de Actor.
+ * Clase Meteor, aqui esta toda la funcionalidad que tiene el enemigo. Extiende de Actor.
  *
  * @author Maria Vivo Yubero
  */
-public class Enemigo extends GenEnemigo {
+public class Meteor extends GenEnemigo {
 
     //Variables
     private Texture imagenEnemigo;
-    private SpaceCraft game;
     MoveByAction accion;
     private final float ancho = 50;
     private final float alto = 50;
-
+    private LogicalGame table;
     /**
-     * Constructor de la clase Enemigo
+     * Constructor de la clase Meteor
      * @param game de la clase principal
      */
-    public Enemigo(SpaceCraft game,int salud) {
+    public Meteor(SpaceCraft game, int salud,int reward,LogicalGame table) {
 
-        this.game = game;
+        super.game = game;
+        super.reward = reward;
+        this.table = table;
         //Indicamos que imagen es la del enemigo
-        setImagenEnemigo(game.images.manager.get("Images/asteroide.png",Texture.class));
+        imagenEnemigo = game.images.manager.get("Images/asteroide.png", Texture.class);
         //x,y,ancho y alto. Aparece fuera de la pantalla para que el usuario no lo vea
         this.setBounds(MathUtils.random(0, game.w - ancho), game.h + MathUtils.random(100,200), ancho, alto);
         //El enemigo está en la misma Z que el actor principal
@@ -47,7 +51,7 @@ public class Enemigo extends GenEnemigo {
     }
 
     /**
-     * Actions del Enemigo
+     * Actions del Meteor
      */
     private void createActionsEnemigo() {
 
@@ -73,21 +77,6 @@ public class Enemigo extends GenEnemigo {
       /////////////////////////////
 
     }
-
-    /**
-     * Metodo para la colision del enemigo con alguna parte del actor principal
-     * el mismo cuerpo o el disparo que lanza
-     * @param parteNave
-     * @return
-     */
-
-    public boolean collisionEnemigo(Rectangle parteNave){
-
-        //Rectangle rectNave = new Rectangle(nave.getX(),nave.getY(),nave.getWidth(),nave.getHeight());
-        return parteNave.overlaps(super.rect);
-
-    }
-
     /**
      * Metodo para pintar el objeto en la escena
      * @param batch
@@ -95,42 +84,18 @@ public class Enemigo extends GenEnemigo {
      */
     @Override
     public void draw(Batch batch, float parentAlpha){
+        super.draw(batch, parentAlpha);
+        batch.draw(imagenEnemigo, getX(), getY(),ancho,alto);
 
-        super.rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
-        batch.draw(getImagenEnemigo(), getX(), getY(),ancho,alto);
+    };
 
-    }
 
-    /**
-     * Devuelve la Imagen del Enemigo
-     * @return imagenEnemigo
-     */
-    public Texture getImagenEnemigo() {
+    @Override
+    public void DeadEnemy() {
+        super.DeadEnemy();
+        table.colCollisionables.remove(this);
+        table.colShootables.remove(this);
+        table.removeActor(this);
 
-        return imagenEnemigo;
-
-    }
-
-    /**
-     * Settea la imagen del enemigo
-     * @param imagenEnemigo la imagen nueva
-     */
-    public void setImagenEnemigo(Texture imagenEnemigo) {
-
-        this.imagenEnemigo = imagenEnemigo;
-
-    }
-
-    /**
-     * Metodo para eliminar el enemigo destruido de la escena
-     */
-    public void DeleteEnemigo(){
-
-        rect = null;
-        //Destruido
-        salud--;
-        if(salud == 0) {
-            super.estado = 0;
-        }
-    }
+    };
 }

@@ -53,25 +53,32 @@ public class Disparo extends GenDisparo {
     }
 
     public void assignTarget(){
-        float min = 20000;
-
+        float min = 20000000;
+        GenEnemigo tempTarget = null;
         for (GenEnemigo a : logical.colShootables){
 
-            if(a.getY() < 750 && a.getY() > 70 && a.estado == 1 && !a.targeted) {
+            if(a.getY() < 700 && a.getY() > 70 && a.estado != 0 && !a.targeted) {
                 Vector2 pDisparo = new Vector2((getX()-(getWidth()/2)), getY()-(getHeight()/2));
                 Vector2 pDestruible = new Vector2((a.getX()-(a.getHeight()/2)),a.getY()-(a.getWidth()/2));
                 Vector2 vDistancia = pDestruible.sub(pDisparo);
-                a.targeted = true;
+
                 float distancia = vDistancia.len();
                 if (distancia < min) {
                     min = distancia;
-                    target = a;
-
+                    tempTarget = a;
                 }
+
             }
 
 
         }
+        target = tempTarget;
+        try{
+            target.targeted = true;
+        }catch (NullPointerException e){
+
+        }
+
     }
 
 
@@ -84,7 +91,7 @@ public class Disparo extends GenDisparo {
     public void draw(Batch batch,float parentAlpha){
         try {
 
-            if (target != null && target.salud != 0) {
+            if (target != null) {
                 accion.setDuration(11f);
                 accion.setPosition(target.getX(), target.getY());
                 this.addAction(accion);

@@ -18,18 +18,19 @@ public class Nave extends Actor {
 
 
     private SpaceCraft game;
-    private int velocidad = 10;
+    private int velocidad = 6;
     public Texture text;
     public int type;
     public Rectangle rect;
-
+    public LogicalGame logicalGame;
 
     /**
      * Constructor de la clase.
      * @param game de la clase principal
      */
-    public Nave(SpaceCraft game, final LogicalGame table){
+    public Nave(SpaceCraft game, final LogicalGame logicalGame){
         this.game = game;
+        this.logicalGame = logicalGame;
         type = 0;
         this.setBounds(236, 60, 128, 64);
 
@@ -41,15 +42,15 @@ public class Nave extends Actor {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 switch (type){
                     case 0:
-                        table.mov = false;
+                        logicalGame.mov = false;
                         type =1;
                         break;
                     case 1:
-                        table.mov = false;
+                        logicalGame.mov = false;
                         type =2;
                         break;
                     case 2:
-                        table.mov = false;
+                        logicalGame.mov = false;
                         type =0;
                         break;
                 }

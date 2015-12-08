@@ -1,7 +1,8 @@
 package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.graphics.Texture;
-import com.gamecell.spacecraft.Actors.Enemigo;
+import com.gamecell.spacecraft.Actors.mobs.EnemyShipA;
+import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.Logics.LogicalGame;
@@ -98,12 +99,20 @@ public class LevelManager {
 
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
-            Enemigo enemigo = new Enemigo(game,1);
+            Meteor meteor = new Meteor(game,1,5,logical);
             //Lo añadimos al juego
-            logical.addActor(enemigo);
-            logical.colShootables.add(enemigo);
-            //Lo añadimos a la Array de enemigos
-            logical.colEnemigo.add(enemigo);
+            logical.addActor(meteor);
+            logical.colShootables.add(meteor);
+            logical.colCollisionables.add(meteor);
+        }
+
+        if(mob.equals("EnemyA")){
+            EnemyShipA enemy = new EnemyShipA(game,logical,1,15,(Texture) game.images.manager.get("Images/enemyship.png"),(Texture) game.images.manager.get("Images/disparoEA.png"));
+            //Lo añadimos al juego
+            logical.addActor(enemy);
+            logical.colShootables.add(enemy);
+            logical.colCollisionables.add(enemy);
+
         }
 
         if(mob.equals("Life")){
