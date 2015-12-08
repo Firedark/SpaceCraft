@@ -188,7 +188,7 @@ public class LogicalGame extends Table implements InputProcessor {
                     shootable.choqueVsDisparo(disparo);
                     //Sumamos puntuacion
                     Label newScoreLbl = this.findActor("actorScore");
-                    newScoreLbl.setText(Integer.toString(score));
+                    newScoreLbl.setText(Integer.toString(game.preferences.score));
 
                 }
             }
