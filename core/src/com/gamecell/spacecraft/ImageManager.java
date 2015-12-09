@@ -37,6 +37,8 @@ public class ImageManager  {
         manager.load("Images/disparoC.png",Texture.class);
         manager.load("Images/disparoEA.png",Texture.class);
         manager.load("Images/enemyship.png",Texture.class);
+        manager.load("Images/disparoCE.png",Texture.class);
+        manager.load("Images/enemyB.png",Texture.class);
         //Cargo un sonido
         //manager.load("data/sounds/boom.mp3",Sound.class);
         //Cargo una musica

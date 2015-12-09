@@ -20,6 +20,7 @@
 </time>
 <time sec= "7">
 <mob>Meteor</mob>
+    <mob>EnemyB</mob>
 </time>
 <time sec= "8">
 <mob>Meteor</mob>

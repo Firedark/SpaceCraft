@@ -24,7 +24,7 @@ public class EnemyShipA extends GenEnemigo {
 
 
 public EnemyShipA(SpaceCraft game, LogicalGame table,int salud,int reward,Texture texturaEnemigo, Texture texturaDisparo){
-    super.reward = 20;
+    super.reward = reward;
     super.game = game;
     this.table = table;
     super.salud = salud;
@@ -84,7 +84,6 @@ public EnemyShipA(SpaceCraft game, LogicalGame table,int salud,int reward,Textur
         DisparoEnemigoA disparo = new DisparoEnemigoA(game,this,table,Tdisparo,6f);
         table.addActor(disparo);
         table.colDisparosEnemigos.add(disparo);
-        System.out.println("Disparos enemigos: " + table.colDisparosEnemigos.size());
     }
 
 }

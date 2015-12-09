@@ -42,7 +42,7 @@ public class LogicalGame extends Table implements InputProcessor {
         public int vidas;
         public int velocidad;
         public int potencia;
-        public boolean shield;
+        public boolean shield,hold,hold2;
         private int segundos;
         private DinamicBackground dinBack;
         private ArrayList<FallenActor> colFallen;
@@ -53,7 +53,7 @@ public class LogicalGame extends Table implements InputProcessor {
         public ArrayList<GenDisparoEnemigo> colDisparosEnemigos;
         public boolean mov, direction;
         private int teclas;
-        private long TimeSpawnerDisparo,TimeSpawner;
+        private long TimeSpawnerDisparo,TimeSpawner,timeEntreChoques;
         //Texto
         private Label.LabelStyle font;
         private Label scoreLbl;
@@ -79,7 +79,7 @@ public class LogicalGame extends Table implements InputProcessor {
             segundos = 0;
             TimeSpawnerDisparo = TimeUtils.millis();
             TimeSpawner = TimeUtils.millis();
-
+            timeEntreChoques = TimeUtils.millis();
 
 
         //Zona de instancia de Colecciones
@@ -177,13 +177,29 @@ public class LogicalGame extends Table implements InputProcessor {
         try {
             //Para cada enemigo de la colección
             for(GenEnemigo colisionable : colCollisionables) {
+
                 colisionable.setZIndex(3000);
-                colisionable.choqueVsNave(nave);
+                if(TimeUtils.millis() - timeEntreChoques > nave.timeUncollision) {
+                    boolean choque = false;
+                    if (choque = colisionable.choqueVsNave(nave)) {
+
+                            nave.uncollisionable = true;
+                            timeEntreChoques = TimeUtils.millis();
+                            hold = true;
+                    }
+
+                    if(!hold){
+                        nave.uncollisionable = false;
+                    }
+                }
             }
+
+            hold = false;
 
             for(GenEnemigo shootable : colShootables ){
                 for (GenDisparo disparo : colDisparos) {
                     disparo.setZIndex(2000);
+
                     //Colisiona con el disparo
                     shootable.choqueVsDisparo(disparo);
                     //Sumamos puntuacion
@@ -194,9 +210,21 @@ public class LogicalGame extends Table implements InputProcessor {
             }
 
             for (GenDisparoEnemigo disparoEnemigo : colDisparosEnemigos){
+                if(TimeUtils.millis() - timeEntreChoques > nave.timeUncollision) {
+                    boolean choque = false;
 
-                disparoEnemigo.ChoqueDisparoVsNave(nave,disparoEnemigo);
 
+                    if (choque = disparoEnemigo.ChoqueDisparoVsNave(nave, disparoEnemigo)) {
+
+                        nave.uncollisionable = true;
+                        timeEntreChoques = TimeUtils.millis();
+                        hold2 = true;
+                    }
+
+                    if(!hold2){
+                        nave.uncollisionable = false;
+                    }
+                }
             }
 
                     } catch (Exception f){

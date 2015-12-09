@@ -23,14 +23,17 @@ public class GenEnemigo extends Actor {
 
 
 
-    public void choqueVsNave(Nave nave){
+    public boolean choqueVsNave(Nave nave){
+        boolean choque = false;
         if(estado > 0) {
             if (this.rect.overlaps(nave.rect)) {
                 this.salud = 0;
                 nave.logicalGame.vidas--;
+                choque = true;
                 game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
             }
         }
+        return choque;
     }
 
 

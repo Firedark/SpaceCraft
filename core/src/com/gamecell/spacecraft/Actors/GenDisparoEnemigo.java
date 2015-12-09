@@ -11,12 +11,15 @@ public class GenDisparoEnemigo extends Actor {
 
     public Rectangle rect;
 
-    public void ChoqueDisparoVsNave(Nave nave, GenDisparoEnemigo disparo){
+    public boolean ChoqueDisparoVsNave(Nave nave, GenDisparoEnemigo disparo){
+        boolean choque = false;
         if(nave.rect.overlaps(disparo.rect)){
             System.out.println("Choque de disparo enemigo vs nave");
             nave.logicalGame.vidas--;
             this.deleteDisparo();
+            choque = true;
         }
+        return choque;
     }
 
 

@@ -2,6 +2,7 @@ package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipA;
+import com.gamecell.spacecraft.Actors.mobs.EnemyShipB;
 import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
@@ -122,6 +123,12 @@ public class LevelManager {
         }
 
 
+        if(mob.equals("EnemyB")){
+            EnemyShipB enemy = new EnemyShipB(game,logical,2,30,(Texture) game.images.manager.get("Images/enemyB.png"),(Texture) game.images.manager.get("Images/disparoCE.png"));
+            logical.addActor(enemy);
+            logical.colShootables.add(enemy);
+            logical.colCollisionables.add(enemy);
+        }
     }
 
 

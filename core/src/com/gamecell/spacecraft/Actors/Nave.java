@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
@@ -23,6 +24,9 @@ public class Nave extends Actor {
     public int type;
     public Rectangle rect;
     public LogicalGame logicalGame;
+    public boolean uncollisionable;
+    public boolean visible;
+    public long timeVisible,timeUncollision;
 
     /**
      * Constructor de la clase.
@@ -33,9 +37,10 @@ public class Nave extends Actor {
         this.logicalGame = logicalGame;
         type = 0;
         this.setBounds(236, 60, 128, 64);
-
-
-
+        visible = true;
+        timeVisible = TimeUtils.millis();
+        timeUncollision = 3000;
+        uncollisionable = false;
         addListener(new InputListener() {
 
 
@@ -93,21 +98,41 @@ public class Nave extends Actor {
     public void draw(Batch batch, float parentAlpha){
         rect = new Rectangle(getX()+22,getY()+2,getWidth()-44,getHeight()-9);
 
-        switch (type){
-            case 0:
-                text = game.images.manager.get("Images/nave.png", Texture.class);
-                batch.draw(text, getX(), getY());
-                break;
-            case 1:
-                text = game.images.manager.get("Images/nave2.png", Texture.class);
-                batch.draw(text, getX(), getY());
-                break;
-            case 2:
-                text =game.images.manager.get("Images/nave3.png", Texture.class);
-                batch.draw(text, getX(), getY());
-                break;
+        if(uncollisionable){
+
+            if(TimeUtils.millis() - timeVisible  > 300){
+                if(visible){
+                    visible = false;
+                }else{
+                    visible = true;
+                }
+                timeVisible = TimeUtils.millis();
+            }
+
+
+        }else{
+            visible = true;
         }
 
+
+
+        if(visible) {
+
+            switch (type) {
+                case 0:
+                    text = game.images.manager.get("Images/nave.png", Texture.class);
+                    batch.draw(text, getX(), getY());
+                    break;
+                case 1:
+                    text = game.images.manager.get("Images/nave2.png", Texture.class);
+                    batch.draw(text, getX(), getY());
+                    break;
+                case 2:
+                    text = game.images.manager.get("Images/nave3.png", Texture.class);
+                    batch.draw(text, getX(), getY());
+                    break;
+            }
+        }
 
     }
 
