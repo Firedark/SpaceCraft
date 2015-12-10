@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
@@ -25,7 +26,7 @@ public class GameScreen implements Screen{
 
     public GameScreen(SpaceCraft game){
         this.game = game;
-        this.stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(new StretchViewport(game.w, game.h));
     }
 
 

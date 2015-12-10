@@ -41,7 +41,8 @@ public class LogicalGame extends Table implements InputProcessor {
         //Valores de Juego
         public int vidas;
         public int velocidad;
-        public int potencia;
+        public int potenciaA,potenciaB,potenciaC;
+
         public boolean shield,hold,hold2;
         private int segundos;
         private DinamicBackground dinBack;
@@ -74,13 +75,16 @@ public class LogicalGame extends Table implements InputProcessor {
             this.game = game;
             teclas = 0;
 
+
             //Defaults
             vidas = 2;
             segundos = 0;
             TimeSpawnerDisparo = TimeUtils.millis();
             TimeSpawner = TimeUtils.millis();
             timeEntreChoques = TimeUtils.millis();
-
+            potenciaA = 1;
+            potenciaB = 1;
+            potenciaC = 1;
 
         //Zona de instancia de Colecciones
             colDisparos = new ArrayList<GenDisparo>();
@@ -112,7 +116,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
             //Niveles
             levelManager = new LevelManager(game,this,0,nave);
-            levelManager.loadLevel("./Levels/1.xml");
+            levelManager.loadLevel("Levels/1.xml");
 
 
         }
@@ -150,13 +154,13 @@ public class LogicalGame extends Table implements InputProcessor {
         if(TimeUtils.millis() - TimeSpawnerDisparo > 1500) {
             GenDisparo disparo = null;
             switch (nave.type){
-                case 0:              disparo = new Disparo(game,1,nave,this);
+                case 0:              disparo = new Disparo(game,potenciaA,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/disparo.mp3"));
                     break;
-                case 1:              disparo = new DisparoB(game,1,nave,this);
+                case 1:              disparo = new DisparoB(game,potenciaB,nave,this);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser2.ogg"));
                     break;
-                case 2:              disparo = new DisparoC(game,1,nave,this,0);
+                case 2:              disparo = new DisparoC(game,potenciaC,nave,this,0);
                     game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_laser1.ogg"));
                     break;
             }
@@ -202,6 +206,7 @@ public class LogicalGame extends Table implements InputProcessor {
 
                     //Colisiona con el disparo
                     shootable.choqueVsDisparo(disparo);
+
                     //Sumamos puntuacion
                     Label newScoreLbl = this.findActor("actorScore");
                     newScoreLbl.setText(Integer.toString(game.preferences.score));

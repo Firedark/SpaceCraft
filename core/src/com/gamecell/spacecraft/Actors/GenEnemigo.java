@@ -38,7 +38,7 @@ public class GenEnemigo extends Actor {
 
 
     public void choqueVsDisparo(GenDisparo disparo){
-        if(estado > 0) {
+        if(estado >= 0) {
             if (disparo.rect.overlaps(rect)) {
                 disparo.potencia--;
                 this.salud--;
@@ -55,7 +55,7 @@ public class GenEnemigo extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha){
-        if(salud == 0) {
+        if(salud <= 0) {
             estado = 0;
         }
 

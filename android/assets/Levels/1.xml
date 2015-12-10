@@ -8,6 +8,8 @@
 </time>
 <time sec= "3">
 <mob>Meteor</mob>
+<mob>Power</mob>
+<mob>Meteor</mob>
 </time>
 <time sec= "5">
 <mob>Meteor</mob>
@@ -29,10 +31,10 @@
 <mob>Meteor</mob>
 </time>
 <time sec= "11">
-<mob>Meteor</mob>
+<mob>Meteor</mob><mob>Power</mob>
 </time>
 <time sec= "12">
-<mob>Meteor</mob>
+<mob>Meteor</mob><mob>Power</mob>
 </time>
 <time sec= "13">
 <mob>Meteor</mob>
@@ -40,7 +42,7 @@
 <mob>Meteor</mob>
 </time>
 <time sec= "14">
-<mob>Meteor</mob>
+<mob>Meteor</mob><mob>Power</mob>
 </time>
 <time sec= "15">
 <mob>Meteor</mob>
@@ -53,7 +55,7 @@
 <mob>Meteor</mob>
 <mob>Meteor</mob>
 </time>
-<time sec= "17">
+<time sec= "17"><mob>Power</mob>
 <mob>Life</mob>
 </time>
 <time sec= "18">
@@ -62,7 +64,7 @@
 <mob>Meteor</mob>
 </time>
 <time sec= "19">
-<mob>Meteor</mob>
+<mob>Meteor</mob><mob>Power</mob>
 </time>
 <time sec= "20">
 <mob>Meteor</mob>

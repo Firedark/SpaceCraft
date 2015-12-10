@@ -27,6 +27,7 @@ public class Nave extends Actor {
     public boolean uncollisionable;
     public boolean visible;
     public long timeVisible,timeUncollision;
+    public  int maxPotenciaA, maxPotenciaB,maxPotenciaC;
 
     /**
      * Constructor de la clase.
@@ -36,6 +37,9 @@ public class Nave extends Actor {
         this.game = game;
         this.logicalGame = logicalGame;
         type = 0;
+        maxPotenciaA = 3;
+        maxPotenciaB = 4;
+        maxPotenciaC = 4;
         this.setBounds(236, 60, 128, 64);
         visible = true;
         timeVisible = TimeUtils.millis();
@@ -137,9 +141,8 @@ public class Nave extends Actor {
     }
 
 
+    public void setUpShield() {
 
-
-
-
-
+        //FALTA HACER EL ESCUDO.
+    }
 }

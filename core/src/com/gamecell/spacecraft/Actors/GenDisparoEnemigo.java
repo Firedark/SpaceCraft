@@ -32,6 +32,9 @@ public class GenDisparoEnemigo extends Actor {
     public void draw(Batch batch, float parentAlpha){
         try {
             rect.set(getX(), getY(), getWidth(), getHeight());
+            if(this.getActions().size == 0) {
+                deleteDisparo();
+            }
         }catch (NullPointerException e){
 
         }

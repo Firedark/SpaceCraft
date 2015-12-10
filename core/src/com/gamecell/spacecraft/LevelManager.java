@@ -1,6 +1,10 @@
 package com.gamecell.spacecraft;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.XmlReader;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipA;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipB;
 import com.gamecell.spacecraft.Actors.mobs.Meteor;
@@ -8,15 +12,8 @@ import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import java.io.File;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.InputStream;
 
 
 /**
@@ -27,8 +24,8 @@ public class LevelManager {
     private SpaceCraft game;
     private LogicalGame logical;
     private int second;
-    private Document doc;
     private Nave nave;
+    private Array<XmlReader.Element> items;
 
     public LevelManager(SpaceCraft game, LogicalGame logical, int second,Nave nave) {
         this.game = game;
@@ -39,12 +36,9 @@ public class LevelManager {
 
     public void loadLevel(String nivel){
         try {
-            File fXmlFile = new File(nivel);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            doc = dBuilder.parse(fXmlFile);
-            doc.getDocumentElement().normalize();
-
+            XmlReader reader = new XmlReader();
+            XmlReader.Element root = reader.parse(Gdx.files.internal(nivel));
+            items = root.getChildrenByName("time");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -54,44 +48,28 @@ public class LevelManager {
 
 
     public void updateSecond(int second){
-
-        NodeList nList = doc.getElementsByTagName("time");
-
-
-        for (int temp = 0; temp < nList.getLength(); temp++) {
-
-            Node time = nList.item(temp);
-
-            if (time.getNodeType() == Node.ELEMENT_NODE) {
-
-                Element eTime = (Element) time;
+        try {
 
 
 
-                if(Integer.parseInt(eTime.getAttribute("sec")) == second){
+            for (XmlReader.Element item : items) {
 
 
-                    NodeList mobs = ((Element) time).getElementsByTagName("mob");
+                if (Integer.parseInt(item.getAttribute("sec")) == second) {
+                    for (XmlReader.Element mob : item.getChildrenByName("mob")) {
 
-                    for (int i = 0; i < mobs.getLength(); i++){
+                        SpawnEnemy(mob.getText());
 
-                        Node mob = mobs.item(i);
 
-                        Element eMob = (Element) mob;
-                        SpawnEnemy(eMob.getTextContent());
                     }
-
-                    break;
-
 
 
                 }
 
-
             }
-
+        }catch (NullPointerException e){
+            System.out.println(e.getMessage());
         }
-
 
 
 
@@ -118,6 +96,18 @@ public class LevelManager {
 
         if(mob.equals("Life")){
             PowerUps   power = new PowerUps(game,(Texture) game.images.manager.get("Images/poweruplife.png"),nave,logical,0);
+            logical.colPowerUps.add(power);
+            logical.addActor(power);
+        }
+
+        if(mob.equals("Power")){
+            PowerUps   power = new PowerUps(game,(Texture) game.images.manager.get("Images/poweruppower.png"),nave,logical,1);
+            logical.colPowerUps.add(power);
+            logical.addActor(power);
+        }
+
+        if(mob.equals("Shield")){
+            PowerUps   power = new PowerUps(game,(Texture) game.images.manager.get("Images/powerupshield.png"),nave,logical,2);
             logical.colPowerUps.add(power);
             logical.addActor(power);
         }

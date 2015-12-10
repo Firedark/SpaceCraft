@@ -27,7 +27,7 @@ public class DisparoEnemigoA extends GenDisparoEnemigo {
         this.texture = texture;
         setBounds(enemigo.getX()+(enemigo.getWidth()/2),enemigo.getY() -32,texture.getWidth(),texture.getHeight());
         move = new MoveByAction();
-        move.setAmountY(-800);
+        move.setAmountY(-900);
         move.setDuration(tiempo);
         this.addAction(move);
         super.rect = new Rectangle(getX(),getY(),getWidth(),getHeight());

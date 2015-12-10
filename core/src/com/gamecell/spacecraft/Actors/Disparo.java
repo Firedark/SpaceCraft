@@ -91,6 +91,15 @@ public class Disparo extends GenDisparo {
     public void draw(Batch batch,float parentAlpha){
         try {
 
+
+            if(super.potencia == 0 || this.getActions().size == 0){
+                logical.removeActor(this);
+                target.targeted = false;
+                logical.colDisparos.remove(this);
+            }
+
+
+
             if (target != null) {
                 accion.setDuration(11f);
                 accion.setPosition(target.getX(), target.getY());
@@ -99,11 +108,7 @@ public class Disparo extends GenDisparo {
 
 
 
-            if(super.potencia == 0 || this.getActions().size == 0){
-                logical.removeActor(this);
-                target.targeted = false;
-                logical.colDisparos.remove(this);
-            }
+
 
             if(target == null){
                 assignTarget();
@@ -111,7 +116,7 @@ public class Disparo extends GenDisparo {
 
 
         }catch (Exception e){
-           // System.err.println(e);
+
         }
 
         super.rect.set(getX(),getY(),getWidth(),getHeight());
