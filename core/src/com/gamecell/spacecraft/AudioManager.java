@@ -28,6 +28,9 @@ public class AudioManager extends AssetManager {
         soundmanager.load("Sounds/sfx_lose.ogg",Sound.class);
         soundmanager.load("Sounds/sfx_laser2.ogg",Sound.class);
         soundmanager.load("Sounds/sfx_laser1.ogg",Sound.class);
+        soundmanager.load("Sounds/sfx_shieldDown.ogg",Sound.class);
+        soundmanager.load("Sounds/sfx_shieldUp.ogg",Sound.class);
+        soundmanager.finishLoading();
         //Cargo una musica
         //manager.load("data/sounds/musicainicial.mp3",Music.class);
     }

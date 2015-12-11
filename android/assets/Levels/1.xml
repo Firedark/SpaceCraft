@@ -23,6 +23,7 @@
 <time sec= "7">
 <mob>Meteor</mob>
     <mob>EnemyB</mob>
+    <mob>Shield</mob>
 </time>
 <time sec= "8">
 <mob>Meteor</mob>
@@ -38,6 +39,7 @@
 </time>
 <time sec= "13">
 <mob>Meteor</mob>
+    <mob>Shield</mob>
 <mob>Meteor</mob>
 <mob>Meteor</mob>
 </time>
@@ -60,6 +62,7 @@
 </time>
 <time sec= "18">
 <mob>Meteor</mob>
+    <mob>Shield</mob>
 <mob>Meteor</mob>
 <mob>Meteor</mob>
 </time>

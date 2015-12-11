@@ -41,6 +41,7 @@ public class ImageManager  {
         manager.load("Images/enemyB.png",Texture.class);
         manager.load("Images/poweruppower.png",Texture.class);
         manager.load("Images/powerupshield.png",Texture.class);
+        manager.load("Images/shield.png",Texture.class);
         manager.finishLoading();
         //Cargo un sonido
         //manager.load("data/sounds/boom.mp3",Sound.class);

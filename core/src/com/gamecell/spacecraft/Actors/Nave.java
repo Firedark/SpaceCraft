@@ -1,5 +1,6 @@
 package com.gamecell.spacecraft.Actors;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
@@ -28,6 +29,8 @@ public class Nave extends Actor {
     public boolean visible;
     public long timeVisible,timeUncollision;
     public  int maxPotenciaA, maxPotenciaB,maxPotenciaC;
+    public boolean shield;
+    public int shieldPower;
 
     /**
      * Constructor de la clase.
@@ -136,13 +139,37 @@ public class Nave extends Actor {
                     batch.draw(text, getX(), getY());
                     break;
             }
+
+            if(shield){
+                batch.draw((Texture) game.images.manager.get("Images/shield.png"), getX(), getY()-10);
+
+            }
         }
 
     }
 
 
     public void setUpShield() {
+        game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_shieldUp.ogg"));
+        shieldPower = shieldPower + 2;
+        shield = true;
 
-        //FALTA HACER EL ESCUDO.
+    }
+
+
+    public void lessShield(int disparo){
+        shieldPower = shieldPower - disparo;
+        if(shieldPower <= 0) {
+            shieldPower = 0;
+            turnOffShield();
+        }
+    }
+
+    public void turnOffShield() {
+        shield = false;
+        shieldPower = 0;
+        game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_shieldDown.ogg"));
+
+
     }
 }

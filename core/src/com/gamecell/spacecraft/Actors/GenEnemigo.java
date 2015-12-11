@@ -28,9 +28,15 @@ public class GenEnemigo extends Actor {
         if(estado > 0) {
             if (this.rect.overlaps(nave.rect)) {
                 this.salud = 0;
-                nave.logicalGame.vidas--;
+                    if(!nave.shield) {
+                        nave.logicalGame.vidas--;
+                        game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
+                    }else {
+
+                        nave.turnOffShield();
+                    }
                 choque = true;
-                game.audios.playSound((Sound) game.audios.soundmanager.get("Sounds/sfx_lose.ogg"));
+
             }
         }
         return choque;

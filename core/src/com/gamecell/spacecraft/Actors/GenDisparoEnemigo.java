@@ -10,12 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class GenDisparoEnemigo extends Actor {
 
     public Rectangle rect;
+    public int enemyShootPower = 1;
 
     public boolean ChoqueDisparoVsNave(Nave nave, GenDisparoEnemigo disparo){
         boolean choque = false;
         if(nave.rect.overlaps(disparo.rect)){
-            System.out.println("Choque de disparo enemigo vs nave");
-            nave.logicalGame.vidas--;
+            if(!nave.shield) {
+                nave.logicalGame.vidas--;
+            }else{
+                nave.lessShield(this.enemyShootPower);
+            }
             this.deleteDisparo();
             choque = true;
         }

@@ -45,13 +45,13 @@ public class Lifes extends Actor {
             case 1:
                 while(i<lifes) {
 
-                    batch.draw(game.images.manager.get("Images/life2.png", Texture.class), getX()+ (i*35), getY());
+                    batch.draw(game.images.manager.get("Images/life3.png", Texture.class), getX()+ (i*35), getY());
                     i++;
                 }
                 break;
             case 2:
                 while(i<lifes) {
-                    batch.draw(game.images.manager.get("Images/life3.png", Texture.class), getX()+ (i*35), getY());
+                    batch.draw(game.images.manager.get("Images/life2.png", Texture.class), getX()+ (i*35), getY());
                     i++;
                 }
                 break;

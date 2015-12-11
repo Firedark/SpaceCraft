@@ -1,7 +1,6 @@
 package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
@@ -11,9 +10,6 @@ import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.Logics.LogicalGame;
-
-import java.io.File;
-import java.io.InputStream;
 
 
 /**
