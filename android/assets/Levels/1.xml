@@ -22,6 +22,14 @@
 </time>
 <time sec= "7">
 <mob>Meteor</mob>
+
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
     <mob>EnemyB</mob>
     <mob>Shield</mob>
 </time>
