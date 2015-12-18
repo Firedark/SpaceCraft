@@ -260,16 +260,6 @@ public class LogicalGame extends Table implements InputProcessor {
 
 
 
-    /**
-     * Metodo Draw contiene el SpriteBatch para dibujar.
-     * @param batch
-     * @param parentAlpha
-     */
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        batch.setColor(Color.BLACK);
-        super.draw(batch, parentAlpha);
-    }
-
     //InputProcessor
 
     @Override

@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
+import com.gamecell.spacecraft.Logics.LogicalPause;
 import com.gamecell.spacecraft.SpaceCraft;
 
 
@@ -21,12 +22,16 @@ import com.gamecell.spacecraft.SpaceCraft;
 public class GameScreen implements Screen{
     private SpaceCraft game;
     private Stage stage;
+    private Stage stageP;
     private LogicalGame logicalGame;
+    private LogicalPause logicalPause;
     private Viewport viewport;
-
+    private InputMultiplexer multi;
+    private boolean pause;
     public GameScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
+        this.stageP = new Stage(new StretchViewport(game.w, game.h));
     }
 
 
@@ -40,11 +45,13 @@ public class GameScreen implements Screen{
     public void show() {
 
         logicalGame = new LogicalGame(game,this);  // Genera la lógica del juego
-        InputMultiplexer multi = new InputMultiplexer(); //Crea un multiplexor de entradas, sirve para hacer actuar varios procesadores de entradas a la vez.
+        logicalPause = new LogicalPause(game,this);
+        multi = new InputMultiplexer(); //Crea un multiplexor de entradas, sirve para hacer actuar varios procesadores de entradas a la vez.
         multi.addProcessor(logicalGame);  //Le añadimos el procesador de entradas de la lógica (general)
         multi.addProcessor(stage);   //Le añadimos el procesador de entradas del stage, para los listeners de los actores.
         Gdx.input.setInputProcessor(multi); //Set del multiplexor.
         stage.addActor(logicalGame);
+        stageP.addActor(logicalPause);
 
     }
 
@@ -57,8 +64,13 @@ public class GameScreen implements Screen{
     @Override
     public void render(float delta) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act(delta);
-        stage.draw();
+        if(!pause) {
+            stage.act(delta);
+            stage.draw();
+        }else{
+            stageP.act();
+            stageP.draw();
+        }
     }
 
     /**
@@ -69,6 +81,7 @@ public class GameScreen implements Screen{
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width,height,true);
+
     }
 
 
@@ -78,14 +91,17 @@ public class GameScreen implements Screen{
 
 
     @Override
-    public void pause() {}
-
+    public void pause() {
+        pause = true;
+        Gdx.input.setInputProcessor(stageP);
+    }
     /**
      * Metodo llamado al salir de pausa.
      */
 
     @Override
-    public void resume() {}
+    public void resume() {pause = false;
+        Gdx.input.setInputProcessor(multi); }
 
     /**
      * Metodo al cerrar / cambiar de ventana
