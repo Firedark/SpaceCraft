@@ -13,15 +13,39 @@ public class MyPreferences {
     public SpaceCraft game;
     public int score;
 
+    private static final String PREF_VOLUME = "volume";
+    private static final String PREF_MUSIC_ENABLED = "music.enabled";
+    private static final String PREF_FX_ENABLED = "fx.enabled";
+    private static final String PREFS_NAME = "spacecraft";
+
     public MyPreferences(SpaceCraft game){
         this.game = game;
         }
 
-    public void GetPreferences(){
-      preferences  = Gdx.app.getPreferences("spacecraft");
+    public Preferences getPreferences(){
+      return Gdx.app.getPreferences(PREFS_NAME);
     }
 
     // Aqui habrá que hacer métodos para guardar y traerse los datos.
+
+    public void setMusicEnabled(boolean musicEnabled){
+        getPreferences().putBoolean(PREF_MUSIC_ENABLED, true);
+        getPreferences().flush();
+    }
+
+    public boolean isMusicEnabled(){
+        return getPreferences().getBoolean(PREF_MUSIC_ENABLED, true);
+    }
+
+    public void setFXEnabled(boolean fxEnabled){
+        getPreferences().putBoolean(PREF_FX_ENABLED, true);
+        getPreferences().flush();
+    }
+
+    public boolean isFXEnabled(){
+        return getPreferences().getBoolean(PREF_FX_ENABLED, true);
+    }
+
 
 
 }

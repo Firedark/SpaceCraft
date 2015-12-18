@@ -2,6 +2,7 @@ package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.audio.Music;
 
 
 /**
@@ -11,14 +12,16 @@ import com.badlogic.gdx.audio.Sound;
 public class AudioManager extends AssetManager {
     public AssetManager soundmanager;
     public float volumenSonidos;
+    public float volumenMusica;
     public AudioManager(){
         soundmanager = new AssetManager();
         volumenSonidos = 1f;
+        volumenMusica = 1f;
 
     }
 
     /**
-     * Metodo para cargar las imagenes en Memoria.
+     * Metodo para cargar la música en Memoria.
      */
     public void loadAssets() {
         //Cargo un sonido
@@ -30,6 +33,8 @@ public class AudioManager extends AssetManager {
         soundmanager.load("Sounds/sfx_laser1.ogg",Sound.class);
         soundmanager.load("Sounds/sfx_shieldDown.ogg",Sound.class);
         soundmanager.load("Sounds/sfx_shieldUp.ogg",Sound.class);
+        soundmanager.load("Music/GameMusic.ogg", Music.class);
+        soundmanager.load("Music/MenuMusic.mp3", Music.class);
         soundmanager.finishLoading();
         //Cargo una musica
         //manager.load("data/sounds/musicainicial.mp3",Music.class);
@@ -38,5 +43,16 @@ public class AudioManager extends AssetManager {
 
     public void playSound(Sound sonido){
         sonido.play(volumenSonidos);
+    }
+
+    public void playMusic (Music music) {
+        music.setVolume(volumenMusica);
+        music.setLooping(true);
+        music.play();
+    }
+
+    public void stopMusic (Music music) {
+        music.stop();
+        music.dispose();
     }
 }

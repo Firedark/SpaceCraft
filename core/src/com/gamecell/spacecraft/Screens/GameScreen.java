@@ -3,9 +3,9 @@ package com.gamecell.spacecraft.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
@@ -26,11 +26,14 @@ public class GameScreen implements Screen{
     private LogicalGame logicalGame;
     private LogicalPause logicalPause;
     private Viewport viewport;
+    private Music music;
+
     private InputMultiplexer multi;
     private boolean pause;
     public GameScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
+        music = game.audios.soundmanager.get("Music/GameMusic.ogg");
         this.stageP = new Stage(new StretchViewport(game.w, game.h));
     }
 
@@ -51,6 +54,7 @@ public class GameScreen implements Screen{
         multi.addProcessor(stage);   //Le añadimos el procesador de entradas del stage, para los listeners de los actores.
         Gdx.input.setInputProcessor(multi); //Set del multiplexor.
         stage.addActor(logicalGame);
+        game.audios.playMusic(music); //cargamos música
         stageP.addActor(logicalPause);
 
     }
@@ -111,7 +115,9 @@ public class GameScreen implements Screen{
 
     @Override
     public void hide() {
+
         Gdx.input.setInputProcessor(null);
+        game.audios.stopMusic(music);
     }
 
     /**

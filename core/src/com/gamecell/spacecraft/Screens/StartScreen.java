@@ -2,16 +2,16 @@ package com.gamecell.spacecraft.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalStart;
@@ -31,11 +31,17 @@ public class StartScreen implements Screen {
     private LogicalStart logicalStart;
     private Viewport viewport;
     private Skin skin;
+    private Texture planeta;
+    private SpriteBatch batch;
+    private Music music;
 
-    ImageButton.ImageButtonStyle playButtonStyle, optionButtonStyle, quitButtonStyle;
+    ImageButton.ImageButtonStyle playButtonStyle, optionButtonStyle, continueButtonStyle, quitButtonStyle;
     public StartScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
+        planeta = new Texture("Images/Start-planeta.png");
+        batch = new SpriteBatch();
+        music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
 
     }
 
@@ -52,19 +58,20 @@ public class StartScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
+        game.audios.playMusic(music);
     }
 
     @Override
     public void resize(int width, int height) {
 
-        stage.getViewport().update(width,height,true);
+        stage.getViewport().update(width, height, true);
 
 
         //Botones
         getSkin();
         //Play
         ImageButton buttonPlay = new ImageButton(playButtonStyle);
-        buttonPlay.setPosition(300,400);
+        buttonPlay.setPosition((game.w/2)-50,game.h/2);
         buttonPlay.setWidth(100);
         buttonPlay.setHeight(30);
         buttonPlay.addListener(new InputListener() {
@@ -77,21 +84,37 @@ public class StartScreen implements Screen {
         });
         logicalStart.addActor(buttonPlay);
         ImageButton buttonOptions = new ImageButton(optionButtonStyle);
+
         //Options
-        buttonOptions.setPosition(300,350);
+        buttonOptions.setPosition((game.w/2)-50,(game.h/2)-50);
         buttonOptions.setWidth(100);
         buttonOptions.setHeight(30);
         buttonOptions.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //opciones
+                logicalStart.remove();
+                game.setScreen(game.optionsScreen);
                 return false;
             }
         });
         logicalStart.addActor(buttonOptions);
 
+        //Continue
+        ImageButton buttonContinue = new ImageButton(quitButtonStyle);
+        buttonContinue.setPosition((game.w/2)-50,(game.h/2)-100);
+        buttonContinue.setWidth(100);
+        buttonContinue.setHeight(30);
+        buttonContinue.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+
+                return false;
+            }
+        });
+        logicalStart.addActor(buttonContinue);
+
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
-        buttonQuit.setPosition(300,300);
+        buttonQuit.setPosition((game.w/2)-50,(game.h/2)-150);
         buttonQuit.setWidth(100);
         buttonQuit.setHeight(30);
         buttonQuit.addListener(new InputListener() {
@@ -116,7 +139,9 @@ public class StartScreen implements Screen {
 
     @Override
     public void hide() {
+
         Gdx.input.setInputProcessor(null);
+        game.audios.stopMusic(music);
     }
 
     @Override
