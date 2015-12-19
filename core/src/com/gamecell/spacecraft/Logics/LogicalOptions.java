@@ -2,6 +2,7 @@ package com.gamecell.spacecraft.Logics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -9,12 +10,14 @@ import com.gamecell.spacecraft.Screens.OptionsScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
  */
 public class LogicalOptions extends Table {
     //Atributos de la clase
     private Texture background;
     private SpriteBatch batch;
+
+
 
     SpaceCraft game;
 
@@ -23,7 +26,7 @@ public class LogicalOptions extends Table {
         this.game = game;
 
         //Zona de instancia de Actores varios.
-        background = new Texture("Images/startbackground.png");
+        background = new Texture(Gdx.files.internal("Images/startbackground.png"), Pixmap.Format.LuminanceAlpha, true);
         batch = new SpriteBatch();
 
     }

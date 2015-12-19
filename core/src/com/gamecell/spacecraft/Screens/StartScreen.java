@@ -21,7 +21,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Clase StartScreen, Screen que contiene el stage y la classe LogicalStart.
- * @author Sergio, Jaume*
+ * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
  */
 public class StartScreen implements Screen {
 
@@ -38,7 +38,7 @@ public class StartScreen implements Screen {
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
         batch = new SpriteBatch();
-        music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
+        //music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
 
     }
 
@@ -55,7 +55,8 @@ public class StartScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-        game.audios.playMusic(music);
+        //game.audios.playMusic(music);
+        game.audios.playStartMusic();
     }
 
     @Override
@@ -74,6 +75,7 @@ public class StartScreen implements Screen {
         buttonPlay.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //empezar juego
+                game.audios.stopMusic();
                 logicalStart.remove();
                 game.setScreen(game.gameScreen);
                 return false;
@@ -95,7 +97,7 @@ public class StartScreen implements Screen {
             }
         });
         logicalStart.addActor(buttonOptions);
-
+/*
         //Continue
         ImageButton buttonContinue = new ImageButton(continueButtonStyle);
         buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
@@ -110,10 +112,10 @@ public class StartScreen implements Screen {
             }
         });
         logicalStart.addActor(buttonContinue);
-
+*/
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
-        buttonQuit.setPosition((game.w/2)-100,(game.h/2)-200);
+        buttonQuit.setPosition((game.w/2)-100,(game.h/2)-100);
         buttonQuit.setWidth(200);
         buttonQuit.setHeight(60);
         buttonQuit.addListener(new InputListener() {
@@ -140,7 +142,10 @@ public class StartScreen implements Screen {
     public void hide() {
 
         Gdx.input.setInputProcessor(null);
-        game.audios.stopMusic(music);
+        if (game.audios.volumenMusica == 0){
+            game.audios.muteMusic();
+        }
+
     }
 
     @Override

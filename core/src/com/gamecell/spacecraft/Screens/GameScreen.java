@@ -14,7 +14,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Clase GameScreen, Screen que contiene el stage y la classe LogicalGame.
- * @author Sergio Jimenez Cortes *
+ * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
  */
 public class GameScreen implements Screen{
     private SpaceCraft game;
@@ -30,7 +30,6 @@ public class GameScreen implements Screen{
     public GameScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
-        music = game.audios.soundmanager.get("Music/GameMusic.ogg");
         this.stageP = new Stage(new StretchViewport(game.w, game.h));
     }
 
@@ -47,7 +46,7 @@ public class GameScreen implements Screen{
         Gdx.input.setInputProcessor(multi); //Set del multiplexor.
         stage.addActor(logicalGame);
         stageP.addActor(logicalPause);
-        game.audios.playMusic(music); //cargamos música
+        game.audios.playGameMusic(); //cargamos música
     }
 
     /**
@@ -60,6 +59,7 @@ public class GameScreen implements Screen{
             stage.act(delta);
             stage.draw();
         } else{
+            game.setScreen(game.pauseScreen);
             stageP.act(delta);
             stageP.draw();
         }
@@ -97,7 +97,8 @@ public class GameScreen implements Screen{
     @Override
     public void hide() {
         Gdx.input.setInputProcessor(null);
-        game.audios.stopMusic(music);
+        game.audios.stopMusic();
+
     }
 
     /**

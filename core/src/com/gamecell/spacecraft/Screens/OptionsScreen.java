@@ -10,20 +10,20 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalOptions;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * @author Sergio Jimenez Cortes
+ * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
  */
 public class OptionsScreen implements Screen {
 
     private SpaceCraft game;
     private Stage stage;
     private LogicalOptions logicalOptions;
-    private Viewport viewport;
     private Skin skin;
+    private String MUSIC_STATE = "on";
+    private String FX_STATE = "on";
     ImageButton.ImageButtonStyle FXButtonStyle, musicButtonStyle, infoButtonStyle, exitButtonStyle;
 
 
@@ -55,20 +55,41 @@ public class OptionsScreen implements Screen {
         //Botones
         getSkin();
         //FX
-        ImageButton buttonFX = new ImageButton(FXButtonStyle);
-        buttonFX.setPosition((game.w / 2) - 50, game.h / 2 + 75);
+        final ImageButton buttonFX = new ImageButton(FXButtonStyle);
+        if (FX_STATE == "off"){
+            buttonFX.setChecked(true);
+        }
+        buttonFX.setPosition((game.w / 2) - 50, game.h / 2 + 125);
         buttonFX.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (buttonFX.isChecked()){
+                    game.audios.enableFX();
+                    FX_STATE="on";
+                } else {
+                    game.audios.muteFX();
+                    FX_STATE="off";
+                }
                 return false;
             }
         });
         logicalOptions.addActor(buttonFX);
-        ImageButton buttonMusic = new ImageButton(musicButtonStyle);
+
         //Music
+        final ImageButton buttonMusic = new ImageButton(musicButtonStyle);
+        if (MUSIC_STATE == "off"){
+            buttonMusic.setChecked(true);
+        }
         buttonMusic.setPosition((game.w / 2) - 50, (game.h / 2));
         buttonMusic.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //opciones
+                if (buttonMusic.isChecked()){
+                    game.audios.enableMusic();
+                    MUSIC_STATE="on";
+                } else {
+                    game.audios.muteMusic();
+                    MUSIC_STATE = "off";
+                }
                 return false;
             }
         });
@@ -76,9 +97,7 @@ public class OptionsScreen implements Screen {
 
         //Info
         ImageButton buttonInfo = new ImageButton(infoButtonStyle);
-        buttonInfo.setPosition((game.w / 2) - 50, (game.h / 2) - 75);
-        buttonInfo.setWidth(100);
-        buttonInfo.setHeight(100);
+        buttonInfo.setPosition((game.w / 2) - 50, (game.h / 2) - 125);
         buttonInfo.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return false;
@@ -90,7 +109,7 @@ public class OptionsScreen implements Screen {
 
         //Exit
         ImageButton buttonExit = new ImageButton(exitButtonStyle);
-        buttonExit.setPosition((game.w/2)-50,(game.h/2)-150);
+        buttonExit.setPosition((game.w / 2) - 50, (game.h / 2) - 250);
         buttonExit.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 logicalOptions.remove();
@@ -130,15 +149,15 @@ public class OptionsScreen implements Screen {
             FXButtonStyle = new ImageButton.ImageButtonStyle();
             FXButtonStyle.up = skin.getDrawable("FX");
             FXButtonStyle.down = skin.getDrawable("FX-bn");
-            FXButtonStyle.imageChecked = skin.getDrawable("FX-OFF");
+            FXButtonStyle.imageChecked = skin.getDrawable("FX-off");
             FXButtonStyle.pressedOffsetX = 1;
             FXButtonStyle.pressedOffsetY = -1;
 
             musicButtonStyle = new ImageButton.ImageButtonStyle();
             musicButtonStyle = new ImageButton.ImageButtonStyle();
-            musicButtonStyle.up = skin.getDrawable("Volume");
-            musicButtonStyle.down = skin.getDrawable("Volume-bn");
-            musicButtonStyle.imageChecked = skin.getDrawable("Volume-off");
+            musicButtonStyle.up = skin.getDrawable("Music");
+            musicButtonStyle.down = skin.getDrawable("Music-bn");
+            musicButtonStyle.imageChecked = skin.getDrawable("Music-OFF");
             musicButtonStyle.pressedOffsetX = 1;
             musicButtonStyle.pressedOffsetY = -1;
 

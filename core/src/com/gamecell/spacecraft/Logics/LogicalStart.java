@@ -11,7 +11,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Clase Logical, donde se inserta la logica para la pantalla de start del juego.
- * @author Sergio Jimenez Cortes *
+ * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
  */
 public class LogicalStart extends Table {
     //Atributos de la clase
