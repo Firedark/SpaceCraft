@@ -97,7 +97,7 @@ public class StartScreen implements Screen {
         logicalStart.addActor(buttonOptions);
 
         //Continue
-        ImageButton buttonContinue = new ImageButton(quitButtonStyle);
+        ImageButton buttonContinue = new ImageButton(continueButtonStyle);
         buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
         buttonContinue.setWidth(200);
         buttonContinue.setHeight(60);
@@ -165,6 +165,13 @@ public class StartScreen implements Screen {
             optionButtonStyle.pressedOffsetX = 1;
             optionButtonStyle.pressedOffsetY = -1;
 
+            continueButtonStyle = new ImageButton.ImageButtonStyle();
+            continueButtonStyle = new ImageButton.ImageButtonStyle();
+            continueButtonStyle.up = skin.getDrawable("Continue");
+            continueButtonStyle.down = skin.getDrawable("Continue selected");
+            continueButtonStyle.over = skin.getDrawable("Continue");
+            continueButtonStyle.pressedOffsetX = 1;
+            continueButtonStyle.pressedOffsetY = -1;
 
             quitButtonStyle = new ImageButton.ImageButtonStyle();
             quitButtonStyle = new ImageButton.ImageButtonStyle();

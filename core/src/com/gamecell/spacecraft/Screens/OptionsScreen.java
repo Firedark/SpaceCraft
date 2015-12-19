@@ -77,8 +77,8 @@ public class OptionsScreen implements Screen {
         //Info
         ImageButton buttonInfo = new ImageButton(infoButtonStyle);
         buttonInfo.setPosition((game.w / 2) - 50, (game.h / 2) - 75);
-        //buttonInfo.setWidth(100);
-        //buttonInfo.setHeight(100);
+        buttonInfo.setWidth(100);
+        buttonInfo.setHeight(100);
         buttonInfo.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 return false;
