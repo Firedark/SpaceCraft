@@ -1,5 +1,6 @@
 package com.gamecell.spacecraft.Logics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,14 +18,14 @@ public class LogicalStart extends Table {
 
     SpaceCraft game;
     private DinamicBackground dynBacks;
-    private Texture planeta;
+    private Texture background;
     private SpriteBatch batch;
     public LogicalStart(SpaceCraft game, StartScreen screen){
 
         this.game = game;
         dynBacks = new DinamicBackground(game,this);
         //Zona de instancia de Actores varios.
-        planeta = new Texture("Images/Start-planeta.png");
+        background = new Texture("Images/startbackground.png");
         batch = new SpriteBatch();
 
     }
@@ -35,10 +36,10 @@ public class LogicalStart extends Table {
     @Override
     public void act(float delta) {
         super.act(delta);
-        //batch.begin();
-        //batch.draw(planeta, game.w/2-planeta.getWidth()/2, game.h/2+100);
-        //batch.end();
-        dynBacks.checkMillis();
+        batch.begin();
+        batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch.end();
+        //dynBacks.checkMillis();
     }
 
 
@@ -48,8 +49,10 @@ public class LogicalStart extends Table {
      * @param parentAlpha
      */
     public void draw(SpriteBatch batch, float parentAlpha) {
+
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);
+
     }
 
 }

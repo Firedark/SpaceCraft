@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -31,7 +30,6 @@ public class StartScreen implements Screen {
     private LogicalStart logicalStart;
     private Viewport viewport;
     private Skin skin;
-    private Texture planeta;
     private SpriteBatch batch;
     private Music music;
 
@@ -39,7 +37,6 @@ public class StartScreen implements Screen {
     public StartScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
-        planeta = new Texture("Images/Start-planeta.png");
         batch = new SpriteBatch();
         music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
 
@@ -71,9 +68,9 @@ public class StartScreen implements Screen {
         getSkin();
         //Play
         ImageButton buttonPlay = new ImageButton(playButtonStyle);
-        buttonPlay.setPosition((game.w/2)-50,game.h/2);
-        buttonPlay.setWidth(100);
-        buttonPlay.setHeight(30);
+        buttonPlay.setPosition((game.w/2)-100,game.h/2+100);
+        buttonPlay.setWidth(200);
+        buttonPlay.setHeight(60);
         buttonPlay.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //empezar juego
@@ -86,9 +83,9 @@ public class StartScreen implements Screen {
         ImageButton buttonOptions = new ImageButton(optionButtonStyle);
 
         //Options
-        buttonOptions.setPosition((game.w/2)-50,(game.h/2)-50);
-        buttonOptions.setWidth(100);
-        buttonOptions.setHeight(30);
+        buttonOptions.setPosition((game.w/2)-100,(game.h/2));
+        buttonOptions.setWidth(200);
+        buttonOptions.setHeight(60);
         buttonOptions.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //opciones
@@ -100,10 +97,10 @@ public class StartScreen implements Screen {
         logicalStart.addActor(buttonOptions);
 
         //Continue
-        ImageButton buttonContinue = new ImageButton(quitButtonStyle);
-        buttonContinue.setPosition((game.w/2)-50,(game.h/2)-100);
-        buttonContinue.setWidth(100);
-        buttonContinue.setHeight(30);
+        ImageButton buttonContinue = new ImageButton(continueButtonStyle);
+        buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
+        buttonContinue.setWidth(200);
+        buttonContinue.setHeight(60);
         buttonContinue.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 
@@ -114,9 +111,9 @@ public class StartScreen implements Screen {
 
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
-        buttonQuit.setPosition((game.w/2)-50,(game.h/2)-150);
-        buttonQuit.setWidth(100);
-        buttonQuit.setHeight(30);
+        buttonQuit.setPosition((game.w/2)-100,(game.h/2)-200);
+        buttonQuit.setWidth(200);
+        buttonQuit.setHeight(60);
         buttonQuit.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //salir
@@ -168,6 +165,13 @@ public class StartScreen implements Screen {
             optionButtonStyle.pressedOffsetX = 1;
             optionButtonStyle.pressedOffsetY = -1;
 
+            continueButtonStyle = new ImageButton.ImageButtonStyle();
+            continueButtonStyle = new ImageButton.ImageButtonStyle();
+            continueButtonStyle.up = skin.getDrawable("Continue");
+            continueButtonStyle.down = skin.getDrawable("Continue selected");
+            continueButtonStyle.over = skin.getDrawable("Continue");
+            continueButtonStyle.pressedOffsetX = 1;
+            continueButtonStyle.pressedOffsetY = -1;
 
             quitButtonStyle = new ImageButton.ImageButtonStyle();
             quitButtonStyle = new ImageButton.ImageButtonStyle();
