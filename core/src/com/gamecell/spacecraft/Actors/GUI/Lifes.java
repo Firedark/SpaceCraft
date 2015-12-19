@@ -13,7 +13,7 @@ public class Lifes extends Actor {
 
     private int lifes;
     private SpaceCraft game;
-    public int maxLifes = 9;
+    public int maxLifes = 3;
     private Nave nave;
     private int i;
 

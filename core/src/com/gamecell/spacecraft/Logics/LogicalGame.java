@@ -4,6 +4,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Actors.Disparo;
 import com.gamecell.spacecraft.Actors.DisparoB;
 import com.gamecell.spacecraft.Actors.DisparoC;
+import com.gamecell.spacecraft.Actors.GenDisparoEnemigo;
+import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.GUI.Lifes;
 import com.gamecell.spacecraft.Actors.GenDisparo;
@@ -129,7 +132,6 @@ public class LogicalGame extends Table implements InputProcessor {
         super.act(delta);
         dinBack.checkMillis();
         lifes.updateLifes(vidas);
-
 
         //Condiciones de derrota.
 
@@ -259,6 +261,16 @@ public class LogicalGame extends Table implements InputProcessor {
     }
 
 
+
+    /**
+     * Metodo Draw contiene el SpriteBatch para dibujar.
+     * @param batch
+     * @param parentAlpha
+     */
+    public void draw(SpriteBatch batch, float parentAlpha) {
+        batch.setColor(Color.BLACK);
+        super.draw(batch, parentAlpha);
+    }
 
     //InputProcessor
 

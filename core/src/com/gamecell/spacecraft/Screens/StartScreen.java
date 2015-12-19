@@ -176,6 +176,8 @@ public class StartScreen implements Screen {
             quitButtonStyle.over = skin.getDrawable("Quit");
             quitButtonStyle.pressedOffsetX = 1;
             quitButtonStyle.pressedOffsetY = -1;
+
+
         }
         return skin;
     }

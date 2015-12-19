@@ -3,19 +3,19 @@ package com.gamecell.spacecraft.Logics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.gamecell.spacecraft.Screens.PauseScreen;
+import com.gamecell.spacecraft.Screens.NextLevelScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Lógica de la pantalla de pausa del joc
  * @author Josué Javier Campos Fernández
  */
-public class LogicalPause extends Table {
+public class LogicalNextLevel extends Table {
     //Atributos de la clase
 
     SpaceCraft game;
 
-    public LogicalPause(SpaceCraft game, PauseScreen screen){
+    public LogicalNextLevel(SpaceCraft game, NextLevelScreen screen){
 
         this.game = game;
 

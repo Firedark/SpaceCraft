@@ -11,7 +11,6 @@ import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.Logics.LogicalGame;
 
-
 /**
  * Created by Firedark on 02/12/2015.
  */
@@ -20,57 +19,53 @@ public class LevelManager {
     private SpaceCraft game;
     private LogicalGame logical;
     private int second;
+    private int maxSecond;
     private Nave nave;
     private Array<XmlReader.Element> items;
+    public int level;
 
-    public LevelManager(SpaceCraft game, LogicalGame logical, int second,Nave nave) {
+    public LevelManager(SpaceCraft game, LogicalGame logical, int second, Nave nave, int level) {
         this.game = game;
         this.logical = logical;
         this.second = second;
         this.nave = nave;
+        this.level = level;
     }
 
-    public void loadLevel(String nivel){
+    public void loadLevel(){
         try {
+            String fileLevel = "Levels/" + this.level + ".xml";
             XmlReader reader = new XmlReader();
-            XmlReader.Element root = reader.parse(Gdx.files.internal(nivel));
+            XmlReader.Element root = reader.parse(Gdx.files.internal(fileLevel));
+            maxSecond = Integer.parseInt(root.getAttribute("max_sec"));
             items = root.getChildrenByName("time");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-
-
-
     public void updateSecond(int second){
         try {
-
-
-
-            for (XmlReader.Element item : items) {
-
-
-                if (Integer.parseInt(item.getAttribute("sec")) == second) {
-                    for (XmlReader.Element mob : item.getChildrenByName("mob")) {
-
-                        SpawnEnemy(mob.getText());
-
-
+            if (second > maxSecond) {
+                //logical.remove();
+                //game.setScreen(game.nextLevelScreen);
+                this.level++;
+                //logical.levelManager.loadLevel();
+                this.loadLevel();
+                logical.segundos = 0;
+            } else {
+                for (XmlReader.Element item : items) {
+                    if (Integer.parseInt(item.getAttribute("sec")) == second) {
+                        for (XmlReader.Element mob : item.getChildrenByName("mob")) {
+                            SpawnEnemy(mob.getText());
+                        }
                     }
-
-
                 }
-
             }
         }catch (NullPointerException e){
             System.out.println(e.getMessage());
         }
-
-
-
     }
-
 
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
@@ -87,7 +82,6 @@ public class LevelManager {
             logical.addActor(enemy);
             logical.colShootables.add(enemy);
             logical.colCollisionables.add(enemy);
-
         }
 
         if(mob.equals("Life")){
@@ -116,9 +110,5 @@ public class LevelManager {
             logical.colCollisionables.add(enemy);
         }
     }
-
-
-
-
 
 }

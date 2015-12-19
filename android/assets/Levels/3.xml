@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+<level>
+<time sec= "1">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "3">
+<mob>Meteor</mob>
+<mob>Power</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "5">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "6">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "7">
+<mob>Meteor</mob>
+
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>EnemyB</mob>
+    <mob>Shield</mob>
+</time>
+<time sec= "8">
+<mob>Meteor</mob>
+</time>
+<time sec= "10">
+<mob>Meteor</mob>
+</time>
+<time sec= "11">
+<mob>Meteor</mob><mob>Power</mob>
+</time>
+<time sec= "12">
+<mob>Meteor</mob><mob>Power</mob>
+</time>
+<time sec= "13">
+<mob>Meteor</mob>
+    <mob>Shield</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "14">
+<mob>Meteor</mob><mob>Power</mob>
+</time>
+<time sec= "15">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "16">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "17"><mob>Power</mob>
+<mob>Life</mob>
+</time>
+<time sec= "18">
+<mob>Meteor</mob>
+    <mob>Shield</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "19">
+<mob>Meteor</mob><mob>Power</mob>
+</time>
+<time sec= "20">
+<mob>Meteor</mob>
+</time>
+<time sec= "21">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "22">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "23">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "24">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "25">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "26">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "27">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "28">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "30">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "31">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "32">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "33">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "34">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "35">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "36">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "37">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "38">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "39">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "40">
+<mob>Meteor</mob>
+</time>
+<time sec= "41">
+<mob>Meteor</mob>
+</time>
+<time sec= "42">
+<mob>Meteor</mob>
+</time>
+<time sec= "43">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "44">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "45">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "46">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+    <mob>EnemyA</mob>
+</time>
+<time sec= "47">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "48">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "49">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "50">
+<mob>Life</mob>
+</time>
+<time sec= "51">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "52">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "53">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "54">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "55">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "56">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "57">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "58">
+<mob>Meteor</mob>
+<mob>Meteor</mob>
+</time>
+<time sec= "59">
+<mob>Meteor</mob>
+</time>
+<time sec= "60">
+<mob>Meteor</mob>
+</time>
+    <time sec= "61">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "62">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "63">
+        <mob>Meteor</mob>
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "64">
+        <mob>EnemyA</mob>
+    </time>
+    <time sec= "65">
+        <mob>Meteor</mob>
+
+    </time>
+    <time sec= "66">
+        <mob>Meteor</mob>
+    </time>
+    <time sec= "67">
+        <mob>Meteor</mob>
+        <mob>EnemyA</mob>
+    </time>
+</level>
