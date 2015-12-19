@@ -100,7 +100,7 @@ public class OptionsScreen implements Screen {
         buttonInfo.setPosition((game.w / 2) - 50, (game.h / 2) - 125);
         buttonInfo.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(game.gameScreen);
+                game.setScreen(game.infoScreen);
                 return false;
             }
         });
