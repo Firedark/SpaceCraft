@@ -103,7 +103,9 @@ public class StartScreen implements Screen {
         buttonContinue.setHeight(60);
         buttonContinue.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-
+                logicalStart.remove();
+                //game.setScreen(game.pauseScreen);
+                game.setScreen(game.congratulationScreen);
                 return false;
             }
         });

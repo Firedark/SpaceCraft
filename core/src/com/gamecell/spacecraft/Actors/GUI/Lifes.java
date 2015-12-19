@@ -10,7 +10,6 @@ import com.gamecell.spacecraft.SpaceCraft;
  * Created by Firedark on 01/12/2015.
  */
 public class Lifes extends Actor {
-
     private int lifes;
     private SpaceCraft game;
     public int maxLifes = 3;
@@ -21,6 +20,7 @@ public class Lifes extends Actor {
         this.nave = nave;
         lifes = defaultLifes;
         this.game = game;
+        this.setZIndex(50001);
         this.setBounds(20,750,32,32);
     }
 
@@ -28,23 +28,18 @@ public class Lifes extends Actor {
         lifes = life;
     }
 
-
-
-
     @Override
     public void draw(Batch batch,float parentAlpha){
         i = 0;
         switch(nave.type){
             case 0:
                 while(i<lifes) {
-
                     batch.draw(game.images.manager.get("Images/life1.png", Texture.class), getX()+ (i*35), getY());
                     i++;
                 }
                 break;
             case 1:
                 while(i<lifes) {
-
                     batch.draw(game.images.manager.get("Images/life3.png", Texture.class), getX()+ (i*35), getY());
                     i++;
                 }

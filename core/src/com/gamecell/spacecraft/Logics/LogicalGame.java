@@ -4,16 +4,16 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.Actors.Disparo;
 import com.gamecell.spacecraft.Actors.DisparoB;
 import com.gamecell.spacecraft.Actors.DisparoC;
-import com.gamecell.spacecraft.Actors.GenDisparoEnemigo;
-import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.FallenActor;
 import com.gamecell.spacecraft.Actors.GUI.Lifes;
 import com.gamecell.spacecraft.Actors.GenDisparo;
@@ -38,7 +38,7 @@ public class LogicalGame extends Table implements InputProcessor {
         //Atributos de la clase
         private SpaceCraft game;
         private Nave nave;
-        private LevelManager levelManager;
+        public LevelManager levelManager;
 
         //Valores de Juego
         public int vidas;
@@ -46,7 +46,7 @@ public class LogicalGame extends Table implements InputProcessor {
         public int potenciaA,potenciaB,potenciaC;
 
         public boolean shield,hold,hold2;
-        private int segundos;
+        public int segundos;
         private DinamicBackground dinBack;
         private ArrayList<FallenActor> colFallen;
         public ArrayList<GenDisparo> colDisparos;
@@ -60,68 +60,93 @@ public class LogicalGame extends Table implements InputProcessor {
         //Texto
         private Label.LabelStyle font;
         private Label scoreLbl;
+        private Label levelLbl;
+        private Label pauseLbl;
 
         //Interfaz
-            //Vidas
-            public Lifes lifes;
 
-            //Puntuacion
-            private int score;
+        //Vidas
+        public Lifes lifes;
+
+        //Puntuacion
+        private int score;
 
     /**
      * Constructor de la clase.
      * @param game de la clase principal
      * @param screen Screen que contiene la logica.
      */
-    public LogicalGame(SpaceCraft game, GameScreen screen)  {
-            this.game = game;
-            teclas = 0;
+    public LogicalGame(final SpaceCraft game, GameScreen screen)  {
+        this.game = game;
+        teclas = 0;
 
 
-            //Defaults
-            vidas = 2;
-            segundos = 0;
-            TimeSpawnerDisparo = TimeUtils.millis();
-            TimeSpawner = TimeUtils.millis();
-            timeEntreChoques = TimeUtils.millis();
-            potenciaA = 1;
-            potenciaB = 1;
-            potenciaC = 1;
+        //Defaults
+        vidas = 3;
+        segundos = 0;
+        TimeSpawnerDisparo = TimeUtils.millis();
+        TimeSpawner = TimeUtils.millis();
+        timeEntreChoques = TimeUtils.millis();
+        potenciaA = 1;
+        potenciaB = 1;
+        potenciaC = 1;
 
         //Zona de instancia de Colecciones
-            colDisparos = new ArrayList<GenDisparo>();
-            colPowerUps = new ArrayList<PowerUps>();
-            colShootables = new ArrayList<GenEnemigo>();
-            colCollisionables = new ArrayList<GenEnemigo>();
-            colDisparosEnemigos = new ArrayList<GenDisparoEnemigo>();
+        colDisparos = new ArrayList<GenDisparo>();
+        colPowerUps = new ArrayList<PowerUps>();
+        colShootables = new ArrayList<GenEnemigo>();
+        colCollisionables = new ArrayList<GenEnemigo>();
+        colDisparosEnemigos = new ArrayList<GenDisparoEnemigo>();
 
-            //Zona de instancia de Actores varios.
-            dinBack = new DinamicBackground(game,this);
-            nave = new Nave(game,this);
-            lifes = new Lifes(game,vidas,nave);
-            //Fuente de texto
-            font = new Label.LabelStyle(FontManager.font, null);
+        //Zona de instancia de Actores varios.
+        dinBack = new DinamicBackground(game,this);
+        nave = new Nave(game,this);
+        lifes = new Lifes(game,vidas,nave);
+        lifes.setZIndex(50001);
+        //Fuente de texto
+        font = new Label.LabelStyle(FontManager.font, null);
 
-            //Score
-            score = 0;
-            scoreLbl = new Label(Integer.toString(score), font);
-            scoreLbl.setBounds(30, 30, 0, 0);
-            scoreLbl.setFontScale(0.9f, 0.9f);
-            scoreLbl.setName("actorScore");
+        //Score
+        score = 0;
+        scoreLbl = new Label(Integer.toString(score), font);
+        scoreLbl.setBounds(30, 30, 0, 0);
+        scoreLbl.setFontScale(0.9f, 0.9f);
+        scoreLbl.setName("actorScore");
+        scoreLbl.setZIndex(50001);
+        //Añadir score
+        this.addActor(scoreLbl);
 
-            //Añadir score
-            this.addActor(scoreLbl);
+        //Añadir Actores
+        this.addActor(nave);
+        this.addActor(lifes);
 
-            //Añadir Actores
-            this.addActor(nave);
-            this.addActor(lifes);
+        //Niveles
+        levelManager = new LevelManager(game, this, 0, nave, 1);
+        levelManager.loadLevel();
+        levelLbl = new Label(("Level " + levelManager.level), font);
+        levelLbl.setBounds(442, game.h - 35, 0, 0);
+        levelLbl.setFontScale(0.9f, 0.9f);
+        levelLbl.setName("actorLevel");
+        levelLbl.setZIndex(99999);
+        //Añadir label level
+        this.addActor(levelLbl);
 
-            //Niveles
-            levelManager = new LevelManager(game,this,0,nave);
-            levelManager.loadLevel("Levels/1.xml");
-
-
-        }
+        //Pause
+        pauseLbl = new Label("Pause", font);
+        pauseLbl.setBounds(442, 30, 150, 10);
+        pauseLbl.setFontScale(0.9f, 0.9f);
+        pauseLbl.setName("actorPause");
+        pauseLbl.setZIndex(50001);
+        pauseLbl.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //Ponemos en pausa el juego
+                game.gameScreen.pause = true;
+                return false;
+            }
+        });
+        //Añadir label pause
+        this.addActor(pauseLbl);
+    }
 
     /**
      * Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
@@ -138,6 +163,7 @@ public class LogicalGame extends Table implements InputProcessor {
         if(vidas < 0){
             this.remove();
             game.setScreen(game.startScreen);
+            //TODO: scoge guardar
         }
 
         //Sirve para colocar la Nave sobre las estrellas, etc
@@ -258,18 +284,6 @@ public class LogicalGame extends Table implements InputProcessor {
         }
 
 
-    }
-
-
-
-    /**
-     * Metodo Draw contiene el SpriteBatch para dibujar.
-     * @param batch
-     * @param parentAlpha
-     */
-    public void draw(SpriteBatch batch, float parentAlpha) {
-        batch.setColor(Color.BLACK);
-        super.draw(batch, parentAlpha);
     }
 
     //InputProcessor

@@ -20,10 +20,10 @@ public class MyPreferences {
 
     public MyPreferences(SpaceCraft game){
         this.game = game;
-        }
+    }
 
     public Preferences getPreferences(){
-      return Gdx.app.getPreferences(PREFS_NAME);
+        return Gdx.app.getPreferences(PREFS_NAME);
     }
 
     // Aqui habrá que hacer métodos para guardar y traerse los datos.
@@ -45,9 +45,6 @@ public class MyPreferences {
     public boolean isFXEnabled(){
         return getPreferences().getBoolean(PREF_FX_ENABLED, true);
     }
-
-
-
 }
 
 

@@ -2,6 +2,7 @@ package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipA;
@@ -15,7 +16,6 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
  * Created by Firedark on 02/12/2015.
  */
 public class LevelManager {
-
     private SpaceCraft game;
     private LogicalGame logical;
     private int second;
@@ -36,9 +36,16 @@ public class LevelManager {
         try {
             String fileLevel = "Levels/" + this.level + ".xml";
             XmlReader reader = new XmlReader();
-            XmlReader.Element root = reader.parse(Gdx.files.internal(fileLevel));
-            maxSecond = Integer.parseInt(root.getAttribute("max_sec"));
-            items = root.getChildrenByName("time");
+
+            if (Gdx.files.internal(fileLevel).exists()) {
+                XmlReader.Element root = reader.parse(Gdx.files.internal(fileLevel));
+                maxSecond = Integer.parseInt(root.getAttribute("max_sec"));
+                items = root.getChildrenByName("time");
+            } else {
+                //Fin partida
+                logical.remove();
+                game.setScreen(game.startScreen);
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -47,12 +54,13 @@ public class LevelManager {
     public void updateSecond(int second){
         try {
             if (second > maxSecond) {
-                //logical.remove();
-                //game.setScreen(game.nextLevelScreen);
                 this.level++;
-                //logical.levelManager.loadLevel();
                 this.loadLevel();
                 logical.segundos = 0;
+
+                //Cambiamos etiqueta nivel
+                Label newLevelLbl = logical.findActor("actorLevel");
+                newLevelLbl.setText("Level " + this.level);
             } else {
                 for (XmlReader.Element item : items) {
                     if (Integer.parseInt(item.getAttribute("sec")) == second) {
@@ -110,5 +118,4 @@ public class LevelManager {
             logical.colCollisionables.add(enemy);
         }
     }
-
 }

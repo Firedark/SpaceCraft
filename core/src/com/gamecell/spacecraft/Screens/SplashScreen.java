@@ -15,12 +15,12 @@ import com.gamecell.spacecraft.SpaceCraft;
  * Clase SplashScreen, Screen que contiene el stage y la classe LogicalSplash.
  * @author Sergio Jimenez Cortes *
  */
-
 public class SplashScreen implements Screen{
     private SpaceCraft game;
     private Stage stage;
     private LogicalSplash logicalSplash;
     private Viewport viewport;
+
     public SplashScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
@@ -38,8 +38,6 @@ public class SplashScreen implements Screen{
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-
-
     }
 
     @Override
@@ -49,12 +47,10 @@ public class SplashScreen implements Screen{
 
     @Override
     public void pause() {
-
     }
 
     @Override
     public void resume() {
-
     }
 
     @Override
@@ -64,6 +60,5 @@ public class SplashScreen implements Screen{
 
     @Override
     public void dispose() {
-
     }
 }

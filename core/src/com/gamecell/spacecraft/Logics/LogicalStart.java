@@ -15,19 +15,17 @@ import com.gamecell.spacecraft.SpaceCraft;
  */
 public class LogicalStart extends Table {
     //Atributos de la clase
-
     SpaceCraft game;
     private DinamicBackground dynBacks;
     private Texture background;
     private SpriteBatch batch;
-    public LogicalStart(SpaceCraft game, StartScreen screen){
 
+    public LogicalStart(SpaceCraft game, StartScreen screen){
         this.game = game;
         dynBacks = new DinamicBackground(game,this);
         //Zona de instancia de Actores varios.
         background = new Texture("Images/startbackground.png");
         batch = new SpriteBatch();
-
     }
 
     /**
@@ -42,17 +40,13 @@ public class LogicalStart extends Table {
         //dynBacks.checkMillis();
     }
 
-
     /**
      * Metodo Draw contiene el SpriteBatch para dibujar.
      * @param batch
      * @param parentAlpha
      */
     public void draw(SpriteBatch batch, float parentAlpha) {
-
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);
-
     }
-
 }

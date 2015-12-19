@@ -19,19 +19,18 @@ import com.badlogic.gdx.math.Rectangle;
  * @author Maria Vivo Yubero
  */
 public class Meteor extends GenEnemigo {
-
     //Variables
     private Texture imagenEnemigo;
     MoveByAction accion;
     private final float ancho = 50;
     private final float alto = 50;
     private LogicalGame table;
+
     /**
      * Constructor de la clase Meteor
      * @param game de la clase principal
      */
     public Meteor(SpaceCraft game, int salud,int reward,LogicalGame table) {
-
         super.game = game;
         super.reward = reward;
         this.table = table;
@@ -47,7 +46,6 @@ public class Meteor extends GenEnemigo {
         //Estados del enemigo 0 = destruido, 1 = destruyendose, 2 = activo
         super.estado = 1;
         super.salud = salud;
-
     }
 
     /**

@@ -2,7 +2,9 @@ package com.gamecell.spacecraft.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -13,25 +15,28 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.FontManager;
+import com.gamecell.spacecraft.Logics.LogicalCongratulation;
 import com.gamecell.spacecraft.Logics.LogicalPause;
+import com.gamecell.spacecraft.Logics.LogicalStart;
 import com.gamecell.spacecraft.SpaceCraft;
 
+
 /**
- * Pantalla on el joc es troba en pausa
- * @author Josué Javier Campos Fernández
+ * Clase StartScreen, Screen que contiene el stage y la classe LogicalStart.
+ * @author Sergio, Jaume*
  */
-public class PauseScreen implements Screen {
+public class CongratulationScreen implements Screen {
     private SpaceCraft game;
     private Stage stage;
-    private LogicalPause logicalPause;
+    private LogicalCongratulation logicalCongratulation;
     private Viewport viewport;
     private Skin skin;
-    ImageButton.ImageButtonStyle continueButtonStyle, quitButtonStyle;
+    ImageButton.ImageButtonStyle quitButtonStyle;
     //Texto
     private Label.LabelStyle font;
-    private Label pauseLbl;
+    private Label congratsLbl, scoreLbl;
 
-    public PauseScreen(SpaceCraft game){
+    public CongratulationScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
         this.font = new Label.LabelStyle(FontManager.font, null);
@@ -40,8 +45,8 @@ public class PauseScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        logicalPause = new LogicalPause(game, this);
-        stage.addActor(logicalPause);
+        logicalCongratulation = new LogicalCongratulation(game, this);
+        stage.addActor(logicalCongratulation);
     }
 
     @Override
@@ -59,24 +64,11 @@ public class PauseScreen implements Screen {
         getSkin();
 
         //Label pause
-        pauseLbl = new Label("Pause", font);
-        pauseLbl.setBounds(236, game.h - 100, 0, 0);
-        pauseLbl.setFontScale(0.9f, 0.9f);
-        pauseLbl.setName("actorPause");
-        logicalPause.addActor(pauseLbl);
-
-        //Continue
-        ImageButton buttonContinue = new ImageButton(continueButtonStyle);
-        buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
-        buttonContinue.setWidth(200);
-        buttonContinue.setHeight(60);
-        buttonContinue.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                game.gameScreen.pause = false;
-                return false;
-            }
-        });
-        logicalPause.addActor(buttonContinue);
+        congratsLbl = new Label("¡Congratulation!", font);
+        congratsLbl.setBounds(150, game.h - 100, 0, 0);
+        congratsLbl.setFontScale(0.9f, 0.9f);
+        congratsLbl.setName("actorCongrats");
+        logicalCongratulation.addActor(congratsLbl);
 
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
@@ -85,12 +77,12 @@ public class PauseScreen implements Screen {
         buttonQuit.setHeight(60);
         buttonQuit.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                logicalPause.remove();
+                logicalCongratulation.remove();
                 game.setScreen(game.startScreen);
                 return false;
             }
         });
-        logicalPause.addActor(buttonQuit);
+        logicalCongratulation.addActor(buttonQuit);
     }
 
     @Override
@@ -118,14 +110,6 @@ public class PauseScreen implements Screen {
 
         if(skin==null){
             skin = new Skin(atlasUiMenu);
-
-            continueButtonStyle = new ImageButton.ImageButtonStyle();
-            continueButtonStyle = new ImageButton.ImageButtonStyle();
-            continueButtonStyle.up = skin.getDrawable("Continue");
-            continueButtonStyle.down = skin.getDrawable("Continue selected");
-            continueButtonStyle.over = skin.getDrawable("Continue");
-            continueButtonStyle.pressedOffsetX = 1;
-            continueButtonStyle.pressedOffsetY = -1;
 
             quitButtonStyle = new ImageButton.ImageButtonStyle();
             quitButtonStyle = new ImageButton.ImageButtonStyle();
