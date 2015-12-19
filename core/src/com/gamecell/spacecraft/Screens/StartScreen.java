@@ -38,7 +38,6 @@ public class StartScreen implements Screen {
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
         batch = new SpriteBatch();
-        //music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
 
     }
 
@@ -55,7 +54,6 @@ public class StartScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         stage.draw();
-        //game.audios.playMusic(music);
         game.audios.playStartMusic();
     }
 

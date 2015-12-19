@@ -3,6 +3,7 @@ package com.gamecell.spacecraft;
 import com.badlogic.gdx.Game;
 import com.gamecell.spacecraft.Screens.CongratulationScreen;
 import com.gamecell.spacecraft.Screens.GameScreen;
+import com.gamecell.spacecraft.Screens.InfoScreen;
 import com.gamecell.spacecraft.Screens.OptionsScreen;
 import com.gamecell.spacecraft.Screens.PauseScreen;
 import com.gamecell.spacecraft.Screens.SplashScreen;
@@ -23,6 +24,7 @@ public class SpaceCraft extends Game {
 	public SplashScreen splashScreen;
 	public PauseScreen pauseScreen;
 	public CongratulationScreen congratulationScreen;
+	public InfoScreen infoScreen;
 
     //Resolucion del juego.
 	public int w = 600;
@@ -53,6 +55,7 @@ public class SpaceCraft extends Game {
 		splashScreen = new SplashScreen(this);
 		pauseScreen = new PauseScreen(this);
 		congratulationScreen = new CongratulationScreen(this);
+		infoScreen = new InfoScreen(this);
 
 		this.setScreen(splashScreen);
 	}
