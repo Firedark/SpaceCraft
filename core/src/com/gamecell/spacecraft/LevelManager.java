@@ -43,8 +43,9 @@ public class LevelManager {
                 items = root.getChildrenByName("time");
             } else {
                 //Fin partida
+                game.preferences.removeScore();
                 logical.remove();
-                game.setScreen(game.startScreen);
+                game.setScreen(game.congratulationScreen);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -77,7 +78,7 @@ public class LevelManager {
 
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
-            Meteor meteor = new Meteor(game,1,5,logical);
+            Meteor meteor = new Meteor(game,1,10,logical);
             //Lo añadimos al juego
             logical.addActor(meteor);
             logical.colShootables.add(meteor);
@@ -112,7 +113,7 @@ public class LevelManager {
 
 
         if(mob.equals("EnemyB")){
-            EnemyShipB enemy = new EnemyShipB(game,logical,2,30,(Texture) game.images.manager.get("Images/enemyB.png"),(Texture) game.images.manager.get("Images/disparoCE.png"));
+            EnemyShipB enemy = new EnemyShipB(game,logical,2,20,(Texture) game.images.manager.get("Images/enemyB.png"),(Texture) game.images.manager.get("Images/disparoCE.png"));
             logical.addActor(enemy);
             logical.colShootables.add(enemy);
             logical.colCollisionables.add(enemy);

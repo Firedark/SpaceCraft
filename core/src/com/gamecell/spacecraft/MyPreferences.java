@@ -17,6 +17,7 @@ public class MyPreferences {
     private static final String PREF_MUSIC_ENABLED = "music.enabled";
     private static final String PREF_FX_ENABLED = "fx.enabled";
     private static final String PREFS_NAME = "spacecraft";
+    private static final String PREF_SCORE = "score";
 
     public MyPreferences(SpaceCraft game){
         this.game = game;
@@ -28,22 +29,36 @@ public class MyPreferences {
 
     // Aqui habrá que hacer métodos para guardar y traerse los datos.
 
+    // Music
     public void setMusicEnabled(boolean musicEnabled){
         getPreferences().putBoolean(PREF_MUSIC_ENABLED, true);
         getPreferences().flush();
     }
-
     public boolean isMusicEnabled(){
         return getPreferences().getBoolean(PREF_MUSIC_ENABLED, true);
     }
 
+    // Sound effects
     public void setFXEnabled(boolean fxEnabled){
         getPreferences().putBoolean(PREF_FX_ENABLED, true);
         getPreferences().flush();
     }
-
     public boolean isFXEnabled(){
         return getPreferences().getBoolean(PREF_FX_ENABLED, true);
+    }
+
+    // Score
+    public void setScore() {
+        getPreferences().putInteger(PREF_SCORE, score);
+        getPreferences().flush();
+    }
+    public int getScore(){
+        return getPreferences().getInteger(PREF_SCORE);
+    }
+
+    public void removeScore() {
+        score = 0;
+        getPreferences().remove(PREF_SCORE);
     }
 }
 

@@ -19,11 +19,12 @@ import com.gamecell.spacecraft.Logics.LogicalCongratulation;
 import com.gamecell.spacecraft.Logics.LogicalPause;
 import com.gamecell.spacecraft.Logics.LogicalStart;
 import com.gamecell.spacecraft.SpaceCraft;
+import com.gamecell.spacecraft.MyPreferences;
 
 
 /**
- * Clase StartScreen, Screen que contiene el stage y la classe LogicalStart.
- * @author Sergio, Jaume*
+ * Clase CongratulationScreen, se carga tras haber completado el juego.
+ * @author Josué Javier
  */
 public class CongratulationScreen implements Screen {
     private SpaceCraft game;
@@ -64,7 +65,7 @@ public class CongratulationScreen implements Screen {
         getSkin();
 
         //Label pause
-        congratsLbl = new Label("¡Congratulation!", font);
+        congratsLbl = new Label("Congratulation!", font);
         congratsLbl.setBounds(150, game.h - 100, 0, 0);
         congratsLbl.setFontScale(0.9f, 0.9f);
         congratsLbl.setName("actorCongrats");

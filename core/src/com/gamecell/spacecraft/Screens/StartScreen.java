@@ -21,7 +21,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Clase StartScreen, Screen que contiene el stage y la classe LogicalStart.
- * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
+ * @author Sergio, Jaume*
  */
 public class StartScreen implements Screen {
 
@@ -38,6 +38,7 @@ public class StartScreen implements Screen {
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
         batch = new SpriteBatch();
+        music = game.audios.soundmanager.get("Music/MenuMusic.mp3");
 
     }
 
@@ -67,7 +68,7 @@ public class StartScreen implements Screen {
         getSkin();
         //Play
         ImageButton buttonPlay = new ImageButton(playButtonStyle);
-        buttonPlay.setPosition((game.w/2)-100,game.h/2+100);
+        buttonPlay.setPosition((game.w/2)-100,game.h/2);
         buttonPlay.setWidth(200);
         buttonPlay.setHeight(60);
         buttonPlay.addListener(new InputListener() {
@@ -83,7 +84,7 @@ public class StartScreen implements Screen {
         ImageButton buttonOptions = new ImageButton(optionButtonStyle);
 
         //Options
-        buttonOptions.setPosition((game.w/2)-100,(game.h/2));
+        buttonOptions.setPosition((game.w/2)-100,(game.h/2)-100);
         buttonOptions.setWidth(200);
         buttonOptions.setHeight(60);
         buttonOptions.addListener(new InputListener() {
@@ -95,22 +96,7 @@ public class StartScreen implements Screen {
             }
         });
         logicalStart.addActor(buttonOptions);
-/*
-        //Continue
-        ImageButton buttonContinue = new ImageButton(continueButtonStyle);
-        buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
-        buttonContinue.setWidth(200);
-        buttonContinue.setHeight(60);
-        buttonContinue.addListener(new InputListener() {
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                logicalStart.remove();
-                //game.setScreen(game.pauseScreen);
-                game.setScreen(game.congratulationScreen);
-                return false;
-            }
-        });
-        logicalStart.addActor(buttonContinue);
-*/
+
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
         buttonQuit.setPosition((game.w/2)-100,(game.h/2)-100);
