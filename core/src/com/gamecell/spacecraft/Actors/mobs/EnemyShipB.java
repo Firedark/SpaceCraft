@@ -26,7 +26,7 @@ public class EnemyShipB extends GenEnemigo {
 
 
     public EnemyShipB(SpaceCraft game, LogicalGame table,int salud,int reward,Texture texturaEnemigo, Texture texturaDisparo){
-        super.reward = 30;
+        super.reward = 20;
         super.game = game;
         this.table = table;
         super.salud = salud;

@@ -3,29 +3,25 @@ package com.gamecell.spacecraft.Logics;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.gamecell.spacecraft.Screens.NextLevelScreen;
+import com.gamecell.spacecraft.Screens.GameOverScreen;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Lógica de la pantalla de pausa del joc
- * @author Josué Javier Campos Fernández
+ * Lógica de la pantalla de game over
+ * @author Josué Javier
  */
-public class LogicalNextLevel extends Table {
+public class LogicalGameOver extends Table {
     //Atributos de la clase
+    private SpaceCraft game;
+    private GameOverScreen screen;
 
-    SpaceCraft game;
-
-    public LogicalNextLevel(SpaceCraft game, NextLevelScreen screen){
-
+    public LogicalGameOver(SpaceCraft game, GameOverScreen screen){
         this.game = game;
-
-        //Zona de instancia de Actores varios.
-
+        this.screen = screen;
     }
 
     /**
-     * Metodo act se ejecuta al igual que el render, es donde insertaremos la logica.
-     * @param delta
+     * Metodo act se ejecuta al igual que el render, es donde insertaremos la lógica.
      */
     @Override
     public void act(float delta) {
@@ -41,7 +37,4 @@ public class LogicalNextLevel extends Table {
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);
     }
-
-
-
 }

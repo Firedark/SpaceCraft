@@ -26,6 +26,7 @@ import com.gamecell.spacecraft.FontManager;
 import com.gamecell.spacecraft.LevelManager;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.SpaceCraft;
+import com.gamecell.spacecraft.MyPreferences;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -35,41 +36,38 @@ import java.util.ConcurrentModificationException;
  * @author Sergio, Josue, Maria*
  */
 public class LogicalGame extends Table implements InputProcessor {
-        //Atributos de la clase
-        private SpaceCraft game;
-        private Nave nave;
-        public LevelManager levelManager;
+    //Atributos de la clase
+    private SpaceCraft game;
+    private Nave nave;
+    public LevelManager levelManager;
 
-        //Valores de Juego
-        public int vidas;
-        public int velocidad;
-        public int potenciaA,potenciaB,potenciaC;
+    //Valores de Juego
+    public int vidas;
+    public int velocidad;
+    public int potenciaA,potenciaB,potenciaC;
 
-        public boolean shield,hold,hold2;
-        public int segundos;
-        private DinamicBackground dinBack;
-        private ArrayList<FallenActor> colFallen;
-        public ArrayList<GenDisparo> colDisparos;
-        public ArrayList<PowerUps> colPowerUps;
-        public ArrayList<GenEnemigo> colShootables;
-        public ArrayList<GenEnemigo> colCollisionables;
-        public ArrayList<GenDisparoEnemigo> colDisparosEnemigos;
-        public boolean mov, direction;
-        private int teclas;
-        private long TimeSpawnerDisparo,TimeSpawner,timeEntreChoques;
-        //Texto
-        private Label.LabelStyle font;
-        private Label scoreLbl;
-        private Label levelLbl;
-        private Label pauseLbl;
+    public boolean shield,hold,hold2;
+    public int segundos;
+    private DinamicBackground dinBack;
+    private ArrayList<FallenActor> colFallen;
+    public ArrayList<GenDisparo> colDisparos;
+    public ArrayList<PowerUps> colPowerUps;
+    public ArrayList<GenEnemigo> colShootables;
+    public ArrayList<GenEnemigo> colCollisionables;
+    public ArrayList<GenDisparoEnemigo> colDisparosEnemigos;
+    public boolean mov, direction;
+    private int teclas;
+    private long TimeSpawnerDisparo,TimeSpawner,timeEntreChoques;
+    //Texto
+    private Label.LabelStyle font;
+    private Label scoreLbl;
+    private Label levelLbl;
+    private Label pauseLbl;
 
-        //Interfaz
+    //Interfaz
 
-        //Vidas
-        public Lifes lifes;
-
-        //Puntuacion
-        private int score;
+    //Vidas
+    public Lifes lifes;
 
     /**
      * Constructor de la clase.
@@ -107,8 +105,7 @@ public class LogicalGame extends Table implements InputProcessor {
         font = new Label.LabelStyle(FontManager.font, null);
 
         //Score
-        score = 0;
-        scoreLbl = new Label(Integer.toString(score), font);
+        scoreLbl = new Label(Integer.toString(this.game.preferences.score), font);
         scoreLbl.setBounds(30, 30, 0, 0);
         scoreLbl.setFontScale(0.9f, 0.9f);
         scoreLbl.setName("actorScore");
@@ -133,13 +130,14 @@ public class LogicalGame extends Table implements InputProcessor {
 
         //Pause
         pauseLbl = new Label("Pause", font);
-        pauseLbl.setBounds(442, 30, 150, 10);
+        pauseLbl.setBounds(442, 30, 150, 30);
         pauseLbl.setFontScale(0.9f, 0.9f);
         pauseLbl.setName("actorPause");
         pauseLbl.setZIndex(50001);
         pauseLbl.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //Ponemos en pausa el juego
+                game.setScreen(game.pauseScreen);
                 game.gameScreen.pause = true;
                 return false;
             }
@@ -160,10 +158,12 @@ public class LogicalGame extends Table implements InputProcessor {
 
         //Condiciones de derrota.
 
-        if(vidas < 0){
+        if(vidas == 0){
+            // Guardamos la puntuación
+            game.preferences.setScore();
+
             this.remove();
-            game.setScreen(game.startScreen);
-            //TODO: scoge guardar
+            game.setScreen(game.gameOverScreen);
         }
 
         //Sirve para colocar la Nave sobre las estrellas, etc
@@ -238,7 +238,6 @@ public class LogicalGame extends Table implements InputProcessor {
                     //Sumamos puntuacion
                     Label newScoreLbl = this.findActor("actorScore");
                     newScoreLbl.setText(Integer.toString(game.preferences.score));
-
                 }
             }
 
