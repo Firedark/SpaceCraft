@@ -26,7 +26,7 @@ public class PauseScreen implements Screen {
     private LogicalPause logicalPause;
     private Viewport viewport;
     private Skin skin;
-    ImageButton.ImageButtonStyle continueButtonStyle, quitButtonStyle;
+    ImageButton.ImageButtonStyle FXButtonStyle, musicButtonStyle, continueButtonStyle, quitButtonStyle;
     //Texto
     private Label.LabelStyle font;
     private Label pauseLbl;
@@ -64,6 +64,48 @@ public class PauseScreen implements Screen {
         pauseLbl.setFontScale(0.9f, 0.9f);
         pauseLbl.setName("actorPause");
         logicalPause.addActor(pauseLbl);
+
+        //FX
+        final ImageButton buttonFX = new ImageButton(FXButtonStyle);
+        if (!game.preferences.isFXEnabled()){
+            buttonFX.setChecked(true);
+        }
+        buttonFX.setPosition((game.w / 2) - 50, game.h / 2 + 125);
+        buttonFX.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                if (buttonFX.isChecked()){
+                    game.audios.enableFX();
+                    game.preferences.setFXEnabled();
+                } else {
+                    game.audios.muteFX();
+                    game.preferences.setFXDisabled();
+                }
+                return false;
+            }
+        });
+        logicalPause.addActor(buttonFX);
+
+        //Music
+        final ImageButton buttonMusic = new ImageButton(musicButtonStyle);
+        if (!game.preferences.isMusicEnabled()){
+            buttonMusic.setChecked(true);
+        }
+        buttonMusic.setPosition((game.w / 2) - 50, (game.h / 2));
+        buttonMusic.addListener(new InputListener() {
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                //opciones
+                if (buttonMusic.isChecked()){
+                    game.audios.enableMusic();
+                    game.preferences.setMusicEnabled();
+                } else {
+                    game.audios.muteMusic();
+                    game.preferences.setMusicDisabled();
+                }
+                return false;
+            }
+        });
+        logicalPause.addActor(buttonMusic);
+
 
         //Continue
         ImageButton buttonContinue = new ImageButton(continueButtonStyle);
@@ -114,10 +156,25 @@ public class PauseScreen implements Screen {
     }
 
     protected Skin getSkin(){
-        TextureAtlas atlasUiMenu = new TextureAtlas("menuButton.pack");
+        TextureAtlas atlasUiMenu = new TextureAtlas("icons.pack");
 
         if(skin==null){
             skin = new Skin(atlasUiMenu);
+
+            FXButtonStyle = new ImageButton.ImageButtonStyle();
+            FXButtonStyle.up = skin.getDrawable("FX");
+            FXButtonStyle.down = skin.getDrawable("FX-bn");
+            FXButtonStyle.imageChecked = skin.getDrawable("FX-off");
+            FXButtonStyle.pressedOffsetX = 1;
+            FXButtonStyle.pressedOffsetY = -1;
+
+            musicButtonStyle = new ImageButton.ImageButtonStyle();
+            musicButtonStyle = new ImageButton.ImageButtonStyle();
+            musicButtonStyle.up = skin.getDrawable("Music");
+            musicButtonStyle.down = skin.getDrawable("Music-bn");
+            musicButtonStyle.imageChecked = skin.getDrawable("Music-OFF");
+            musicButtonStyle.pressedOffsetX = 1;
+            musicButtonStyle.pressedOffsetY = -1;
 
             continueButtonStyle = new ImageButton.ImageButtonStyle();
             continueButtonStyle = new ImageButton.ImageButtonStyle();

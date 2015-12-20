@@ -5,10 +5,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.gamecell.spacecraft.Logics.LogicalGame;
@@ -82,7 +79,7 @@ public class GameScreen implements Screen{
     @Override
     public void pause() {
         pause = true;
-        game.audios.stopMusic(music);
+        game.audios.stopMusic();
         Gdx.input.setInputProcessor(stageP);
     }
 
@@ -92,7 +89,7 @@ public class GameScreen implements Screen{
     @Override
     public void resume() {
         pause = false;
-        game.audios.playMusic(music);
+        game.audios.playGameMusic();
         Gdx.input.setInputProcessor(multi);
     }
 

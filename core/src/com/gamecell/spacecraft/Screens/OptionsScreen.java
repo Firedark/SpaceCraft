@@ -22,8 +22,6 @@ public class OptionsScreen implements Screen {
     private Stage stage;
     private LogicalOptions logicalOptions;
     private Skin skin;
-    private String MUSIC_STATE = "on";
-    private String FX_STATE = "on";
     ImageButton.ImageButtonStyle FXButtonStyle, musicButtonStyle, infoButtonStyle, exitButtonStyle;
 
 
@@ -56,7 +54,7 @@ public class OptionsScreen implements Screen {
         getSkin();
         //FX
         final ImageButton buttonFX = new ImageButton(FXButtonStyle);
-        if (FX_STATE == "off"){
+        if (!game.preferences.isFXEnabled()){
             buttonFX.setChecked(true);
         }
         buttonFX.setPosition((game.w / 2) - 50, game.h / 2 + 125);
@@ -64,10 +62,10 @@ public class OptionsScreen implements Screen {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 if (buttonFX.isChecked()){
                     game.audios.enableFX();
-                    FX_STATE="on";
+                    game.preferences.setFXEnabled();
                 } else {
                     game.audios.muteFX();
-                    FX_STATE="off";
+                    game.preferences.setFXDisabled();
                 }
                 return false;
             }
@@ -76,7 +74,7 @@ public class OptionsScreen implements Screen {
 
         //Music
         final ImageButton buttonMusic = new ImageButton(musicButtonStyle);
-        if (MUSIC_STATE == "off"){
+        if (!game.preferences.isMusicEnabled()){
             buttonMusic.setChecked(true);
         }
         buttonMusic.setPosition((game.w / 2) - 50, (game.h / 2));
@@ -85,10 +83,10 @@ public class OptionsScreen implements Screen {
                 //opciones
                 if (buttonMusic.isChecked()){
                     game.audios.enableMusic();
-                    MUSIC_STATE="on";
+                    game.preferences.setMusicEnabled();
                 } else {
                     game.audios.muteMusic();
-                    MUSIC_STATE = "off";
+                    game.preferences.setMusicDisabled();
                 }
                 return false;
             }
@@ -144,7 +142,7 @@ public class OptionsScreen implements Screen {
     }
 
     protected Skin getSkin(){
-        TextureAtlas atlasUiMenu = new TextureAtlas("menuOptions.pack");
+        TextureAtlas atlasUiMenu = new TextureAtlas("icons.pack");
         if(skin==null){
             skin = new Skin(atlasUiMenu);
             FXButtonStyle = new ImageButton.ImageButtonStyle();

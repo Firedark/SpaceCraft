@@ -1,0 +1,136 @@
+
+icons.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Continue selected
+  rotate: false
+  xy: 1, 781
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+Continue
+  rotate: false
+  xy: 1, 586
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+New Game selected
+  rotate: false
+  xy: 1, 391
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+New Game
+  rotate: false
+  xy: 1, 196
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+Options selected
+  rotate: false
+  xy: 1, 1
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+Music-bn
+  rotate: false
+  xy: 706, 870
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+Music-OFF
+  rotate: false
+  xy: 706, 764
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+Music
+  rotate: false
+  xy: 812, 870
+  size: 104, 104
+  orig: 104, 104
+  offset: 0, 0
+  index: -1
+Exit-bn
+  rotate: false
+  xy: 706, 659
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+Exit
+  rotate: false
+  xy: 812, 765
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+FX-bn
+  rotate: false
+  xy: 918, 871
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+FX-off
+  rotate: false
+  xy: 706, 554
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+FX
+  rotate: false
+  xy: 812, 660
+  size: 104, 103
+  orig: 104, 103
+  offset: 0, 0
+  index: -1
+Info-bn
+  rotate: false
+  xy: 918, 765
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+Info
+  rotate: false
+  xy: 706, 448
+  size: 103, 104
+  orig: 103, 104
+  offset: 0, 0
+  index: -1
+
+icons2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+Options
+  rotate: false
+  xy: 1, 391
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+Quit selected
+  rotate: false
+  xy: 1, 196
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1
+Quit
+  rotate: false
+  xy: 1, 1
+  size: 703, 193
+  orig: 703, 193
+  offset: 0, 0
+  index: -1

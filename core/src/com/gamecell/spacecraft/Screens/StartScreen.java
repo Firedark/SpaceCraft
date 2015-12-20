@@ -99,7 +99,7 @@ public class StartScreen implements Screen {
 
         //Quit
         ImageButton buttonQuit = new ImageButton(quitButtonStyle);
-        buttonQuit.setPosition((game.w/2)-100,(game.h/2)-100);
+        buttonQuit.setPosition((game.w/2)-100,(game.h/2)-200);
         buttonQuit.setWidth(200);
         buttonQuit.setHeight(60);
         buttonQuit.addListener(new InputListener() {
@@ -138,7 +138,7 @@ public class StartScreen implements Screen {
     }
 
     protected Skin getSkin(){
-        TextureAtlas atlasUiMenu = new TextureAtlas("menuButton.pack");
+        TextureAtlas atlasUiMenu = new TextureAtlas("icons.pack");
         if(skin==null){
             skin = new Skin(atlasUiMenu);
             playButtonStyle = new ImageButton.ImageButtonStyle();

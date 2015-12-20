@@ -30,17 +30,28 @@ public class MyPreferences {
     // Aqui habrá que hacer métodos para guardar y traerse los datos.
 
     // Music
-    public void setMusicEnabled(boolean musicEnabled){
+    public void setMusicEnabled(){
         getPreferences().putBoolean(PREF_MUSIC_ENABLED, true);
         getPreferences().flush();
     }
+
+    public void setMusicDisabled(){
+        getPreferences().putBoolean(PREF_MUSIC_ENABLED, false);
+        getPreferences().flush();
+    }
+
     public boolean isMusicEnabled(){
         return getPreferences().getBoolean(PREF_MUSIC_ENABLED, true);
     }
 
     // Sound effects
-    public void setFXEnabled(boolean fxEnabled){
+    public void setFXEnabled(){
         getPreferences().putBoolean(PREF_FX_ENABLED, true);
+        getPreferences().flush();
+    }
+
+    public void setFXDisabled(){
+        getPreferences().putBoolean(PREF_FX_ENABLED, false);
         getPreferences().flush();
     }
     public boolean isFXEnabled(){
