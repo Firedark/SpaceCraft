@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 03/12/2015.
+ * @author Sergio
  */
 public class GenEnemigo extends Actor {
     public int estado;

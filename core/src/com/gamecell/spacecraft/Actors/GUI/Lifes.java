@@ -13,7 +13,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 public class Lifes extends Actor {
     private int lifes;
     private SpaceCraft game;
-    public int maxLifes = 3;
+    public int maxLifes = 9;
     private Nave nave;
     private int i;
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
- * Created by fired on 08/12/2015.
+ * @author Sergio
  */
 public class GenDisparoEnemigo extends Actor {
 

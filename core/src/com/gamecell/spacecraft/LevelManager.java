@@ -29,7 +29,14 @@ public class LevelManager {
     private Nave nave;
     private Array<XmlReader.Element> items;
     public int level;
-
+    /**
+     * Constructor de la clase.
+     * @param game de la clase principal
+     * @param logical Clase con la logica del juego.
+     * @param second Segundo en el que nos encontramos.
+     * @param nave Nave jugador.
+     * @param level Nivel actual.
+     */
     public LevelManager(SpaceCraft game, LogicalGame logical, int second, Nave nave, int level) {
         this.game = game;
         this.logical = logical;

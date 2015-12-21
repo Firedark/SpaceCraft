@@ -13,7 +13,7 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by fired on 07/12/2015.
+ * @author Sergio
  */
 public class EnemyShipA extends GenEnemigo {
 

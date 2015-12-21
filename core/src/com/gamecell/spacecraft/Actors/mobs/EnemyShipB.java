@@ -14,7 +14,7 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by fired on 09/12/2015.
+ * @author Sergio
  */
 public class EnemyShipB extends GenEnemigo {
 

@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences;
 
 /**
 * Clase MyPreferences, para datos guardados de manera permanente.
-* @author Sergio Jimenez Cortes*
+* @author Sergio, Jaume*
 */
 public class MyPreferences {
 
