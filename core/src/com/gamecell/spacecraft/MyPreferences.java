@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences;
 
 /**
 * Clase MyPreferences, para datos guardados de manera permanente.
-* @author Sergio, Jaume*
+* @author Sergio, Jaume Gimeno Serrano*
 */
 public class MyPreferences {
 
@@ -27,7 +27,6 @@ public class MyPreferences {
         return Gdx.app.getPreferences(PREFS_NAME);
     }
 
-    // Aqui habrá que hacer métodos para guardar y traerse los datos.
 
     // Music
     public void setMusicEnabled(){

@@ -46,10 +46,7 @@ public class ImageManager  {
         manager.load("Images/powerupshield.png",Texture.class);
         manager.load("Images/shield.png",Texture.class);
         manager.finishLoading();
-        //Cargo un sonido
-        //manager.load("data/sounds/boom.mp3",Sound.class);
-        //Cargo una musica
-        //manager.load("data/sounds/musicainicial.mp3",Music.class);
+
     }
 
 }

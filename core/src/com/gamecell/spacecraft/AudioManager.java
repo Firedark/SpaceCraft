@@ -35,8 +35,6 @@ public class AudioManager extends AssetManager {
         soundmanager.load("Music/GameMusic.ogg", Music.class);
         soundmanager.load("Music/MenuMusic.mp3", Music.class);
         soundmanager.finishLoading();
-        //Cargo una musica
-        //manager.load("data/sounds/musicainicial.mp3",Music.class);
     }
 
     public void playSound(Sound sonido){
