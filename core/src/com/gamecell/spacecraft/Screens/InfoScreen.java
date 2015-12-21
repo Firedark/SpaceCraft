@@ -22,7 +22,7 @@ import com.gamecell.spacecraft.SpaceCraft;
  * @author
  *
  */
-public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
+public class InfoScreen implements Screen, InputProcessor {
 
     private SpaceCraft game;
     private Stage stage;
@@ -32,12 +32,12 @@ public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
     private PerspectiveCamera      cam3d;
     private int                  WIDTH,HEIGHT;
 
-    private final float            scrollSpeed = 1.0f; //unit per second
+    private final float            scrollSpeed = 16.0f; //unit per second
 
     private String               text = "Episode IV\n\nA NEW HOPE\n\nIt is a period of civil war.\nRebel spaceships, striking\nfrom a hidden base, have\nwon their first victory\nagainst the evil Galactic\nEmpire.\n\nDuring the battle, Rebel\nspies managed to steal\nsecret plans to the Empire’s\nultimate weapon, the\nDEATH STAR, an armored\nspace station with enough\npower to destroy an entire\nplanet.\n\nPursued by the Empire's\nsinister agents, Princess\nLeia races home aboard her\nstarship, custodian of the\nstolen plans that can save\nher people and restore\nfreedom to the galaxy....";
 
     private Texture               square;
-
+    private boolean hold;
     public InfoScreen(SpaceCraft game){
         this.game = game;
         this.stage = new Stage(new StretchViewport(game.w, game.h));
@@ -45,7 +45,7 @@ public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
     }
 
     @Override
-    public void create() {
+    public void show() {
 
         spriteBatch = new SpriteBatch();
         bitmapFont = new BitmapFont();
@@ -58,39 +58,7 @@ public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
     }
 
     @Override
-    public void show() {
-
-    }
-
-    @Override
     public void render(float delta) {
-
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-        WIDTH = width;
-        HEIGHT = height;
-
-        //define an ortho camera 10 unit wide with height depending on aspect ratio
-        float camWidth = 10.0f;
-        float camHeight = camWidth * (float)HEIGHT / (float)WIDTH;
-        cam2d = new OrthographicCamera(camWidth, camHeight);
-        cam2d.position.set(camWidth / 2.0f, camHeight / 2.0f, 0.0f);
-        cam2d.update();
-
-        //define the perspective camera
-        cam3d = new PerspectiveCamera(90.0f, camWidth, camHeight);
-        cam3d.translate(0.0f, -10.0f, 3.0f);
-        cam3d.lookAt(0.0f, 0.0f, 0.0f);
-        cam3d.update(true);
-
-
-    }
-
-    @Override
-    public void render() {
         float dt = Gdx.graphics.getDeltaTime();
 
         cam3d.translate(0.0f, -dt * scrollSpeed, 0.0f);
@@ -105,8 +73,30 @@ public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
         spriteBatch.begin();
         bitmapFont.draw(spriteBatch, text, -cam3d.viewportWidth / 2f, -cam3d.viewportHeight, cam3d.viewportWidth, Align.center, true);
         spriteBatch.end();
+    }
+
+    @Override
+    public void resize(int width, int height) {
+
+        WIDTH = width;
+        HEIGHT = height;
+
+        //define an ortho camera 10 unit wide with height depending on aspect ratio
+        float camWidth = 120f;
+        float camHeight = camWidth * (float)HEIGHT / (float)WIDTH;
+        cam2d = new OrthographicCamera(camWidth, camHeight);
+        cam2d.position.set(camWidth / 1.0f, camHeight / 1.0f, 0.0f);
+        cam2d.update();
+
+        //define the perspective camera
+        cam3d = new PerspectiveCamera(90.0f, camWidth, camHeight);
+        cam3d.translate(0.0f, -50.0f, 70.0f);
+        cam3d.lookAt(0.0f, -15.0f, 10.0f);
+        cam3d.update(true);
+
 
     }
+
 
     @Override
     public void pause() {
@@ -151,13 +141,13 @@ public class InfoScreen implements Screen, ApplicationListener, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
+        hold = true;
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        // TODO Auto-generated method stub
+        if(hold) game.setScreen(game.optionsScreen); hold = false;
         return false;
     }
 

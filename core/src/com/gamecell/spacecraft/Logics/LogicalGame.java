@@ -74,7 +74,7 @@ public class LogicalGame extends Table implements InputProcessor {
      * @param game de la clase principal
      * @param screen Screen que contiene la logica.
      */
-    public LogicalGame(final SpaceCraft game, GameScreen screen)  {
+    public LogicalGame(final SpaceCraft game, final GameScreen screen)  {
         this.game = game;
         teclas = 0;
 
@@ -137,7 +137,7 @@ public class LogicalGame extends Table implements InputProcessor {
         pauseLbl.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 //Ponemos en pausa el juego
-                game.setScreen(game.pauseScreen);
+                screen.pause();
                 game.gameScreen.pause = true;
                 return false;
             }
@@ -155,7 +155,9 @@ public class LogicalGame extends Table implements InputProcessor {
         super.act(delta);
         dinBack.checkMillis();
         lifes.updateLifes(vidas);
-
+        lifes.setZIndex(50000);
+        levelLbl.setZIndex(50001);
+        pauseLbl.setZIndex(50002);
         //Condiciones de derrota.
 
         if(vidas == 0){

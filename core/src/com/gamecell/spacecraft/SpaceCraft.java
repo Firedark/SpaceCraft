@@ -6,7 +6,6 @@ import com.gamecell.spacecraft.Screens.GameOverScreen;
 import com.gamecell.spacecraft.Screens.GameScreen;
 import com.gamecell.spacecraft.Screens.InfoScreen;
 import com.gamecell.spacecraft.Screens.OptionsScreen;
-import com.gamecell.spacecraft.Screens.PauseScreen;
 import com.gamecell.spacecraft.Screens.SplashScreen;
 import com.gamecell.spacecraft.Screens.StartScreen;
 
@@ -23,7 +22,6 @@ public class SpaceCraft extends Game {
 	public GameScreen gameScreen;
 	public OptionsScreen optionsScreen;
 	public SplashScreen splashScreen;
-	public PauseScreen pauseScreen;
 	public CongratulationScreen congratulationScreen;
 	public GameOverScreen gameOverScreen;
 	public InfoScreen infoScreen;
@@ -55,7 +53,6 @@ public class SpaceCraft extends Game {
 		optionsScreen = new OptionsScreen(this);
 		gameScreen = new GameScreen(this);
 		splashScreen = new SplashScreen(this);
-		pauseScreen = new PauseScreen(this);
 		congratulationScreen = new CongratulationScreen(this);
 		infoScreen = new InfoScreen(this);
 		gameOverScreen = new GameOverScreen(this);

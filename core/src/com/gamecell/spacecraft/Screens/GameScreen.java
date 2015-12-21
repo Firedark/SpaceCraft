@@ -39,7 +39,7 @@ public class GameScreen implements Screen{
     @Override
     public void show() {
         logicalGame = new LogicalGame(game,this);  // Genera la lógica del juego
-        logicalPause = new LogicalPause(game, new PauseScreen(game));
+        logicalPause = new LogicalPause(game, this);
         multi = new InputMultiplexer(); //Crea un multiplexor de entradas, sirve para hacer actuar varios procesadores de entradas a la vez.
         multi.addProcessor(logicalGame);  //Le añadimos el procesador de entradas de la lógica (general)
         multi.addProcessor(stage);   //Le añadimos el procesador de entradas del stage, para los listeners de los actores.
@@ -59,7 +59,6 @@ public class GameScreen implements Screen{
             stage.act(delta);
             stage.draw();
         } else{
-            game.setScreen(game.pauseScreen);
             stageP.act(delta);
             stageP.draw();
         }

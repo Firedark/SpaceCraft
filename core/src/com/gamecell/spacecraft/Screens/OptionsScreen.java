@@ -49,7 +49,6 @@ public class OptionsScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width,height,true);
-
         //Botones
         getSkin();
         //FX
@@ -99,6 +98,7 @@ public class OptionsScreen implements Screen {
         buttonInfo.addListener(new InputListener() {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 game.setScreen(game.infoScreen);
+
                 return false;
             }
         });
