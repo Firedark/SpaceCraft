@@ -1,6 +1,5 @@
 package com.gamecell.spacecraft.Screens;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -34,7 +33,7 @@ public class InfoScreen implements Screen, InputProcessor {
 
     private final float            scrollSpeed = 16.0f; //unit per second
 
-    private String               text = "Episode IV\n\nA NEW HOPE\n\nIt is a period of civil war.\nRebel spaceships, striking\nfrom a hidden base, have\nwon their first victory\nagainst the evil Galactic\nEmpire.\n\nDuring the battle, Rebel\nspies managed to steal\nsecret plans to the Empire’s\nultimate weapon, the\nDEATH STAR, an armored\nspace station with enough\npower to destroy an entire\nplanet.\n\nPursued by the Empire's\nsinister agents, Princess\nLeia races home aboard her\nstarship, custodian of the\nstolen plans that can save\nher people and restore\nfreedom to the galaxy....";
+    private String text = "SpaceCraft\n\n Episodio I\n\nUN TRABAJO FINAL\n\nBatallando contra enemigos y\nasteroides,\nnuestros 4 heroes\ntienen la misión de llegar al final....\n\n\nControla de derecha\na izquierda y disfruta\nel disparo automático\n\nPara cambiar de nave\npulsa sobre ella\n\nPower-ups disponibles\n\nInmunidad\nVida extra\nMejora de disparo\n\n\n\nLicencias:\nIMAGENES\nKenney Vleugels\nwww.kenney.nl\nCreative Commons CC0\n\nICONOS\nSpace game interface\nDollar Photo Club\nRoyalty free license\n\nMUSICA\n8bit thingy\nextenz\nwww.opengameart.org\n\nSpace dimensions\nmatthew.pablo\nCreative Commons CC-BY3.0\nwww.opengameart.org\n\nAUTORES\nJosué Javier Campos\nJaume Gimeno\nSergio Jiménez\nMaria Vivo\n\n\nGameCell\n\n\nIOC 2015";
 
     private Texture               square;
     private boolean hold;
@@ -51,7 +50,6 @@ public class InfoScreen implements Screen, InputProcessor {
         bitmapFont = new BitmapFont();
         bitmapFont.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         bitmapFont.setUseIntegerPositions(false);
-        //bitmapFont.setScale(.05f);
         bitmapFont.setColor(Color.YELLOW);
         Gdx.input.setInputProcessor(this);
 
@@ -81,14 +79,14 @@ public class InfoScreen implements Screen, InputProcessor {
         WIDTH = width;
         HEIGHT = height;
 
-        //define an ortho camera 10 unit wide with height depending on aspect ratio
+        //camara ortogonal
         float camWidth = 120f;
         float camHeight = camWidth * (float)HEIGHT / (float)WIDTH;
         cam2d = new OrthographicCamera(camWidth, camHeight);
         cam2d.position.set(camWidth / 1.0f, camHeight / 1.0f, 0.0f);
         cam2d.update();
 
-        //define the perspective camera
+        //se define la camara perspectiva
         cam3d = new PerspectiveCamera(90.0f, camWidth, camHeight);
         cam3d.translate(0.0f, -50.0f, 70.0f);
         cam3d.lookAt(0.0f, -15.0f, 10.0f);
