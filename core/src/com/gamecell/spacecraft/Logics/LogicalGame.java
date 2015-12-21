@@ -155,9 +155,7 @@ public class LogicalGame extends Table implements InputProcessor {
         super.act(delta);
         dinBack.checkMillis();
         lifes.updateLifes(vidas);
-        lifes.setZIndex(50000);
-        levelLbl.setZIndex(50001);
-        pauseLbl.setZIndex(50002);
+
         //Condiciones de derrota.
 
         if(vidas == 0){
@@ -168,8 +166,7 @@ public class LogicalGame extends Table implements InputProcessor {
             game.setScreen(game.gameOverScreen);
         }
 
-        //Sirve para colocar la Nave sobre las estrellas, etc
-        nave.setZIndex(50000);
+
 
         //Spawners de Objetos Fallen.
         //Estrellas
@@ -283,7 +280,12 @@ public class LogicalGame extends Table implements InputProcessor {
                 nave.moverDerecha();
             }
         }
-
+        //Sirve para colocar la Nave sobre las estrellas, etc
+        lifes.setZIndex(50000);
+        levelLbl.setZIndex(50001);
+        pauseLbl.setZIndex(50002);
+        scoreLbl.setZIndex(50003);
+        nave.setZIndex(50000);
 
     }
 
