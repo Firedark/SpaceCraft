@@ -22,16 +22,15 @@ public class LogicalPause extends Table {
     private GameScreen screen;
     private Skin skin;
     ImageButton.ImageButtonStyle FXButtonStyle, musicButtonStyle, continueButtonStyle, quitButtonStyle;
+
     //Texto
     private Label.LabelStyle font;
     private Label pauseLbl;
-
 
     public LogicalPause (final SpaceCraft game, final GameScreen screen){
         this.game = game;
         this.screen = screen;
         this.font = new Label.LabelStyle(FontManager.font, null);
-
 
         //Botones
         getSkin();
@@ -84,7 +83,6 @@ public class LogicalPause extends Table {
         });
         this.addActor(buttonMusic);
 
-
         //Continue
         ImageButton buttonContinue = new ImageButton(continueButtonStyle);
         buttonContinue.setPosition((game.w/2)-100,(game.h/2)-100);
@@ -97,12 +95,6 @@ public class LogicalPause extends Table {
             }
         });
         this.addActor(buttonContinue);
-
-
-
-
-
-
     }
 
     @Override
@@ -119,7 +111,6 @@ public class LogicalPause extends Table {
         batch.setColor(Color.BLACK);
         super.draw(batch, parentAlpha);
     }
-
 
     public Skin getSkin(){
         TextureAtlas atlasUiMenu = new TextureAtlas("icons.pack");
@@ -149,7 +140,6 @@ public class LogicalPause extends Table {
             continueButtonStyle.over = skin.getDrawable("Continue");
             continueButtonStyle.pressedOffsetX = 1;
             continueButtonStyle.pressedOffsetY = -1;
-
         }
         return skin;
     }

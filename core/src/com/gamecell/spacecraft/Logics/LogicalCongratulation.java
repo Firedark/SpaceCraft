@@ -9,7 +9,7 @@ import com.gamecell.spacecraft.SpaceCraft;
 
 /**
  * Lógica de la pantalla de congratulation
- * @author Josué Javier Campos Fernández
+ * @author Josué Javier
  */
 public class LogicalCongratulation extends Table {
     //Atributos de la clase

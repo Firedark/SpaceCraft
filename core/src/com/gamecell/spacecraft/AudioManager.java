@@ -4,7 +4,6 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.audio.Music;
 
-
 /**
  * Clase AudioManager, control de datos de audios.
  * @author Sergio Jimenez Cortes / Jaume Gimeno Serrano
@@ -18,7 +17,6 @@ public class AudioManager extends AssetManager {
         soundmanager = new AssetManager();
         volumenSonidos = 1f;
         volumenMusica = 1f;
-
     }
 
     /**
@@ -40,7 +38,6 @@ public class AudioManager extends AssetManager {
         //Cargo una musica
         //manager.load("data/sounds/musicainicial.mp3",Music.class);
     }
-
 
     public void playSound(Sound sonido){
         sonido.play(volumenSonidos);
@@ -83,6 +80,4 @@ public class AudioManager extends AssetManager {
         currentMusic = soundmanager.get("Music/GameMusic.ogg");
         playMusic(currentMusic);
     }
-
-
 }

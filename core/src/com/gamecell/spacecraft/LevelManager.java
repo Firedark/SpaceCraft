@@ -18,7 +18,8 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * Created by Firedark on 02/12/2015.
+ * Tratamiento de los diferentes niveles del juego
+ * @author Josué Javier
  */
 public class LevelManager {
     private SpaceCraft game;
@@ -37,6 +38,9 @@ public class LevelManager {
         this.level = level;
     }
 
+    /**
+     * Carga los niveles mediante archivos xml
+     */
     public void loadLevel(){
         try {
             String fileLevel = "Levels/" + this.level + ".xml";
@@ -57,6 +61,10 @@ public class LevelManager {
         }
     }
 
+    /**
+     * Cada segundo que pasa en el juego, va mostrando los diferentes elementos del xml predefinidos
+     * @param second
+     */
     public void updateSecond(int second){
         try {
             if (second > maxSecond) {
@@ -81,6 +89,10 @@ public class LevelManager {
         }
     }
 
+    /**
+     * Añade los elementos al escenario
+     * @param mob
+     */
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
             Meteor meteor = new Meteor(game, MathUtils.random(1, 2),10,logical);

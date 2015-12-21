@@ -12,12 +12,11 @@ import com.gamecell.spacecraft.Actors.FallenActor;
 public class DinamicBackground {
     SpaceCraft game;
     Table table;
+
     private long TimeSpawnerFallen,TimeSpawnerFallenSol,TimeSpawnerFallenLuna,TimeSpawnerFallenCohete,
             TimeSpawnerFallenSatelite;
 
-
     public DinamicBackground(SpaceCraft game,Table logica){
-
         this.table = logica;
         this.game = game;
         TimeSpawnerFallen = TimeUtils.millis();
@@ -25,7 +24,6 @@ public class DinamicBackground {
         TimeSpawnerFallenLuna = TimeUtils.millis();
         TimeSpawnerFallenCohete = TimeUtils.millis();
         TimeSpawnerFallenSatelite = TimeUtils.millis();
-
     }
 
     public void checkMillis(){

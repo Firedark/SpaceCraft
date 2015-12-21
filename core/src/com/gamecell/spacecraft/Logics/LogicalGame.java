@@ -58,13 +58,12 @@ public class LogicalGame extends Table implements InputProcessor {
     public boolean mov, direction;
     private int teclas;
     private long TimeSpawnerDisparo,TimeSpawner,timeEntreChoques;
+
     //Texto
     private Label.LabelStyle font;
     private Label scoreLbl;
     private Label levelLbl;
     private Label pauseLbl;
-
-    //Interfaz
 
     //Vidas
     public Lifes lifes;
@@ -77,7 +76,6 @@ public class LogicalGame extends Table implements InputProcessor {
     public LogicalGame(final SpaceCraft game, final GameScreen screen)  {
         this.game = game;
         teclas = 0;
-
 
         //Defaults
         vidas = 3;
@@ -157,7 +155,6 @@ public class LogicalGame extends Table implements InputProcessor {
         lifes.updateLifes(vidas);
 
         //Condiciones de derrota.
-
         if(vidas == 0){
             // Guardamos la puntuación
             game.preferences.setScore();
@@ -166,11 +163,9 @@ public class LogicalGame extends Table implements InputProcessor {
             game.setScreen(game.gameOverScreen);
         }
 
-
-
         //Spawners de Objetos Fallen.
-        //Estrellas
 
+        //Estrellas
         if(TimeUtils.millis() - TimeSpawner > 1000){
             levelManager.updateSecond(segundos);
             segundos++;
@@ -198,9 +193,6 @@ public class LogicalGame extends Table implements InputProcessor {
             TimeSpawnerDisparo = TimeUtils.millis();
         }
 
-
-
-
             //////////////////////////////////////////////////////
            // María: Colisión del enemigo con actor principal  //
           // o con el disparo del actor principal             //
@@ -213,7 +205,6 @@ public class LogicalGame extends Table implements InputProcessor {
                 if(TimeUtils.millis() - timeEntreChoques > nave.timeUncollision) {
                     boolean choque = false;
                     if (choque = colisionable.choqueVsNave(nave)) {
-
                             nave.uncollisionable = true;
                             timeEntreChoques = TimeUtils.millis();
                             hold = true;
@@ -244,9 +235,7 @@ public class LogicalGame extends Table implements InputProcessor {
                 if(TimeUtils.millis() - timeEntreChoques > nave.timeUncollision) {
                     boolean choque = false;
 
-
                     if (choque = disparoEnemigo.ChoqueDisparoVsNave(nave, disparoEnemigo)) {
-
                         nave.uncollisionable = true;
                         timeEntreChoques = TimeUtils.millis();
                         hold2 = true;
@@ -257,20 +246,13 @@ public class LogicalGame extends Table implements InputProcessor {
                     }
                 }
             }
-
-                    } catch (Exception f){
-        }
-
+        } catch (Exception f){}
 
         try{
-
-
-                for(PowerUps p : colPowerUps){
-                    p.checkColision();
-                    }
-
-        } catch (ConcurrentModificationException e){
-        }
+            for(PowerUps p : colPowerUps){
+                p.checkColision();
+            }
+        } catch (ConcurrentModificationException e){}
 
         //Control del Movimiento.
         if(mov) {
@@ -280,16 +262,14 @@ public class LogicalGame extends Table implements InputProcessor {
                 nave.moverDerecha();
             }
         }
+
         //Sirve para colocar la Nave sobre las estrellas, etc
         lifes.setZIndex(50000);
         levelLbl.setZIndex(50001);
         pauseLbl.setZIndex(50002);
         scoreLbl.setZIndex(50003);
         nave.setZIndex(50000);
-
     }
-
-    //InputProcessor
 
     @Override
     public boolean keyDown(int keycode) {

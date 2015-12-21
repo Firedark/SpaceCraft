@@ -7,7 +7,8 @@ import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by Firedark on 01/12/2015.
+ * Clase Lifes, encargada de la gestión de las vidas.
+ * @author Josué Javier
  */
 public class Lifes extends Actor {
     private int lifes;
@@ -24,10 +25,19 @@ public class Lifes extends Actor {
         this.setBounds(20,750,32,32);
     }
 
+    /**
+     * Actualiza las vidas
+     * @param life
+     */
     public void updateLifes(int life){
         lifes = life;
     }
 
+    /**
+     * Dibujamos las vidas
+     * @param batch
+     * @param parentAlpha
+     */
     @Override
     public void draw(Batch batch,float parentAlpha){
         i = 0;
