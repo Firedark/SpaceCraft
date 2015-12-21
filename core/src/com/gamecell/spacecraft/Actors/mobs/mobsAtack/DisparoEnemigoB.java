@@ -11,7 +11,7 @@ import com.gamecell.spacecraft.Logics.LogicalGame;
 import com.gamecell.spacecraft.SpaceCraft;
 
 /**
- * Created by fired on 08/12/2015.
+ * @Author Sergio Jimenez
  */
 public class DisparoEnemigoB extends GenDisparoEnemigo {
 

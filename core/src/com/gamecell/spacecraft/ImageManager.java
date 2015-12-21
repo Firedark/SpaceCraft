@@ -30,13 +30,16 @@ public class ImageManager  {
         manager.load("Images/estrella.png",Texture.class);
         manager.load("Images/sol.png",Texture.class);
         manager.load("Images/satelite.png",Texture.class);
-        manager.load("Images/asteroide.png",Texture.class);
+        manager.load("Images/meteorBig.png",Texture.class);
+        manager.load("Images/meteorSmall.png",Texture.class);
         manager.load("Images/cohete.png",Texture.class);
         manager.load("Images/disparo.png",Texture.class);
         manager.load("Images/disparoB.png",Texture.class);
         manager.load("Images/disparoC.png",Texture.class);
         manager.load("Images/disparoEA.png",Texture.class);
         manager.load("Images/enemyship.png",Texture.class);
+        manager.load("Images/shipYellow_manned.png",Texture.class);
+        manager.load("Images/enemyUFO.png",Texture.class);
         manager.load("Images/disparoCE.png",Texture.class);
         manager.load("Images/enemyB.png",Texture.class);
         manager.load("Images/poweruppower.png",Texture.class);

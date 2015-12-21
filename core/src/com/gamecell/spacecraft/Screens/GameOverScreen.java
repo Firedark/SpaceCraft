@@ -109,7 +109,7 @@ public class GameOverScreen implements Screen {
     }
 
     protected Skin getSkin(){
-        TextureAtlas atlasUiMenu = new TextureAtlas("menuButton.pack");
+        TextureAtlas atlasUiMenu = new TextureAtlas("icons.pack");
 
         if(skin==null){
             skin = new Skin(atlasUiMenu);

@@ -35,10 +35,12 @@
 	</time>
 	<time sec="20">
 		<mob>Meteor</mob>
+		<mob>EnemyC</mob>
 		<mob>Power</mob>
 	</time>
 	<time sec="22">
 		<mob>Meteor</mob>
+		<mob>EnemyD</mob>
 		<mob>Power</mob>
 	</time>
 	<time sec="25">

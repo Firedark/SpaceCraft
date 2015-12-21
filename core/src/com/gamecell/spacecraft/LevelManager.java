@@ -2,15 +2,20 @@ package com.gamecell.spacecraft;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.XmlReader;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipA;
 import com.gamecell.spacecraft.Actors.mobs.EnemyShipB;
+import com.gamecell.spacecraft.Actors.mobs.EnemyShipC;
+import com.gamecell.spacecraft.Actors.mobs.EnemyShipD;
 import com.gamecell.spacecraft.Actors.mobs.Meteor;
 import com.gamecell.spacecraft.Actors.Nave;
 import com.gamecell.spacecraft.Actors.PowerUps;
 import com.gamecell.spacecraft.Logics.LogicalGame;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Firedark on 02/12/2015.
@@ -78,7 +83,7 @@ public class LevelManager {
 
     private void SpawnEnemy(String mob) {
         if(mob.equals("Meteor")){
-            Meteor meteor = new Meteor(game,1,10,logical);
+            Meteor meteor = new Meteor(game, MathUtils.random(1, 2),10,logical);
             //Lo añadimos al juego
             logical.addActor(meteor);
             logical.colShootables.add(meteor);
@@ -111,9 +116,24 @@ public class LevelManager {
             logical.addActor(power);
         }
 
-
         if(mob.equals("EnemyB")){
             EnemyShipB enemy = new EnemyShipB(game,logical,2,20,(Texture) game.images.manager.get("Images/enemyB.png"),(Texture) game.images.manager.get("Images/disparoCE.png"));
+            logical.addActor(enemy);
+            logical.colShootables.add(enemy);
+            logical.colCollisionables.add(enemy);
+        }
+
+        if(mob.equals("EnemyC")){
+            EnemyShipC enemy = new EnemyShipC(game,logical,2,20,(Texture) game.images.manager.get("Images/shipYellow_manned.png"),
+                    (Texture) game.images.manager.get("Images/disparoB.png"));
+            logical.addActor(enemy);
+            logical.colShootables.add(enemy);
+            logical.colCollisionables.add(enemy);
+        }
+
+        if(mob.equals("EnemyD")){
+            EnemyShipD enemy = new EnemyShipD(game,logical,1,20,(Texture) game.images.manager.get("Images/enemyUFO.png"),
+                    (Texture) game.images.manager.get("Images/disparoEA.png"));
             logical.addActor(enemy);
             logical.colShootables.add(enemy);
             logical.colCollisionables.add(enemy);

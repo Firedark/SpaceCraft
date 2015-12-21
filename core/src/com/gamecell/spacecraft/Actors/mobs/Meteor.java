@@ -2,9 +2,14 @@ package com.gamecell.spacecraft.Actors.mobs;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveByAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RotateByAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.gamecell.spacecraft.Actors.GenEnemigo;
 import com.gamecell.spacecraft.Logics.LogicalGame;
@@ -20,10 +25,11 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class Meteor extends GenEnemigo {
     //Variables
-    private Texture imagenEnemigo;
-    MoveByAction accion;
-    private final float ancho = 50;
-    private final float alto = 50;
+    private TextureRegion asteroideTR;
+    private Texture asteroideTextura;
+    private MoveByAction accion;
+    private RotateByAction rotateAction ;
+    private ParallelAction paralel;
     private LogicalGame table;
 
     /**
@@ -34,15 +40,24 @@ public class Meteor extends GenEnemigo {
         super.game = game;
         super.reward = reward;
         this.table = table;
-        //Indicamos que imagen es la del enemigo
-        imagenEnemigo = game.images.manager.get("Images/asteroide.png", Texture.class);
+
+        //Indicamos que imagen es la del meteorito(Grande o pequeña dependiendo de su salud)
+        if(salud > 1) {
+            asteroideTextura = game.images.manager.get("Images/meteorBig.png");
+        }else{
+            asteroideTextura = game.images.manager.get("Images/meteorSmall.png");
+        }
+        asteroideTR = new TextureRegion(asteroideTextura);
         //x,y,ancho y alto. Aparece fuera de la pantalla para que el usuario no lo vea
-        this.setBounds(MathUtils.random(0, game.w - ancho), game.h + MathUtils.random(100,200), ancho, alto);
+        this.setBounds(MathUtils.random(10, game.w + -10), MathUtils.random(game.h + 100, game.h + 500),
+                asteroideTextura.getWidth(), asteroideTextura.getHeight());
+        this.setOrigin(asteroideTextura.getWidth()/2, asteroideTextura.getHeight()/2);
+
         //El enemigo está en la misma Z que el actor principal
         this.setZIndex(50000);
         super.rect = new Rectangle(this.getX(),this.getY(),this.getWidth(),this.getHeight());
         //Creación de Acciones del enemigo.
-        createActionsEnemigo();
+        createActionsMeteor();
         //Estados del enemigo 0 = destruido, 1 = destruyendose, 2 = activo
         super.estado = 1;
         super.salud = salud;
@@ -51,28 +66,29 @@ public class Meteor extends GenEnemigo {
     /**
      * Actions del Meteor
      */
-    private void createActionsEnemigo() {
+    private void createActionsMeteor() {
 
-        /////////////////////////////////////
-       // Caída del enemigo por el eje Y  //
+        //////////////////////////////////////
+       // Caída del asteroide por el eje Y //
+       // y rotación del mismo            //
       /////////////////////////////////////
 
         //Instanciamos la acción que realizará el enemigo
         accion = new MoveByAction();
-        //Lo que tarda en pasar por la pantalla sobre el eje Y
-        accion.setDuration(20f);
-        //El tamaño del eje Y
+        rotateAction = new RotateByAction();
+        paralel = new ParallelAction();
+
+        accion = new MoveByAction();
+        accion.setDuration(18f);
         accion.setAmountY(-2000);
-        //Añadimos las acciones
-        this.addAction(accion);
+        rotateAction = new RotateByAction();
+        rotateAction.setDuration(40f);
+        rotateAction.setAmount(MathUtils.random(-360, 360));
+        paralel = new ParallelAction();
+        paralel.addAction(accion);
+        paralel.addAction(rotateAction);
 
-        ///////////////////////////
-       // Disparo del enemigo   //
-      ///////////////////////////
-
-        /////////////////////////////
-       // Movimiento del enemigo  //
-      /////////////////////////////
+        this.addAction(paralel);
 
     }
     /**
@@ -81,11 +97,12 @@ public class Meteor extends GenEnemigo {
      * @param parentAlpha
      */
     @Override
-    public void draw(Batch batch, float parentAlpha){
+    public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        batch.draw(imagenEnemigo, getX(), getY(),ancho,alto);
+        batch.draw(asteroideTR, getX(), getY(), getOriginX(), getOriginY(), getWidth(),
+                getHeight(), getScaleX(), getScaleY(), getRotation());
 
-    };
+    }
 
 
     @Override
@@ -95,5 +112,6 @@ public class Meteor extends GenEnemigo {
         table.colShootables.remove(this);
         table.removeActor(this);
 
-    };
+    }
+
 }
